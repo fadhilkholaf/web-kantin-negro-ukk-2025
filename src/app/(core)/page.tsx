@@ -1,6 +1,6 @@
 const HomePage = () => {
   return (
-    <main className="flex justify-center items-center w-full h-screen">
+    <main className="flex h-screen w-full items-center justify-center">
       HomePage
     </main>
   );
