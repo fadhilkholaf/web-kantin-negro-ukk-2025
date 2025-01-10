@@ -8,12 +8,12 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  username String  @unique
+  id       String @id @default(uuid())
+  username String @unique
   password String
   role     Role
-  stan     Stan[]
-  siswa    Siswa[]
+  stan     Stan?
+  siswa    Siswa?
 }
 
 enum Role {
@@ -26,7 +26,8 @@ model Siswa {
   namaSiswa String
   alamat    String
   telp      String
-  userId    String
+  foto      String
+  userId    String      @unique
   user      User        @relation(fields: [userId], references: [id])
   transaksi Transaksi[]
 }
@@ -36,7 +37,7 @@ model Stan {
   namaStan    String
   namaPemilik String
   telp        String
-  userId      String
+  userId      String      @unique
   user        User        @relation(fields: [userId], references: [id])
   menu        Menu[]
   transaksi   Transaksi[]
@@ -45,11 +46,11 @@ model Stan {
 model Menu {
   id          String       @id @default(uuid())
   namaMakanan String
-  harga       Int
-  jenis       Jenis
   foto        String
   deskripsi   String
   stanId      String
+  harga       Int
+  jenis       Jenis
   stan        Stan         @relation(fields: [stanId], references: [id])
   menuDiskon  MenuDiskon[]
 }
