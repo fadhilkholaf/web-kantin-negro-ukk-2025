@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import { SessionProvider } from "next-auth/react";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
 
@@ -39,11 +40,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.className} ${geistMono.variable} antialiased`}
       >
-        <Navbar />
-        <NextTopLoader shadow={false} showSpinner={false} />
-        <Toaster expand richColors />
-        {children}
-        <Footer />
+        <SessionProvider>
+          <Navbar />
+          <NextTopLoader shadow={false} showSpinner={false} />
+          <Toaster expand richColors />
+          {children}
+          <Footer />
+        </SessionProvider>
       </body>
     </html>
   );
