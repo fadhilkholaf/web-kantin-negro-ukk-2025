@@ -7,7 +7,7 @@ const authRoute = ["/signup", "/signin"];
 const publicRoute = ["/"];
 
 // start with this route is
-const privateRoute = ["/siswa", "/admin-stan"];
+const privateRoute = ["/siswa", "/admin-stan", "/profile"];
 
 export default auth(async (req) => {
   const { auth, nextUrl, url } = req;
