@@ -1,11 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
+import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
 
+import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 
 import "./globals.css";
+
+export const revalidate = 0;
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,8 +40,10 @@ export default function RootLayout({
         className={`${geistSans.className} ${geistMono.variable} antialiased`}
       >
         <Navbar />
+        <NextTopLoader shadow={false} showSpinner={false} />
         <Toaster expand richColors />
         {children}
+        <Footer />
       </body>
     </html>
   );
