@@ -3,7 +3,7 @@
 import { AuthError } from "next-auth";
 import { Role } from "@prisma/client";
 
-import { createUser, findUser } from "@/database/query";
+import { createUser, findUser } from "@/database/user";
 import { signIn } from "@/lib/auth";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
 import { revalidatePath } from "next/cache";

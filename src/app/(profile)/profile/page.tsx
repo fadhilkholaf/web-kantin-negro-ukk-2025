@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 
-import { findUserProfile } from "@/database/query";
+import { findUserProfile } from "@/database/user";
 import { auth } from "@/lib/auth";
 import SiswaForm from "./_components/SiswaForm";
 import AdminStanForm from "./_components/AdminStanForm";

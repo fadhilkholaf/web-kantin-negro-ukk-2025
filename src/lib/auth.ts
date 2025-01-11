@@ -3,7 +3,7 @@ import { DefaultJWT } from "next-auth/jwt";
 import Credentials from "next-auth/providers/credentials";
 import { Role } from "@prisma/client";
 
-import { findUser } from "@/database/query";
+import { findUser } from "@/database/user";
 
 declare module "next-auth" {
   interface Session {

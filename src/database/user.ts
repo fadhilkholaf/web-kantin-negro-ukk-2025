@@ -9,3 +9,10 @@ export const createUser = async (data: Prisma.UserCreateInput) => {
 export const findUser = async (where: Prisma.UserWhereUniqueInput) => {
   return await prisma.user.findUnique({ where });
 };
+
+export const findUserProfile = async (where: Prisma.UserWhereUniqueInput) => {
+  return await prisma.user.findUnique({
+    where,
+    include: { siswa: true, stan: true },
+  });
+};
