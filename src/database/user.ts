@@ -10,9 +10,20 @@ export const findUser = async (where: Prisma.UserWhereUniqueInput) => {
   return await prisma.user.findUnique({ where });
 };
 
+export const findManyUsers = async (where: Prisma.UserWhereInput) => {
+  return await prisma.user.findMany({ where });
+};
+
 export const findUserProfile = async (where: Prisma.UserWhereUniqueInput) => {
   return await prisma.user.findUnique({
     where,
     include: { siswa: true, stan: true },
   });
+};
+
+export const updateUser = async (
+  where: Prisma.UserWhereUniqueInput,
+  data: Prisma.UserUpdateInput,
+) => {
+  return await prisma.user.update({ where, data });
 };
