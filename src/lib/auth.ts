@@ -61,7 +61,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       }
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
       if (user && user.id) {
         const existingUser = await findUser({ id: user.id });
         if (existingUser) {
@@ -69,6 +69,10 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           token.username = existingUser.username;
           token.role = existingUser.role;
         }
+      }
+      if (trigger === "update") {
+        token.username = session.username;
+        token.role = session.role;
       }
       return token;
     },
