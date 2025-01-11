@@ -2,7 +2,7 @@
 
 import Form from "next/form";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { useFormStatus } from "react-dom";
 
 import { Role } from "@prisma/client";
@@ -10,6 +10,11 @@ import { toast } from "sonner";
 
 import { signUpAction } from "@/action/auth";
 import { cn } from "@/utils/cn";
+
+const roles: { label: string; value: Role }[] = [
+  { label: "Siswa", value: "siswa" },
+  { label: "Admin Stan", value: "adminStan" },
+];
 
 const SubmitButton = () => {
   const { pending } = useFormStatus();
@@ -78,48 +83,32 @@ const SignUpPage = () => {
               Role <span className="text-red-500">*</span>
             </label>
             <div className="flex gap-2">
-              <div className="w-full">
-                <label
-                  htmlFor="siswa"
-                  className={cn(
-                    "block cursor-pointer rounded-lg border p-2 text-center",
-                    {
-                      "bg-gray-200": role === "siswa",
-                    },
-                  )}
-                >
-                  Siswa
-                </label>
-                <input
-                  type="radio"
-                  name="role"
-                  id="siswa"
-                  value="siswa"
-                  className="hidden"
-                  onChange={() => setRole("siswa")}
-                />
-              </div>
-              <div className="w-full">
-                <label
-                  htmlFor="adminStan"
-                  className={cn(
-                    "block cursor-pointer rounded-lg border p-2 text-center",
-                    {
-                      "bg-gray-200": role === "adminStan",
-                    },
-                  )}
-                >
-                  Admin Stan
-                </label>
-                <input
-                  type="radio"
-                  name="role"
-                  id="adminStan"
-                  value="adminStan"
-                  className="hidden"
-                  onChange={() => setRole("adminStan")}
-                />
-              </div>
+              {roles &&
+                roles.map((r, i) => (
+                  <Fragment key={i}>
+                    <div className="w-full">
+                      <label
+                        htmlFor={r.value}
+                        className={cn(
+                          "block cursor-pointer rounded-lg border p-2 text-center",
+                          {
+                            "bg-gray-200": role === r.value,
+                          },
+                        )}
+                      >
+                        {r.label}
+                      </label>
+                      <input
+                        type="radio"
+                        name="role"
+                        id={r.value}
+                        value={r.value}
+                        className="hidden"
+                        onChange={() => setRole(r.value)}
+                      />
+                    </div>
+                  </Fragment>
+                ))}
             </div>
           </div>
         </main>
