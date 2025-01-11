@@ -101,7 +101,7 @@ const SignUpPage = () => {
               </div>
               <div className="w-full">
                 <label
-                  htmlFor="Admin Stan"
+                  htmlFor="adminStan"
                   className={cn(
                     "block cursor-pointer rounded-lg border p-2 text-center",
                     {
@@ -114,8 +114,8 @@ const SignUpPage = () => {
                 <input
                   type="radio"
                   name="role"
-                  id="Admin Stan"
-                  value="Admin Stan"
+                  id="adminStan"
+                  value="adminStan"
                   className="hidden"
                   onChange={() => setRole("adminStan")}
                 />
