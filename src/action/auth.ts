@@ -9,14 +9,14 @@ import { responseError, responseSuccess } from "@/utils/responseFunction";
 import { revalidatePath } from "next/cache";
 
 export const signUpAction = async (formData: FormData, role: Role) => {
+  const username = formData.get("username") as string;
+  const password = formData.get("password") as string;
+
+  if (!username || !password || !role) {
+    return responseError("Please fill all fields!");
+  }
+
   try {
-    const username = formData.get("username") as string;
-    const password = formData.get("password") as string;
-
-    if (!username || !password || !role) {
-      return responseError("Please fill all fields!");
-    }
-
     const existingUser = await findUser({ username });
 
     if (existingUser) {
@@ -38,12 +38,18 @@ export const signInAction = async (formData: FormData) => {
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
 
+  if (!username || !password) {
+    return responseError("Please fill all fields!");
+  }
+
   try {
     await signIn("credentials", {
       username,
       password,
       redirect: false,
     });
+
+    revalidatePath("/", "layout");
   } catch (error) {
     console.log(error);
 
