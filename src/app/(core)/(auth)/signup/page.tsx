@@ -32,7 +32,7 @@ const SubmitButton = () => {
 
 const SignUpPage = () => {
   const router = useRouter();
-  const [role, setRole] = useState<Role>("siswa");
+  const [role, setRole] = useState<Role | null>(null);
 
   return (
     <main className="flex h-screen w-full items-center justify-center">
@@ -40,7 +40,7 @@ const SignUpPage = () => {
         action={async (formData) => {
           const loading = toast.loading("Creating user...");
 
-          const response = await signUpAction(formData, role);
+          const response = await signUpAction(formData);
 
           if (response.success) {
             toast.success(response.message, { id: loading });

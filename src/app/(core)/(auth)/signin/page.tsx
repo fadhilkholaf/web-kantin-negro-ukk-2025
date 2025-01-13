@@ -33,12 +33,12 @@ const SignInPage = () => {
 
           const response = await signInAction(formData);
 
-          if (response && !response.success) {
-            toast.error(response.message, { id: loading });
-          } else {
+          if (response.success) {
             toast.success("Sign in success!", { id: loading });
 
             router.push("/");
+          } else {
+            toast.error(response.message, { id: loading });
           }
         }}
         className="flex flex-col gap-4 rounded-lg border p-4"

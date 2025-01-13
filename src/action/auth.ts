@@ -8,9 +8,10 @@ import { signIn } from "@/lib/auth";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
 import { revalidatePath } from "next/cache";
 
-export const signUpAction = async (formData: FormData, role: Role) => {
+export const signUpAction = async (formData: FormData) => {
   const username = formData.get("username") as string;
   const password = formData.get("password") as string;
+  const role = formData.get("role") as Role;
 
   if (!username || !password || !role) {
     return responseError("Please fill all fields!");
@@ -23,7 +24,13 @@ export const signUpAction = async (formData: FormData, role: Role) => {
       return responseError("User already exist!");
     }
 
-    await createUser({ username, password, role });
+    const createdUser = await createUser({ username, password, role });
+
+    await signIn("credentials", {
+      username: createdUser.username,
+      password: createdUser.password,
+      redirect: false,
+    });
 
     revalidatePath("/", "layout");
     return responseSuccess("Sign up success!");
@@ -50,6 +57,7 @@ export const signInAction = async (formData: FormData) => {
     });
 
     revalidatePath("/", "layout");
+    return responseSuccess("Sign in success!");
   } catch (error) {
     console.log(error);
 
