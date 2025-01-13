@@ -2,7 +2,11 @@ import { UploadApiResponse } from "cloudinary";
 
 import cloudinary from "@/lib/cloudinary";
 
-export const uploadImage = async (file: File, fileName: string) => {
+export const uploadImage = async (
+  file: File,
+  fileName: string,
+  menu?: true | undefined,
+) => {
   const fileBuffer = Buffer.from(await file.arrayBuffer());
 
   const response: UploadApiResponse | undefined = await new Promise(
@@ -10,7 +14,7 @@ export const uploadImage = async (file: File, fileName: string) => {
       cloudinary.uploader
         .upload_stream(
           {
-            upload_preset: "ukk-2025",
+            upload_preset: !menu ? "ukk-2025" : "ukk-2025-menu",
             public_id: fileName,
           },
           (error, response) => {
@@ -23,4 +27,12 @@ export const uploadImage = async (file: File, fileName: string) => {
   );
 
   return response;
+};
+
+export const deleteImage = async (id: string) => {
+  try {
+    await cloudinary.uploader.destroy(`ukk-2025/menu/${id}`);
+  } catch (error) {
+    console.log(error);
+  }
 };
