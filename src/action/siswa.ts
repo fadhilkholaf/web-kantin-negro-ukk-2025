@@ -8,7 +8,7 @@ import { createSiswa, updateSiswa } from "@/database/siswa";
 import { auth } from "@/lib/auth";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
 
-import { uploadImage } from "./image-uploader";
+import { uploadImage } from "./cloudinary";
 
 export const createSiswaProfile = async (formData: FormData) => {
   const namaSiswa = formData.get("namaSiswa") as string;

@@ -5,9 +5,6 @@ import { SessionProvider } from "next-auth/react";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
 
-import Footer from "@/components/Footer";
-import Navbar from "@/components/Navbar";
-
 import "./globals.css";
 
 export const revalidate = 0;
@@ -41,11 +38,9 @@ export default function RootLayout({
         className={`${geistSans.className} ${geistMono.variable} antialiased`}
       >
         <SessionProvider>
-          <Navbar />
           <NextTopLoader shadow={false} showSpinner={false} />
           <Toaster expand richColors />
           {children}
-          <Footer />
         </SessionProvider>
       </body>
     </html>
