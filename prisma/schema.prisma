@@ -28,7 +28,7 @@ model Siswa {
   telp      String
   foto      String
   userId    String      @unique
-  user      User        @relation(fields: [userId], references: [id])
+  user      User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   transaksi Transaksi[]
 }
 
@@ -38,21 +38,22 @@ model Stan {
   namaPemilik String
   telp        String
   userId      String      @unique
-  user        User        @relation(fields: [userId], references: [id])
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   menu        Menu[]
   transaksi   Transaksi[]
 }
 
 model Menu {
-  id          String       @id @default(uuid())
-  namaMakanan String
-  foto        String
-  deskripsi   String
-  stanId      String
-  harga       Int
-  jenis       Jenis
-  stan        Stan         @relation(fields: [stanId], references: [id])
-  menuDiskon  MenuDiskon[]
+  id              String            @id @default(uuid())
+  namaMakanan     String
+  foto            String
+  deskripsi       String
+  harga           Int
+  jenis           Jenis
+  stanId          String
+  stan            Stan              @relation(fields: [stanId], references: [id], onDelete: Cascade)
+  menuDiskon      MenuDiskon[]
+  detailTransaksi DetailTransaksi[]
 }
 
 enum Jenis {
@@ -63,9 +64,9 @@ enum Jenis {
 model MenuDiskon {
   id       String @id @default(uuid())
   menuId   String
-  menu     Menu   @relation(fields: [menuId], references: [id])
+  menu     Menu   @relation(fields: [menuId], references: [id], onDelete: Cascade)
   diskonId String
-  diskon   Diskon @relation(fields: [diskonId], references: [id])
+  diskon   Diskon @relation(fields: [diskonId], references: [id], onDelete: Cascade)
 }
 
 model Diskon {
@@ -78,13 +79,14 @@ model Diskon {
 }
 
 model Transaksi {
-  id      String   @id @default(uuid())
-  tanggal DateTime @default(now())
-  stanId  String
-  stan    Stan     @relation(fields: [stanId], references: [id])
-  siswaId String
-  siswa   Siswa    @relation(fields: [siswaId], references: [id])
-  status  Status
+  id              String            @id @default(uuid())
+  tanggal         DateTime          @default(now())
+  stanId          String?
+  stan            Stan?             @relation(fields: [stanId], references: [id], onDelete: SetNull)
+  siswaId         String?
+  siswa           Siswa?            @relation(fields: [siswaId], references: [id], onDelete: SetNull)
+  status          Status
+  DetailTransaksi DetailTransaksi[]
 }
 
 enum Status {
@@ -92,4 +94,14 @@ enum Status {
   dimasak
   diantar
   sampai
+}
+
+model DetailTransaksi {
+  id          String    @id @default(uuid())
+  qty         Int
+  hargaBeli   Int
+  transaksiId String
+  transaksi   Transaksi @relation(fields: [transaksiId], references: [id], onDelete: Cascade)
+  menuId      String?
+  menu        Menu?     @relation(fields: [menuId], references: [id], onDelete: SetNull)
 }
