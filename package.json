@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@prisma/client": "6.2.0",
+    "ag-grid-community": "^33.0.3",
+    "ag-grid-react": "^33.0.3",
     "cloudinary": "^2.5.1",
     "clsx": "^2.1.1",
     "next": "15.1.4",
