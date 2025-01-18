@@ -1,9 +1,9 @@
-const HomePage = () => {
+const NotFound = () => {
   return (
     <main className="flex h-screen w-full items-center justify-center">
-      HomePage
+      Not Found
     </main>
   );
 };
 
-export default HomePage;
+export default NotFound;

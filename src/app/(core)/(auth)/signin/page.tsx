@@ -2,25 +2,11 @@
 
 import Form from "next/form";
 import { useRouter } from "next/navigation";
-import { useFormStatus } from "react-dom";
 
 import { toast } from "sonner";
 
 import { signInAction } from "@/action/auth";
-
-const SubmitButton = () => {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full rounded-lg border p-2 text-center"
-    >
-      Sign In
-    </button>
-  );
-};
+import { SubmitButton } from "@/components/Button";
 
 const SignInPage = () => {
   const router = useRouter();
@@ -71,7 +57,7 @@ const SignInPage = () => {
           </div>
         </main>
         <footer>
-          <SubmitButton />
+          <SubmitButton label="Sign in" />
         </footer>
       </Form>
     </main>

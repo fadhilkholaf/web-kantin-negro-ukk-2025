@@ -4,27 +4,61 @@ import Image from "next/image";
 import { findSiswa } from "@/database/siswa";
 import { auth } from "@/lib/auth";
 
+import { LinkButton } from "./Button";
+
+export const revalidate = 0;
+
 interface Menu {
   title: string;
   url: string;
 }
 
-const menus: Menu[] = [
+const mainMenus: Menu[] = [
   {
     title: "Home",
     url: "/",
   },
+];
+
+const siswaMenus: Menu[] = [
   {
-    title: "Profile",
-    url: "/profile",
-  },
-  {
-    title: "Siswa",
+    title: "Dashboard",
     url: "/siswa",
   },
   {
-    title: "Admin Stan",
+    title: "Menu",
+    url: "/siswa/menu",
+  },
+  {
+    title: "Pesanan",
+    url: "/siswa/pesanan",
+  },
+  {
+    title: "History",
+    url: "/siswa/history",
+  },
+];
+
+const adminStanMenus: Menu[] = [
+  {
+    title: "Dashboard",
     url: "/admin-stan",
+  },
+  {
+    title: "Menu",
+    url: "/admin-stan/menu",
+  },
+  {
+    title: "Diskon",
+    url: "/admin-stan/diskon",
+  },
+  {
+    title: "Pelanggan",
+    url: "/admin-stan/pelanggan",
+  },
+  {
+    title: "History",
+    url: "/admin-stan/history",
   },
 ];
 
@@ -44,11 +78,10 @@ const ProfilePicture = async ({ userId }: { userId: string }) => {
 
   return (
     <Image
-      src={(userSiswa && userSiswa.foto) ?? "/dummy.jpg"}
+      src={(userSiswa && userSiswa.foto) ?? "/images/dummy.jpg"}
       alt="Profile Picture"
       width={40}
       height={40}
-      priority
       className="aspect-square object-cover"
     />
   );
@@ -58,18 +91,30 @@ const Navbar = async () => {
   const session = await auth();
 
   return (
-    <nav className="w-full p-8">
+    <nav className="fixed w-full bg-white/50 p-8 backdrop-blur">
       <ul className="flex justify-between">
         <li>
           <ul className="flex gap-2">
-            {menus &&
-              menus.map((menu, i) => (
+            {mainMenus &&
+              mainMenus.map((menu, i) => (
                 <li key={i}>
-                  <Link href={menu.url} className="block rounded-lg border p-2">
-                    {menu.title}
-                  </Link>
+                  <LinkButton href={menu.url}>{menu.title}</LinkButton>
                 </li>
               ))}
+            {session &&
+              (session.user.role === "siswa"
+                ? siswaMenus &&
+                  siswaMenus.map((menu, i) => (
+                    <li key={i}>
+                      <LinkButton href={menu.url}>{menu.title}</LinkButton>
+                    </li>
+                  ))
+                : adminStanMenus &&
+                  adminStanMenus.map((menu, i) => (
+                    <li key={i}>
+                      <LinkButton href={menu.url}>{menu.title}</LinkButton>
+                    </li>
+                  )))}
           </ul>
         </li>
         <li>
@@ -77,9 +122,12 @@ const Navbar = async () => {
             {session ? (
               <>
                 <li>
-                  <Link href="/profile" className="block rounded-lg border p-2">
+                  <LinkButton href="/profile">Profile</LinkButton>
+                </li>
+                <li>
+                  <LinkButton href="/profile">
                     {session.user.username}
-                  </Link>
+                  </LinkButton>
                 </li>
                 {session.user.role === "siswa" && (
                   <li>
@@ -92,18 +140,14 @@ const Navbar = async () => {
                   </li>
                 )}
                 <li>
-                  <Link href="/signout" className="block rounded-lg border p-2">
-                    Sign Out
-                  </Link>
+                  <LinkButton href="/signout">Sign Out</LinkButton>
                 </li>
               </>
             ) : (
               authMenus &&
               authMenus.map((menu, i) => (
                 <li key={i}>
-                  <Link href={menu.url} className="block rounded-lg border p-2">
-                    {menu.title}
-                  </Link>
+                  <LinkButton href={menu.url}>{menu.title}</LinkButton>
                 </li>
               ))
             )}

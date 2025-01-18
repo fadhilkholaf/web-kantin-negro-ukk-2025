@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Italiana } from "next/font/google";
 
 import { SessionProvider } from "next-auth/react";
 import NextTopLoader from "nextjs-toploader";
@@ -19,6 +19,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const italiana = Italiana({
+  variable: "--font-italiana",
+  subsets: ["latin"],
+  weight: ["400"],
+});
+
 export const metadata: Metadata = {
   title: {
     default: "Home | UKK Kantin 2025",
@@ -35,11 +41,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.className} ${geistMono.variable} antialiased`}
+        className={`${geistSans.className} ${geistMono.variable} ${italiana.variable} antialiased`}
       >
         <SessionProvider>
-          <NextTopLoader shadow={false} showSpinner={false} />
-          <Toaster expand richColors />
+          <NextTopLoader shadow={false} showSpinner={false} color="#b2b377" />
+          <Toaster expand richColors position="bottom-center" />
           {children}
         </SessionProvider>
       </body>

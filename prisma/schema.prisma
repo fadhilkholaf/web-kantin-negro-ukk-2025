@@ -11,7 +11,7 @@ model User {
   id       String @id @default(uuid())
   username String @unique
   password String
-  role     Role
+  role     Role   @default(siswa)
   stan     Stan?
   siswa    Siswa?
 }
@@ -41,6 +41,7 @@ model Stan {
   user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
   menu        Menu[]
   transaksi   Transaksi[]
+  diskon      Diskon[]
 }
 
 model Menu {
@@ -49,7 +50,7 @@ model Menu {
   foto            String
   deskripsi       String
   harga           Int
-  jenis           Jenis
+  jenis           Jenis             @default(makanan)
   stanId          String
   stan            Stan              @relation(fields: [stanId], references: [id], onDelete: Cascade)
   menuDiskon      MenuDiskon[]
@@ -73,6 +74,8 @@ model Diskon {
   id               String       @id @default(uuid())
   namaDiskon       String
   presentaseDiskon Int
+  stanId           String
+  stan             Stan         @relation(fields: [stanId], references: [id], onDelete: Cascade)
   tanggalAwal      DateTime
   tanggalAkhir     DateTime
   menuDiskon       MenuDiskon[]
@@ -81,12 +84,12 @@ model Diskon {
 model Transaksi {
   id              String            @id @default(uuid())
   tanggal         DateTime          @default(now())
+  status          Status            @default(belumDikonfirmasi)
   stanId          String?
   stan            Stan?             @relation(fields: [stanId], references: [id], onDelete: SetNull)
   siswaId         String?
   siswa           Siswa?            @relation(fields: [siswaId], references: [id], onDelete: SetNull)
-  status          Status
-  DetailTransaksi DetailTransaksi[]
+  detailTransaksi DetailTransaksi[]
 }
 
 enum Status {

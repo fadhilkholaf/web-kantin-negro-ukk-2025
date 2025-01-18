@@ -3,32 +3,18 @@
 import Form from "next/form";
 import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
-import { useFormStatus } from "react-dom";
 
 import { Role } from "@prisma/client";
 import { toast } from "sonner";
 
 import { signUpAction } from "@/action/auth";
 import { cn } from "@/utils/cn";
+import { SubmitButton } from "@/components/Button";
 
 const roles: { label: string; value: Role }[] = [
   { label: "Siswa", value: "siswa" },
   { label: "Admin Stan", value: "adminStan" },
 ];
-
-const SubmitButton = () => {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full rounded-lg border p-2 text-center"
-    >
-      Sign Up
-    </button>
-  );
-};
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -113,7 +99,7 @@ const SignUpPage = () => {
           </div>
         </main>
         <footer>
-          <SubmitButton />
+          <SubmitButton label="Sign up" />
         </footer>
       </Form>
     </main>

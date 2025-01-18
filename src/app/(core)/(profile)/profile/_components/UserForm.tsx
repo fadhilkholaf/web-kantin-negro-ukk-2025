@@ -3,7 +3,6 @@
 import Form from "next/form";
 import { useRouter } from "next/navigation";
 import { Fragment, useState } from "react";
-import { useFormStatus } from "react-dom";
 
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
@@ -11,25 +10,12 @@ import { toast } from "sonner";
 import { updateUserProfile } from "@/action/user";
 import { Role, User } from "@prisma/client";
 import { cn } from "@/utils/cn";
+import { SubmitButton } from "@/components/Button";
 
 const roles: { label: string; value: Role }[] = [
   { label: "Siswa", value: "siswa" },
   { label: "Admin Stan", value: "adminStan" },
 ];
-
-const SubmitButton = () => {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full rounded-lg border p-2 text-center"
-    >
-      {`Update profile`}
-    </button>
-  );
-};
 
 const UserForm = ({ user }: { user: User }) => {
   const router = useRouter();
@@ -124,7 +110,7 @@ const UserForm = ({ user }: { user: User }) => {
         </div>
       </main>
       <footer>
-        <SubmitButton />
+        <SubmitButton label="Update profile" />
       </footer>
     </Form>
   );

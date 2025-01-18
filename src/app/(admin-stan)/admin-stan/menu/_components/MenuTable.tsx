@@ -3,7 +3,6 @@
 import Form from "next/form";
 import Link from "next/link";
 import Image from "next/image";
-import { useFormStatus } from "react-dom";
 
 import {
   AllCommunityModule,
@@ -16,6 +15,7 @@ import { Menu } from "@prisma/client";
 import { toast } from "sonner";
 
 import { deleteMenuAction } from "@/action/menu";
+import { SubmitButton } from "@/components/Button";
 import { defaultColDef } from "@/utils/constant";
 
 import "ag-grid-community/styles/ag-grid.css";
@@ -24,20 +24,6 @@ import "ag-grid-community/styles/ag-theme-quartz.css";
 ModuleRegistry.registerModules([AllCommunityModule]);
 
 provideGlobalGridOptions({ theme: "legacy" });
-
-const SubmitButton = ({ text }: { text: string }) => {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full rounded-lg border p-2 text-center"
-    >
-      {text}
-    </button>
-  );
-};
 
 const DeleteMenuForm = ({ id }: { id: string }) => {
   return (
@@ -54,7 +40,7 @@ const DeleteMenuForm = ({ id }: { id: string }) => {
         }
       }}
     >
-      <SubmitButton text="Delete" />
+      <SubmitButton label="Delete" />
     </Form>
   );
 };
@@ -88,7 +74,6 @@ const MenuTable = ({ menus }: { menus: Menu[] }) => {
             alt="Image Preview"
             width={80}
             height={80}
-            priority
             className="aspect-square rounded-lg border object-cover"
           />
         </div>

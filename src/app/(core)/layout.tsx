@@ -7,7 +7,7 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Navbar />
-      {children}
+      <main className="px-8 py-32">{children}</main>
       <Footer />
     </>
   );

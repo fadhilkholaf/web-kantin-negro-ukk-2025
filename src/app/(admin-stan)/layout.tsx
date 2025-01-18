@@ -1,10 +1,10 @@
 import { redirect } from "next/navigation";
 import { ReactNode } from "react";
 
+import { findStan } from "@/database/stan";
 import { auth } from "@/lib/auth";
 
 import Sidebar from "./_components/Sidebar";
-import { findStan } from "@/database/stan";
 
 const AdminStanLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();

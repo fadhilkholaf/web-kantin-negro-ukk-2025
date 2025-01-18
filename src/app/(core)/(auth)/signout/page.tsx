@@ -1,23 +1,9 @@
 "use client";
 
 import Form from "next/form";
-import { useFormStatus } from "react-dom";
 
 import { signOut } from "next-auth/react";
-
-const SubmitButton = () => {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full rounded-lg border p-2 text-center"
-    >
-      Sign Out
-    </button>
-  );
-};
+import { SubmitButton } from "@/components/Button";
 
 const SignOutPage = () => {
   return (
@@ -35,7 +21,7 @@ const SignOutPage = () => {
           <p>See you next time!</p>
         </main>
         <footer>
-          <SubmitButton />
+          <SubmitButton label="Sign out" />
         </footer>
       </Form>
     </main>

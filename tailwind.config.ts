@@ -9,8 +9,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: "#B2B377",
+        secondary: "#D2D180",
+        accent: "#E5E483",
+        neutral: "#F1F5A8",
+      },
+      fontFamily: {
+        mono: ["var(--font-geist-mono)"],
+        sans: ["var(--font-geist-sans)"],
+        italiana: ["var(--font-italiana)"],
       },
     },
   },

@@ -39,7 +39,7 @@ export const createMenuAction = async (formData: FormData) => {
       deskripsi,
       harga,
       jenis,
-      foto: "/dummy.jpg",
+      foto: "/images/dummy.jpg",
     });
 
     const uploadedImage = await uploadImage(foto, createdMenu.id, true);

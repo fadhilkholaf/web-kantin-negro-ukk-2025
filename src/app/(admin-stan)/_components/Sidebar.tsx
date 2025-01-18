@@ -6,10 +6,12 @@ interface Menu {
 }
 
 const menus: { header: Menu[]; main: Menu[]; footer: Menu[] } = {
-  header: [{ title: "Admin Stan", url: "/admin-stan" }],
+  header: [{ title: "Dashboard", url: "/admin-stan" }],
   main: [
-    { title: "Dashboard", url: "/admin-stan" },
     { title: "Menu", url: "/admin-stan/menu" },
+    { title: "Diskon", url: "/admin-stan/diskon" },
+    { title: "Pelanggan", url: "/admin-stan/pelanggan" },
+    { title: "History", url: "/admin-stan/history" },
   ],
   footer: [
     { title: "Home", url: "/" },

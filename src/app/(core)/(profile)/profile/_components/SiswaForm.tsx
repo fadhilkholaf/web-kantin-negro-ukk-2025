@@ -3,30 +3,16 @@
 import Form from "next/form";
 import Image from "next/image";
 import { useState } from "react";
-import { useFormStatus } from "react-dom";
 
 import { toast } from "sonner";
 
 import { createSiswaProfile, updateSiswaProfile } from "@/action/siswa";
 import { Siswa } from "@prisma/client";
-
-const SubmitButton = ({ update }: { update: boolean }) => {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full rounded-lg border p-2 text-center"
-    >
-      {`${update ? "Update" : "Create"} profile`}
-    </button>
-  );
-};
+import { SubmitButton } from "@/components/Button";
 
 const SiswaForm = ({ siswa }: { siswa?: Siswa }) => {
   const [imagePreview, setImagePreview] = useState<string>(
-    siswa?.foto ?? "/dummy.jpg",
+    siswa?.foto ?? "/images/dummy.jpg",
   );
 
   return (
@@ -103,7 +89,6 @@ const SiswaForm = ({ siswa }: { siswa?: Siswa }) => {
             alt="Profile Preview"
             width={500}
             height={500}
-            priority
             className="aspect-square object-cover"
           />
           <input
@@ -119,7 +104,7 @@ const SiswaForm = ({ siswa }: { siswa?: Siswa }) => {
         </div>
       </main>
       <footer>
-        <SubmitButton update={!!siswa} />
+        <SubmitButton label={`${siswa ? "Update" : "Create"} profile`} />
       </footer>
     </Form>
   );

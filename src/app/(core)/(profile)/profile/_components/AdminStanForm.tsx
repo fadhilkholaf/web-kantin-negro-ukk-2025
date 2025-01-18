@@ -1,26 +1,12 @@
 "use client";
 
 import Form from "next/form";
-import { useFormStatus } from "react-dom";
 
 import { toast } from "sonner";
 
 import { createStanProfile, updateStanProfile } from "@/action/stan";
 import { Stan } from "@prisma/client";
-
-const SubmitButton = ({ update }: { update: boolean }) => {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="w-full rounded-lg border p-2 text-center"
-    >
-      {`${update ? "Update" : "Create"} profile`}
-    </button>
-  );
-};
+import { SubmitButton } from "@/components/Button";
 
 const AdminStanForm = ({ stan }: { stan?: Stan }) => {
   return (
@@ -90,7 +76,7 @@ const AdminStanForm = ({ stan }: { stan?: Stan }) => {
         </div>
       </main>
       <footer>
-        <SubmitButton update={!!stan} />
+        <SubmitButton label={`${stan ? "Update" : "Create"} profile`} />
       </footer>
     </Form>
   );
