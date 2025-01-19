@@ -19,6 +19,13 @@ export default {
         sans: ["var(--font-geist-sans)"],
         italiana: ["var(--font-italiana)"],
       },
+      animation: { slider: "slider 20s linear infinite" },
+      keyframes: {
+        slider: {
+          from: { transform: "translate(0px,0)" },
+          to: { transform: "translate(calc(325px*10),0)" },
+        },
+      },
     },
   },
   plugins: [],

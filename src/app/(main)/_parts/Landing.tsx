@@ -79,11 +79,11 @@ const Tag = ({
 
 const Landing = () => {
   return (
-    <section className="relative flex h-screen w-full flex-col items-center justify-center bg-neutral/10 px-8">
+    <section className="relative flex h-screen w-full flex-col items-center justify-center bg-neutral/10 px-4 lg:px-8">
       <motion.h1
         variants={container}
         initial="initial"
-        animate="animate"
+        whileInView="animate"
         className="flex flex-wrap justify-center gap-x-8 gap-y-4 font-italiana text-[12vw] italic leading-[1] text-primary lg:w-1/2 lg:text-[8vw]"
       >
         {"Find Your Perfect Foods and Drinks".split(" ").map((w, i) => {

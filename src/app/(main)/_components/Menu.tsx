@@ -16,7 +16,7 @@ const card: Variants = {
     rotate: 6,
     transition: {
       type: "tween",
-      ease: [0.65, 0, 0.35, 1],
+      ease: [0.33, 1, 0.68, 1],
       duration: 0.5,
     },
   },
@@ -26,7 +26,7 @@ const card: Variants = {
     rotate: -30,
     transition: {
       type: "tween",
-      ease: [0.65, 0, 0.35, 1],
+      ease: [0.32, 0, 0.67, 0],
       duration: 0.5,
     },
   },
@@ -40,7 +40,7 @@ const Menu = ({ onClick }: { onClick: () => void }) => {
       animate="animate"
       exit="exit"
       variants={wrapper}
-      className="fixed left-0 top-0 z-40 flex h-screen w-full items-center p-8"
+      className="fixed left-0 top-0 z-40 flex h-screen w-full items-center p-4 lg:p-8"
     >
       <div
         className="fixed left-0 top-0 -z-10 h-full w-full"
@@ -48,9 +48,9 @@ const Menu = ({ onClick }: { onClick: () => void }) => {
       ></div>
       <motion.div
         variants={card}
-        className="h-[400px] w-[300px] origin-bottom-left rounded-lg bg-white p-4 text-2xl italic lg:h-1/2 lg:w-1/3"
+        className="h-[400px] w-[300px] origin-bottom-left bg-white p-4 text-2xl italic lg:h-1/2 lg:w-1/3"
       >
-        <div className="border-primary text-primary font-italiana flex h-full w-full flex-col justify-between rounded border-4 border-double p-4">
+        <div className="flex h-full w-full flex-col justify-between border-4 border-double border-primary p-4 font-italiana text-primary">
           <header></header>
           <main className="h-full w-full">
             <ul className="flex flex-col gap-4 font-semibold tracking-wider">
@@ -59,7 +59,7 @@ const Menu = ({ onClick }: { onClick: () => void }) => {
                   key={i}
                   className={cn(
                     "relative flex w-full justify-between",
-                    "before:bg-primary before:ease-[cubic-bezier(0.65, 0, 0.35, 1)] before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:origin-left before:scale-x-0 before:transition-transform before:duration-500 before:hover:scale-100",
+                    "before:ease-[cubic-bezier(0.65, 0, 0.35, 1)] before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:origin-left before:scale-x-0 before:bg-primary before:transition-transform before:duration-500 before:hover:scale-100",
                   )}
                 >
                   {m} <span className="font-mono">→</span>

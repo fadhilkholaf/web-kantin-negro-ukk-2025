@@ -35,7 +35,7 @@ const Header = ({
       <Link
         href="/"
         className={cn(
-          "font-italiana text-primary fixed left-0 top-0 z-50 m-4 text-2xl font-bold tracking-wider transition-colors lg:m-8",
+          "fixed left-0 top-0 z-50 m-4 font-italiana text-2xl font-bold tracking-wider text-primary transition-colors lg:m-8",
           { "text-neutral": openMenu },
         )}
       >
@@ -60,14 +60,14 @@ const Header = ({
         type="button"
         onClick={setOpenMenu}
         className={cn(
-          "text-primary fixed right-0 top-0 z-50 m-4 flex items-center gap-4 transition-colors lg:m-8",
+          "fixed right-0 top-0 z-50 m-4 flex items-center gap-4 text-primary transition-colors lg:m-8",
           { "text-neutral": openMenu },
         )}
       >
         Menu
         <span
           className={cn(
-            "border-primary bg-neutral/10 w-[100px] rounded-full border p-2",
+            "w-[100px] rounded-full border border-primary bg-neutral/10 p-2",
             { "text-neutral": openMenu },
           )}
         >
