@@ -77,7 +77,7 @@ const Tag = ({
   );
 };
 
-const Landing = () => {
+const LandingSection = () => {
   return (
     <section className="relative flex h-screen w-full flex-col items-center justify-center bg-neutral/10 px-4 lg:px-8">
       <motion.h1
@@ -96,4 +96,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default LandingSection;

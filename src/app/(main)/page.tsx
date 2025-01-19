@@ -1,14 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { Suspense, useState } from "react";
+import { useState } from "react";
 
 import { AnimatePresence } from "motion/react";
 
 import Header from "./_components/Header";
 import Menu from "./_components/Menu";
-import Gallery from "./_parts/Gallery";
-import Landing from "./_parts/Landing";
+import FormSection from "./_parts/Form";
+import GallerySection from "./_parts/Gallery";
+import LandingSection from "./_parts/Landing";
 
 const MainPage = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
@@ -30,10 +31,9 @@ const MainPage = () => {
       <AnimatePresence mode="wait">
         {openMenu && <Menu onClick={() => setOpenMenu((prev) => !prev)} />}
       </AnimatePresence>
-      <Landing />
-      <Suspense>
-        <Gallery />
-      </Suspense>
+      <LandingSection />
+      <GallerySection />
+      <FormSection />
     </main>
   );
 };
