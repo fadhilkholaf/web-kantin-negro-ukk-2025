@@ -50,6 +50,33 @@ const underline: Variants = {
 
 const underlinedWord = ["Your", "Perfect", "Foods", "Drinks"];
 
+const Tag = ({
+  i,
+  letters,
+  w,
+}: {
+  i: number;
+  letters: string[];
+  w: string;
+}) => {
+  return (
+    <motion.span variants={item} className="relative inline-block">
+      {letters.map((l, j) => (
+        <motion.span key={j} variants={letter} className="inline-block">
+          {l}
+        </motion.span>
+      ))}
+      {underlinedWord.includes(w) && (
+        <motion.span
+          custom={i}
+          variants={underline}
+          className="absolute bottom-0 left-0 inline-block h-[2px] w-full origin-left rounded-full bg-primary"
+        ></motion.span>
+      )}
+    </motion.span>
+  );
+};
+
 const Landing = () => {
   return (
     <section className="relative flex h-screen w-full flex-col items-center justify-center bg-neutral/10 px-8">
@@ -62,26 +89,7 @@ const Landing = () => {
         {"Find Your Perfect Foods and Drinks".split(" ").map((w, i) => {
           const letters = w.split("");
 
-          return (
-            <motion.span
-              key={i}
-              variants={item}
-              className="relative inline-block"
-            >
-              {letters.map((l, j) => (
-                <motion.span key={j} variants={letter} className="inline-block">
-                  {l}
-                </motion.span>
-              ))}
-              {underlinedWord.includes(w) && (
-                <motion.span
-                  custom={i}
-                  variants={underline}
-                  className="absolute bottom-0 left-0 inline-block h-[2px] w-full origin-left rounded-full bg-primary"
-                ></motion.span>
-              )}
-            </motion.span>
-          );
+          return <Tag key={i} i={i} letters={letters} w={w} />;
         })}
       </motion.h1>
     </section>
