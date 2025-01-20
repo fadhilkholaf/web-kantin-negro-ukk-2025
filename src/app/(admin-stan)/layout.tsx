@@ -27,7 +27,9 @@ const AdminStanLayout = async ({ children }: { children: ReactNode }) => {
     <>
       <Sidebar />
       <main className="flex w-full justify-end">
-        <main className="w-[calc(100%-300px)] px-8">{children}</main>
+        <main className="w-[calc(100%-300px)] bg-yellow-500/10 px-8">
+          {children}
+        </main>
       </main>
     </>
   );

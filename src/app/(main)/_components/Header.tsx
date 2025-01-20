@@ -67,11 +67,11 @@ const Header = ({
         {openMenu ? "Close" : "Menu"}
         <span
           className={cn(
-            "w-[42px] rounded-full border border-primary bg-neutral/10 p-2",
-            { "text-neutral": openMenu },
+            "flex h-[42px] w-[42px] -rotate-[405deg] items-center justify-center overflow-hidden rounded-full border border-primary bg-neutral/10 p-2 transition-transform duration-500",
+            { "rotate-0 text-neutral": openMenu },
           )}
         >
-          ⇄
+          <span className="text-2xl">⇄</span>
         </span>
       </button>
     </header>

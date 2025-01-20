@@ -14,8 +14,8 @@ export const Input = ({
   HTMLInputElement
 >) => {
   return (
-    <div className="flex flex-col">
-      <label htmlFor={props.id}>
+    <div className="flex flex-col font-mono text-primary">
+      <label htmlFor={props.id} className="">
         {label} {props.required && <span className="text-red-500">*</span>}
       </label>
       <input

@@ -30,6 +30,7 @@ export const getTransaksiDataAction = async (tahun: number) => {
         {
           tanggal: { gte: new Date(`${tahun}`), lt: new Date(`${tahun + 1}`) },
         },
+        { status: "sampai" },
       ],
     },
     { detailTransaksi: true },

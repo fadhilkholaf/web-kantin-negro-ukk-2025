@@ -10,8 +10,9 @@ const menus: { header: Menu[]; main: Menu[]; footer: Menu[] } = {
   main: [
     { title: "Menu", url: "/admin-stan/menu" },
     { title: "Diskon", url: "/admin-stan/diskon" },
-    { title: "Pelanggan", url: "/admin-stan/pelanggan" },
+    { title: "Pesanan", url: "/admin-stan/pesanan" },
     { title: "History", url: "/admin-stan/history" },
+    { title: "Pelanggan", url: "/admin-stan/pelanggan" },
   ],
   footer: [
     { title: "Home", url: "/" },

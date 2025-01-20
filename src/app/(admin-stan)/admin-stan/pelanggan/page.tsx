@@ -1,78 +1,20 @@
-import { redirect } from "next/navigation";
-import Link from "next/link";
+import { findManyUsers } from "@/database/user";
 
-import { findManyTransaksi } from "@/database/transaksi";
-import { auth } from "@/lib/auth";
-import { wib } from "@/utils/utils";
-import { Prisma } from "@prisma/client";
-import {
-  DeleteTransaksiForm,
-  UpdateStatusTransaksiForm,
-} from "./_components/TransaksiForm";
+import PelangganTable from "./_components/PelangganTable";
+import { LinkButton } from "@/components/Button";
 
 const PelangganPage = async () => {
-  const session = await auth();
-
-  if (!session) {
-    redirect("/");
-  }
-
-  const transaksi = (await findManyTransaksi(
-    {
-      AND: [
-        { stan: { userId: session.user.id } },
-        { NOT: [{ status: "sampai" }] },
-      ],
-    },
-    { siswa: true, detailTransaksi: true },
-  )) as Prisma.TransaksiGetPayload<{
-    include: { siswa: true; detailTransaksi: true };
-  }>[];
+  const pelanggan = await findManyUsers({ NOT: [{ role: "adminStan" }] });
 
   return (
-    <main className="flex min-h-screen w-full flex-col gap-8 py-8">
-      <header className="flex items-center justify-between">
+    <main className="min-h-screen w-full">
+      <header className="flex items-center justify-between py-8">
         <h1 className="text-3xl font-bold">Pelanggan</h1>
-        <Link
-          href="/admin-stan/pelanggan/new"
-          className="rounded-lg border p-2"
-        >
+        <LinkButton href="/admin-stan/pelanggan/new" className="w-fit">
           Create pelanggan
-        </Link>
+        </LinkButton>
       </header>
-      <main>
-        <ul className="flex list-inside list-disc flex-col gap-4">
-          {transaksi &&
-            transaksi.map((t, i) => (
-              <li key={i} className="flex flex-col gap-2">
-                {wib(t.tanggal)}
-                <p>Siswa: {t.siswa?.namaSiswa ?? "-"}</p>
-                <p>Status: {t.status}</p>
-                <div className="flex gap-2">
-                  <UpdateStatusTransaksiForm
-                    id={t.id}
-                    label="Konfirmasi"
-                    className="bg-green-200"
-                    status={"dimasak"}
-                  />
-                  <UpdateStatusTransaksiForm
-                    id={t.id}
-                    label="Antar"
-                    className="bg-green-200"
-                    status={"diantar"}
-                  />
-                  <UpdateStatusTransaksiForm
-                    id={t.id}
-                    label="Sampai"
-                    className="bg-green-200"
-                    status={"sampai"}
-                  />
-                </div>
-                <DeleteTransaksiForm id={t.id} />
-              </li>
-            ))}
-        </ul>
-      </main>
+      <PelangganTable pelanggan={pelanggan} />
     </main>
   );
 };

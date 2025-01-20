@@ -62,7 +62,7 @@ export const LinkButton = ({
       href={href}
       {...props}
       className={cn(
-        "block w-full rounded-lg border p-2 text-center hover:bg-gray-200",
+        "block w-full rounded-full border border-primary px-2 py-1 text-center font-italiana font-bold tracking-wider text-primary hover:bg-neutral/10",
         className,
       )}
     >

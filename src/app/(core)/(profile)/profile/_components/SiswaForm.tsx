@@ -31,8 +31,14 @@ const SiswaForm = ({ siswa }: { siswa?: Siswa }) => {
         }
 
         if (response.success) {
+          URL.revokeObjectURL(imagePreview);
+
           toast.success(response.message, { id: loading });
         } else {
+          URL.revokeObjectURL(imagePreview);
+
+          setImagePreview(siswa?.foto ?? "/images/dummy.jpg");
+
           toast.error(response.message, { id: loading });
         }
       }}

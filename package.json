@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "pnpx prisma generate"
+    "prettier": "prettier --write .",
+    "studio": "prisma studio",
+    "migrate": "prisma migrate dev",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "6.2.0",

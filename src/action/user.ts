@@ -4,9 +4,76 @@ import { revalidatePath } from "next/cache";
 
 import { Role } from "@prisma/client";
 
-import { findManyUsers, updateUser } from "@/database/user";
+import {
+  createUser,
+  deleteUser,
+  findManyUsers,
+  findUser,
+  updateUser,
+} from "@/database/user";
 import { auth } from "@/lib/auth";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
+
+export const createPelangganAction = async (formData: FormData) => {
+  try {
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
+
+    if (!username || !password) {
+      return responseError("Please fill all fields!");
+    }
+
+    const existingPelanggan = await findUser({ username });
+
+    if (existingPelanggan) {
+      return responseError("Pelanggan already exist!");
+    }
+
+    await createUser({ username, password, role: "siswa" });
+
+    revalidatePath("/", "layout");
+    return responseSuccess("Success creating pelanggan!");
+  } catch (error) {
+    console.log(error);
+
+    return responseError("Something went wrong!");
+  }
+};
+
+export const updatePelangganAction = async (formData: FormData) => {
+  try {
+    const username = formData.get("username") as string;
+    const password = formData.get("password") as string;
+    const id = formData.get("id") as string;
+
+    if (!id) {
+      return responseError("Missing pelanggan id!");
+    }
+
+    const existingPelanggan = await findManyUsers({
+      AND: [{ NOT: { id } }, { username }],
+    });
+
+    if (existingPelanggan.length) {
+      return responseError("Pelanggan already exist!");
+    }
+
+    await updateUser(
+      { id },
+      {
+        username: username ?? undefined,
+        password: password ?? undefined,
+      },
+    );
+
+    revalidatePath("/", "layout");
+    return responseSuccess("Success updating pelanggan!");
+  } catch (error) {
+    console.log(error);
+
+    return responseError("Something went wrong!");
+  }
+};
 
 export const updateUserProfile = async (formData: FormData) => {
   const username = formData.get("username") as string;
@@ -42,6 +109,25 @@ export const updateUserProfile = async (formData: FormData) => {
       updatedUser,
       ...responseSuccess("Success updating user!"),
     };
+  } catch (error) {
+    console.log(error);
+
+    return responseError("Something went wrong!");
+  }
+};
+
+export const deleteUserAction = async (id: string) => {
+  try {
+    const existingUser = await findUser({ id });
+
+    if (!existingUser) {
+      return responseError("User not found!");
+    }
+
+    await deleteUser({ id });
+
+    revalidatePath("/", "layout");
+    return responseSuccess("Success updating user!");
   } catch (error) {
     console.log(error);
 

@@ -53,12 +53,16 @@ const adminStanMenus: Menu[] = [
     url: "/admin-stan/diskon",
   },
   {
-    title: "Pelanggan",
-    url: "/admin-stan/pelanggan",
+    title: "Pesanan",
+    url: "/admin-stan/pesanan",
   },
   {
     title: "History",
     url: "/admin-stan/history",
+  },
+  {
+    title: "Pelanggan",
+    url: "/admin-stan/pelanggan",
   },
 ];
 
