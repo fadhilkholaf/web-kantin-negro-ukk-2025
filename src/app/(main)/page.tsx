@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
 
 import { AnimatePresence } from "motion/react";
@@ -15,15 +14,7 @@ const MainPage = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
   return (
-    <main className="relative w-full overflow-hidden bg-yellow-500/10">
-      <Image
-        src="/images/noise.svg"
-        alt="Noise"
-        width={500}
-        height={500}
-        priority
-        className="fixed left-0 top-0 -z-50 h-full w-full object-cover contrast-50"
-      />
+    <main className="relative w-full overflow-hidden">
       <Header
         openMenu={openMenu}
         setOpenMenu={() => setOpenMenu((prev) => !prev)}

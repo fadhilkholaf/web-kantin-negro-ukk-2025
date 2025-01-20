@@ -95,7 +95,7 @@ const Navbar = async () => {
   const session = await auth();
 
   return (
-    <nav className="fixed w-full bg-white/50 p-8 backdrop-blur">
+    <nav className="fixed z-50 w-full bg-white/50 p-8 backdrop-blur">
       <ul className="flex justify-between">
         <li>
           <ul className="flex gap-2">

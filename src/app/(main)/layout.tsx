@@ -5,8 +5,6 @@ import { auth } from "@/lib/auth";
 
 import LenisWrapper from "./_wrapper/LenisWrapper";
 
-import "./main.css";
-
 const MainLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
 

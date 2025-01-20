@@ -7,22 +7,24 @@ import { SubmitButton } from "@/components/Button";
 
 const SignOutPage = () => {
   return (
-    <main className="flex h-screen w-full items-center justify-center">
+    <main className="flex h-screen w-full items-center justify-center bg-neutral/10">
       <Form
         action={() => {
           signOut({ redirect: true, redirectTo: "/" });
         }}
-        className="flex flex-col gap-4 rounded-lg border p-4"
+        className="bg-white p-4"
       >
-        <header>
-          <h1 className="text-2xl font-bold">Sign Out Form</h1>
-        </header>
-        <main>
-          <p>See you next time!</p>
-        </main>
-        <footer>
-          <SubmitButton label="Sign out" />
-        </footer>
+        <div className="flex flex-col gap-8 border-4 border-double border-primary p-4">
+          <header className="text-primary">
+            <h1 className="font-italiana text-3xl font-bold tracking-wider">
+              Sign Out Form
+            </h1>
+            <p className="text-xs">See you next time!</p>
+          </header>
+          <footer className="flex flex-col gap-4 pt-2">
+            <SubmitButton label="Sign out" />
+          </footer>
+        </div>
       </Form>
     </main>
   );

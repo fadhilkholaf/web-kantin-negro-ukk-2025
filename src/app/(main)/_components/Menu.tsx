@@ -55,15 +55,20 @@ const Menu = ({ onClick }: { onClick: () => void }) => {
           <header></header>
           <main className="h-full w-full">
             <ul className="flex flex-col gap-4 font-semibold tracking-wider">
-              {["Our Menu", "Our Stand", "Your Table"].map((m, i) => (
-                <li
-                  key={i}
-                  className={cn(
-                    "relative flex w-full justify-between",
-                    "before:ease-[cubic-bezier(0.65, 0, 0.35, 1)] before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:origin-left before:scale-x-0 before:bg-primary before:transition-transform before:duration-500 before:hover:scale-100",
-                  )}
-                >
-                  {m} <span className="font-mono">→</span>
+              {[
+                { label: "Sign Up", url: "/signup" },
+                { label: "Sign In", url: "/signin" },
+              ].map((m, i) => (
+                <li key={i}>
+                  <Link
+                    href={m.url}
+                    className={cn(
+                      "relative flex w-full justify-between",
+                      "before:ease-[cubic-bezier(0.65, 0, 0.35, 1)] before:absolute before:bottom-0 before:left-0 before:h-[1px] before:w-full before:origin-left before:translate-y-1 before:scale-x-0 before:bg-primary before:transition-transform before:duration-500 before:hover:scale-100",
+                    )}
+                  >
+                    {m.label} <span className="font-mono">→</span>
+                  </Link>
                 </li>
               ))}
             </ul>

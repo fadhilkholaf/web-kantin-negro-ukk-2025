@@ -15,14 +15,14 @@ export const Input = ({
 >) => {
   return (
     <div className="flex flex-col font-mono text-primary">
-      <label htmlFor={props.id} className="">
+      <label htmlFor={props.id}>
         {label} {props.required && <span className="text-red-500">*</span>}
       </label>
       <input
         ref={ref}
         {...props}
         className={cn(
-          "rounded-full border border-primary px-2 py-1 focus:outline-neutral",
+          "rounded-full border border-primary px-2 py-1 focus:outline-secondary",
           props.className,
         )}
       />

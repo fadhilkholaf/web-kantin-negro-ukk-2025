@@ -9,10 +9,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: "#B2B377",
-        secondary: "#D2D180",
-        accent: "#E5E483",
-        neutral: "#F1F5A8",
+        primary: "#5D8736",
+        secondary: "#809D3C",
+        accent: "#A9C46C",
+        neutral: "#F4FFC3",
       },
       fontFamily: {
         mono: ["var(--font-geist-mono)"],

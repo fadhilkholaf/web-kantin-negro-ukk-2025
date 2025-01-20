@@ -32,7 +32,7 @@ export const SubmitButton = ({
       disabled={props.disabled ?? pending}
       {...props}
       className={cn(
-        "w-full rounded-full border border-primary px-2 py-1 text-center font-italiana font-bold tracking-wider text-primary hover:bg-neutral/10",
+        "w-full rounded-full border border-primary px-2 py-1 text-center font-italiana font-bold tracking-wider text-primary hover:bg-primary hover:text-white focus:outline-secondary",
         props.className,
       )}
     >

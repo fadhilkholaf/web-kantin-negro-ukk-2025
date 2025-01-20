@@ -72,7 +72,7 @@ const SignInForm = ({ onClick }: { onClick: () => void }) => {
           </h1>
           <p className="text-xs">Welcome again!</p>
         </header>
-        <main className="flex flex-col gap-2 font-mono">
+        <main className="flex flex-col gap-2">
           <Input
             label="Username"
             required
@@ -134,7 +134,7 @@ const SignUpForm = ({ onClick }: { onClick: () => void }) => {
           </h1>
           <p className="text-xs">Get yourself ready!</p>
         </header>
-        <main className="flex flex-col gap-2 font-mono">
+        <main className="flex flex-col gap-2">
           <Input
             label="Username"
             required
@@ -161,9 +161,9 @@ const SignUpForm = ({ onClick }: { onClick: () => void }) => {
                       <label
                         htmlFor={r.value}
                         className={cn(
-                          "block cursor-pointer rounded-full border border-primary px-2 py-1 text-center focus:outline-neutral",
+                          "block cursor-pointer rounded-full border border-primary px-2 py-1 text-center",
                           {
-                            "bg-neutral/50": role === r.value,
+                            "bg-primary text-white": role === r.value,
                           },
                         )}
                       >
