@@ -10,7 +10,7 @@ import { toast } from "sonner";
 
 import { createMenuAction, updateMenuAction } from "@/action/menu";
 import { SubmitButton } from "@/components/Button";
-import Input from "@/components/Input";
+import { Input } from "@/components/Input";
 import { cn } from "@/utils/cn";
 
 const jenises: { label: string; value: Jenis }[] = [

@@ -14,12 +14,10 @@ import { cn } from "@/utils/cn";
 
 export const SubmitButton = ({
   label,
-  className,
   ref,
   ...props
 }: {
   label: string;
-  className?: string;
   ref?: Ref<HTMLButtonElement>;
 } & DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -32,11 +30,11 @@ export const SubmitButton = ({
       ref={ref}
       type={props.type ?? "submit"}
       disabled={props.disabled ?? pending}
-      className={cn(
-        "w-full rounded-lg border p-2 text-center hover:bg-gray-200",
-        className,
-      )}
       {...props}
+      className={cn(
+        "w-full rounded-full border border-primary px-2 py-1 text-center font-italiana font-bold tracking-wider text-primary hover:bg-neutral/10",
+        props.className,
+      )}
     >
       {label}
     </button>

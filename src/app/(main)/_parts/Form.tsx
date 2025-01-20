@@ -1,7 +1,15 @@
 import Form from "next/form";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Fragment, useState } from "react";
 
 import { motion, Variants } from "motion/react";
+import { Role } from "@prisma/client";
+import { toast } from "sonner";
+
+import { signInAction, signUpAction } from "@/action/auth";
+import { SubmitButton } from "@/components/Button";
+import { Input } from "@/components/Input";
+import { cn } from "@/utils/cn";
 
 const form: Variants = {
   initial: {
@@ -32,14 +40,28 @@ const form: Variants = {
   },
 };
 
+const roles: { label: string; value: Role }[] = [
+  { label: "Siswa", value: "siswa" },
+  { label: "Admin Stan", value: "adminStan" },
+];
+
 const SignInForm = ({ onClick }: { onClick: () => void }) => {
+  const router = useRouter();
+
   return (
     <Form
       action={async (formData) => {
-        console.log({
-          username: formData.get("username"),
-          password: formData.get("password"),
-        });
+        const loading = toast.loading("Sign in...");
+
+        const response = await signInAction(formData);
+
+        if (response.success) {
+          toast.success("Sign in success!", { id: loading });
+
+          router.refresh();
+        } else {
+          toast.error(response.message, { id: loading });
+        }
       }}
       className="bg-white p-4"
     >
@@ -48,35 +70,26 @@ const SignInForm = ({ onClick }: { onClick: () => void }) => {
           <h1 className="font-italiana text-3xl font-bold tracking-wider">
             Sign In Form
           </h1>
-          <p className="text-xs">Book your table</p>
+          <p className="text-xs">Welcome again!</p>
         </header>
         <main className="flex flex-col gap-2 font-mono">
-          <div className="flex flex-col">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              className="rounded-full border border-primary px-2 py-1 focus:outline-neutral"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="password">Password</label>
-            <input
-              type="text"
-              name="password"
-              id="password"
-              className="rounded-full border border-primary px-2 py-1 focus:outline-neutral"
-            />
-          </div>
+          <Input
+            label="Username"
+            required
+            type="text"
+            id="username"
+            name="username"
+          />
+          <Input
+            label="Password"
+            required
+            type="text"
+            id="password"
+            name="password"
+          />
         </main>
         <footer className="flex flex-col gap-4 pt-2">
-          <button
-            type="submit"
-            className="w-full rounded-full border border-primary px-2 py-1 text-center font-italiana font-bold tracking-wider"
-          >
-            Submit
-          </button>
+          <SubmitButton label="Submit" />
           <button
             type="button"
             className="flex justify-between text-sm underline underline-offset-4"
@@ -92,13 +105,25 @@ const SignInForm = ({ onClick }: { onClick: () => void }) => {
 };
 
 const SignUpForm = ({ onClick }: { onClick: () => void }) => {
+  const router = useRouter();
+  const [role, setRole] = useState<Role | null>(null);
+
   return (
     <Form
       action={async (formData) => {
-        console.log({
-          username: formData.get("username"),
-          password: formData.get("password"),
-        });
+        const loading = toast.loading("Sign up...");
+
+        const response = await signUpAction(formData);
+
+        if (response.success) {
+          toast.success(response.message, { id: loading });
+
+          router.refresh();
+        } else {
+          setRole(null);
+
+          toast.error(response.message, { id: loading });
+        }
       }}
       className="bg-white p-4"
     >
@@ -107,50 +132,65 @@ const SignUpForm = ({ onClick }: { onClick: () => void }) => {
           <h1 className="font-italiana text-3xl font-bold tracking-wider">
             Sign Up Form
           </h1>
-          <p className="text-xs">Book your table</p>
+          <p className="text-xs">Get yourself ready!</p>
         </header>
         <main className="flex flex-col gap-2 font-mono">
+          <Input
+            label="Username"
+            required
+            type="text"
+            id="usernameU"
+            name="usernameU"
+          />
+          <Input
+            label="Password"
+            required
+            type="text"
+            id="passwordU"
+            name="passwordU"
+          />
           <div className="flex flex-col">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              className="rounded-full border border-primary px-2 py-1 focus:outline-neutral"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="username">Username</label>
-            <input
-              type="text"
-              name="username"
-              id="username"
-              className="rounded-full border border-primary px-2 py-1 focus:outline-neutral"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="password">Password</label>
-            <input
-              type="text"
-              name="password"
-              id="password"
-              className="rounded-full border border-primary px-2 py-1 focus:outline-neutral"
-            />
+            <label htmlFor="role">
+              Role <span className="text-red-500">*</span>
+            </label>
+            <div className="flex gap-2">
+              {roles &&
+                roles.map((r, i) => (
+                  <Fragment key={i}>
+                    <div className="w-full">
+                      <label
+                        htmlFor={r.value}
+                        className={cn(
+                          "block cursor-pointer rounded-full border border-primary px-2 py-1 text-center focus:outline-neutral",
+                          {
+                            "bg-neutral/50": role === r.value,
+                          },
+                        )}
+                      >
+                        {r.label}
+                      </label>
+                      <input
+                        type="radio"
+                        name="roleU"
+                        id={r.value}
+                        value={r.value}
+                        className="hidden"
+                        onClick={() => setRole(r.value)}
+                      />
+                    </div>
+                  </Fragment>
+                ))}
+            </div>
           </div>
         </main>
         <footer className="flex flex-col gap-4 pt-2">
-          <button
-            type="submit"
-            className="w-full rounded-full border border-primary px-2 py-1 text-center font-italiana font-bold tracking-wider"
-          >
-            Submit
-          </button>
+          <SubmitButton label="Submit" />
           <button
             type="button"
             className="flex justify-between text-sm underline underline-offset-4"
             onClick={onClick}
           >
-            <p>Have an account?</p>
+            <p>{`Have an account?`}</p>
             <p>Sign In</p>
           </button>
         </footer>

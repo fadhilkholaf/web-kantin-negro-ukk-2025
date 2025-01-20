@@ -2,14 +2,12 @@ import { DetailedHTMLProps, InputHTMLAttributes, Ref } from "react";
 
 import { cn } from "@/utils/cn";
 
-const Input = ({
+export const Input = ({
   label,
-  className,
   ref,
   ...props
 }: {
   label: string;
-  className?: string;
   ref?: Ref<HTMLInputElement>;
 } & DetailedHTMLProps<
   InputHTMLAttributes<HTMLInputElement>,
@@ -23,10 +21,11 @@ const Input = ({
       <input
         ref={ref}
         {...props}
-        className={cn("rounded-lg border p-2", className)}
+        className={cn(
+          "rounded-full border border-primary px-2 py-1 focus:outline-neutral",
+          props.className,
+        )}
       />
     </div>
   );
 };
-
-export default Input;

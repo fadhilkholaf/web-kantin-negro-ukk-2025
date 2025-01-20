@@ -1,17 +1,18 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import { AuthError } from "next-auth";
 import { Role } from "@prisma/client";
 
 import { createUser, findUser } from "@/database/user";
 import { signIn } from "@/lib/auth";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
-import { revalidatePath } from "next/cache";
 
 export const signUpAction = async (formData: FormData) => {
-  const username = formData.get("username") as string;
-  const password = formData.get("password") as string;
-  const role = formData.get("role") as Role;
+  const username = formData.get("usernameU") as string;
+  const password = formData.get("passwordU") as string;
+  const role = formData.get("roleU") as Role;
 
   if (!username || !password || !role) {
     return responseError("Please fill all fields!");

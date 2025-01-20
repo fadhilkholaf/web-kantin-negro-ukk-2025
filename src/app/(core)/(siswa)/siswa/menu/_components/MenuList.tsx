@@ -7,7 +7,7 @@ import { useState } from "react";
 import { Prisma } from "@prisma/client";
 
 import { createPesanan } from "@/action/pemesanan";
-import Input from "@/components/Input";
+import { Input } from "@/components/Input";
 import { cn } from "@/utils/cn";
 import { toast } from "sonner";
 import { SubmitButton } from "@/components/Button";
