@@ -163,7 +163,7 @@ const FormSection = () => {
   const [signIn, setSignIn] = useState<boolean>(true);
 
   return (
-    <section className="flex min-h-screen w-full flex-col bg-neutral/10 text-primary">
+    <section className="flex min-h-screen w-full flex-col justify-center bg-neutral/10 text-primary">
       <header className="flex h-1/3 flex-col items-center justify-center gap-4 p-4 text-center text-primary lg:p-8">
         <h1 className="font-italiana text-[12vw] lg:text-[8vw]">
           Book Your Table

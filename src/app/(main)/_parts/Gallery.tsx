@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const GallerySection = () => {
   return (
-    <section className="flex min-h-screen w-full flex-col bg-neutral/10">
+    <section className="flex w-full flex-col justify-center bg-neutral/10 lg:min-h-screen">
       <header className="flex h-1/3 flex-col items-center justify-center gap-4 p-4 text-center text-primary lg:p-8">
         <h1 className="font-italiana text-[12vw] lg:text-[8vw]">
           For Your Pleasure
@@ -22,7 +22,7 @@ const GallerySection = () => {
                 width={300}
                 height={300}
                 priority
-                className="w-[300px] flex-shrink-0 border border-primary object-cover p-2"
+                className="h-[300px] w-[300px] flex-shrink-0 border border-primary object-cover p-2"
                 style={{
                   transform: `translate(0px,${Math.sin(j * 2) * 50}px) rotate(${Math.cos(j * 2) * 3}deg)`,
                 }}

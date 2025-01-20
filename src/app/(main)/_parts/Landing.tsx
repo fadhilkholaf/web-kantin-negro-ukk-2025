@@ -84,7 +84,7 @@ const Tag = ({
 
 const LandingSection = () => {
   return (
-    <section className="relative flex min-h-screen w-full flex-col items-center justify-center bg-neutral/10 p-4 lg:p-8">
+    <section className="relative flex h-[50vh] w-full flex-col items-center justify-center bg-neutral/10 p-4 lg:min-h-screen lg:p-8">
       <motion.h1
         variants={container}
         initial="initial"
