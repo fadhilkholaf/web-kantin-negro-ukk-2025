@@ -1,9 +1,8 @@
 import { motion, Variants } from "motion/react";
 
 const container: Variants = {
-  initial: { opacity: 0 },
+  initial: {},
   animate: {
-    opacity: 1,
     transition: {
       staggerChildren: 0.1,
     },
@@ -11,23 +10,23 @@ const container: Variants = {
 };
 
 const item: Variants = {
-  initial: { opacity: 0, y: 50 },
+  initial: {},
   animate: {
-    opacity: 1,
-    y: 0,
     transition: {
       type: "tween",
       ease: [0.33, 1, 0.68, 1],
       duration: 0.5,
-      staggerChildren: 0.01,
+      staggerChildren: 0.05,
     },
   },
 };
 
 const letter: Variants = {
-  initial: { rotate: "12deg" },
+  initial: { rotate: "12deg", y: 50, opacity: 0 },
   animate: {
     rotate: "0deg",
+    y: 0,
+    opacity: 1,
     transition: {
       type: "tween",
       ease: [0.33, 1, 0.68, 1],
@@ -37,12 +36,14 @@ const letter: Variants = {
 };
 
 const underline: Variants = {
-  initial: { scaleX: 0 },
+  initial: { scaleX: 0, y: 50 },
   animate: (i) => ({
     scaleX: 1,
+    y: 0,
     transition: {
       type: "tween",
       ease: [0.33, 1, 0.68, 1],
+      duration: 1,
       delay: i * 0.1,
     },
   }),
@@ -62,7 +63,11 @@ const Tag = ({
   return (
     <motion.span variants={item} className="relative inline-block">
       {letters.map((l, j) => (
-        <motion.span key={j} variants={letter} className="inline-block">
+        <motion.span
+          key={j}
+          variants={letter}
+          className="inline-block origin-bottom-left"
+        >
           {l}
         </motion.span>
       ))}
@@ -79,7 +84,7 @@ const Tag = ({
 
 const LandingSection = () => {
   return (
-    <section className="relative flex h-screen w-full flex-col items-center justify-center bg-neutral/10 px-4 lg:px-8">
+    <section className="relative flex min-h-screen w-full flex-col items-center justify-center bg-neutral/10 p-4 lg:p-8">
       <motion.h1
         variants={container}
         initial="initial"

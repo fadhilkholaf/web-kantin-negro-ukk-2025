@@ -2,16 +2,18 @@ import Image from "next/image";
 
 const GallerySection = () => {
   return (
-    <section className="flex h-screen w-full flex-col bg-neutral/10">
-      <header className="flex h-1/3 flex-col items-center justify-center gap-4 px-4 text-center font-italiana text-primary lg:px-8">
-        <h1 className="text-[12vw] lg:text-[8vw]">For Your Pleasure</h1>
-        <p className="text-xl font-bold tracking-wide">
+    <section className="flex min-h-screen w-full flex-col bg-neutral/10">
+      <header className="flex h-1/3 flex-col items-center justify-center gap-4 p-4 text-center text-primary lg:p-8">
+        <h1 className="font-italiana text-[12vw] lg:text-[8vw]">
+          For Your Pleasure
+        </h1>
+        <p className="font-sans tracking-wide">
           We serve the best stand service and delicious menus for you.
         </p>
       </header>
-      <main className="flex h-2/3 items-center justify-end gap-[25px] overflow-hidden">
+      <main className="flex min-h-[500px] items-center justify-end gap-[25px] overflow-hidden">
         {Array.from({ length: 2 }).map((_, i) => (
-          <div key={i} className="animate-slider flex flex-shrink-0 gap-[25px]">
+          <div key={i} className="flex flex-shrink-0 animate-slider gap-[25px]">
             {Array.from({ length: 10 }).map((_, j) => (
               <Image
                 key={j}

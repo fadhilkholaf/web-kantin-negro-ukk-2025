@@ -31,11 +31,11 @@ const Header = ({
   setOpenMenu: () => void;
 }) => {
   return (
-    <header>
+    <header className="fixed z-50 flex w-full items-center justify-between bg-neutral/10 p-4 backdrop-blur-md lg:p-8">
       <Link
         href="/"
         className={cn(
-          "fixed left-0 top-0 z-50 m-4 font-italiana text-2xl font-bold tracking-wider text-primary transition-colors lg:m-8",
+          "font-italiana text-2xl font-bold tracking-wider text-primary transition-colors",
           { "text-neutral": openMenu },
         )}
       >
@@ -60,18 +60,18 @@ const Header = ({
         type="button"
         onClick={setOpenMenu}
         className={cn(
-          "fixed right-0 top-0 z-50 m-4 flex items-center gap-4 text-primary transition-colors lg:m-8",
+          "flex items-center gap-4 text-primary transition-colors",
           { "text-neutral": openMenu },
         )}
       >
-        Menu
+        {openMenu ? "Close" : "Menu"}
         <span
           className={cn(
-            "w-[100px] rounded-full border border-primary bg-neutral/10 p-2",
+            "w-[42px] rounded-full border border-primary bg-neutral/10 p-2",
             { "text-neutral": openMenu },
           )}
         >
-          {openMenu ? "Close" : "Open"}
+          ⇄
         </span>
       </button>
     </header>

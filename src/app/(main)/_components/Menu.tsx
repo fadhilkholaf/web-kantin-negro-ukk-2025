@@ -1,10 +1,11 @@
 import { motion, Variants } from "motion/react";
 
 import { cn } from "@/utils/cn";
+import Link from "next/link";
 
 const wrapper: Variants = {
   initial: { backdropFilter: "brightness(1)" },
-  animate: { backdropFilter: "brightness(0.75)" },
+  animate: { backdropFilter: "brightness(0.5)" },
   exit: { backdropFilter: "brightness(1)" },
 };
 
@@ -13,7 +14,7 @@ const card: Variants = {
   animate: {
     x: 0,
     y: 0,
-    rotate: 6,
+    rotate: 3,
     transition: {
       type: "tween",
       ease: [0.33, 1, 0.68, 1],
@@ -48,7 +49,7 @@ const Menu = ({ onClick }: { onClick: () => void }) => {
       ></div>
       <motion.div
         variants={card}
-        className="h-[400px] w-[300px] origin-bottom-left bg-white p-4 text-2xl italic lg:h-1/2 lg:w-1/3"
+        className="h-[400px] w-[300px] origin-bottom-left bg-white p-4 text-2xl italic lg:w-1/3"
       >
         <div className="flex h-full w-full flex-col justify-between border-4 border-double border-primary p-4 font-italiana text-primary">
           <header></header>
@@ -69,7 +70,13 @@ const Menu = ({ onClick }: { onClick: () => void }) => {
           </main>
           <footer>
             <p className="text-xs font-black tracking-wider">
-              Made for your pleasure by fadhilkholaf
+              Made for your pleasure by{" "}
+              <Link
+                href="https://fadhilkholaf.my.id/"
+                className="underline underline-offset-4"
+              >
+                fadhilkholaf
+              </Link>
             </p>
           </footer>
         </div>

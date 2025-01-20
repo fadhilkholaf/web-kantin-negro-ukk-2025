@@ -15,7 +15,7 @@ const MainPage = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
   return (
-    <main className="w-full">
+    <main className="relative w-full overflow-hidden bg-yellow-500/10">
       <Image
         src="/images/noise.svg"
         alt="Noise"
