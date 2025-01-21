@@ -21,7 +21,7 @@ const layout = async ({ children }: { children: ReactNode }) => {
     redirect("/profile");
   }
 
-  return <>{children}</>;
+  return <main className="bg-neutral/10">{children}</main>;
 };
 
 export default layout;

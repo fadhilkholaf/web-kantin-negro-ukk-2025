@@ -13,7 +13,7 @@ const MenuPage = async () => {
   }>[];
 
   return (
-    <main className="min-h-screen w-full">
+    <main className="min-h-screen w-full px-4 pb-48 pt-24 lg:px-8 lg:pb-32 lg:pt-32">
       <MenuList menus={menuWithDiscount} />
     </main>
   );

@@ -1,5 +1,6 @@
 "use server";
 
+import { CartMenu } from "@/app/(core)/(siswa)/siswa/menu/_components/MenuList";
 import { findDiskon } from "@/database/diskon";
 import { findMenu } from "@/database/menu";
 import { createTransaksi } from "@/database/transaksi";
@@ -10,7 +11,7 @@ import { revalidatePath } from "next/cache";
 export const createPesanan = async (
   cart: {
     stanId: string;
-    menu: { menuId: string; diskonId?: string; qty: number }[];
+    menu: CartMenu[];
   }[],
 ) => {
   try {
@@ -34,7 +35,7 @@ export const createPesanan = async (
               data: (
                 await Promise.all(
                   c.menu.map(async (m) => {
-                    const existingMenu = await findMenu({ id: m.menuId });
+                    const existingMenu = await findMenu({ id: m.id });
 
                     if (existingMenu) {
                       if (m.diskonId) {
@@ -49,20 +50,20 @@ export const createPesanan = async (
                               m.qty *
                               (1 - existingDiskon.presentaseDiskon / 100),
                             qty: m.qty,
-                            menuId: m.menuId,
+                            menuId: m.id,
                           };
                         } else {
                           return {
                             hargaBeli: existingMenu.harga * m.qty,
                             qty: m.qty,
-                            menuId: m.menuId,
+                            menuId: m.id,
                           };
                         }
                       } else {
                         return {
                           hargaBeli: existingMenu.harga * m.qty,
                           qty: m.qty,
-                          menuId: m.menuId,
+                          menuId: m.id,
                         };
                       }
                     } else {

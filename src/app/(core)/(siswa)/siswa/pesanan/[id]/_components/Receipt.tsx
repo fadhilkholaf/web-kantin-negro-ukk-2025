@@ -39,7 +39,9 @@ const Receipt = ({
         className="flex h-fit w-[600px] flex-shrink-0 flex-col gap-2 bg-white p-2 text-black"
       >
         <header className="flex items-end justify-between">
-          <h1 className="text-3xl font-bold">Kantin Negro</h1>
+          <h1 className="font-italiana text-3xl font-bold tracking-wider text-primary">
+            Kantin Negro
+          </h1>
           <p>by Fadhil</p>
         </header>
         <hr />
