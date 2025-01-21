@@ -22,7 +22,7 @@ const MenuList = ({
   menus,
 }: {
   menus: Prisma.MenuGetPayload<{
-    include: { menuDiskon: { include: { diskon: true } } };
+    include: { menuDiskon: { include: { diskon: true } }; stan: true };
   }>[];
 }) => {
   const [cart, setCart] = useState<
@@ -152,7 +152,7 @@ const MenuList = ({
           }}
         />
       </header>
-      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
         {menus &&
           menus
             .filter((m) => m.namaMakanan.includes(filterMenu))
@@ -195,6 +195,7 @@ const MenuList = ({
                           {menu.deskripsi}
                         </p>
                       </div>
+                      <p>{menu.stan.namaStan}</p>
                       <p className="flex flex-wrap gap-2 font-mono">
                         <span className={cn({ "line-through": harga })}>
                           {rupiah(menu.harga)}

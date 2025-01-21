@@ -16,7 +16,7 @@ const HistoryPage = async () => {
 
   const transaksi = (await findManyTransaksi(
     {
-      AND: [{ siswa: { userId: session.user.id } }, { status: "sampai" }],
+      AND: [{ siswa: { userId: session.user.id } }],
     },
     { detailTransaksi: true },
   )) as Prisma.TransaksiGetPayload<{

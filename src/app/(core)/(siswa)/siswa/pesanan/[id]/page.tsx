@@ -1,6 +1,9 @@
-import { findTransaksi } from "@/database/transaksi";
+import { notFound } from "next/navigation";
+
 import { Prisma } from "@prisma/client";
-import { redirect } from "next/navigation";
+
+import { findTransaksi } from "@/database/transaksi";
+
 import Receipt from "./_components/Receipt";
 
 const ReceiptPage = async ({ params }: { params: Promise<{ id: string }> }) => {
@@ -18,46 +21,12 @@ const ReceiptPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   }>;
 
   if (!t) {
-    redirect("/");
+    notFound();
   }
 
   return (
-    <main className="flex min-h-screen w-full">
-      <section className="w-full">
-        <header>
-          <p>Kantin Negro</p>
-        </header>
-        <main>
-          <div className="flex flex-row gap-2">
-            <div>
-              <p>Stan</p>
-              <p>Siswa</p>
-            </div>
-            <div>
-              <p>:</p>
-              <p>:</p>
-            </div>
-            <div>
-              <p>{t.stan?.namaStan ?? "-"}</p>
-              <p>{t.siswa?.namaSiswa ?? "-"}</p>
-            </div>
-          </div>
-          <div>
-            <ul>
-              {t.detailTransaksi.map((dt, i) => (
-                <li key={i}>- {dt.hargaBeli}</li>
-              ))}
-            </ul>
-          </div>
-        </main>
-        <footer>
-          <p>Terimakasih</p>
-          <p>Silahkan berbelanja kembali</p>
-        </footer>
-      </section>
-      <section className="w-full">
-        <Receipt t={t} />
-      </section>
+    <main className="flex min-h-screen w-full flex-col items-center justify-center px-4 py-32 lg:px-8">
+      <Receipt t={t} />
     </main>
   );
 };

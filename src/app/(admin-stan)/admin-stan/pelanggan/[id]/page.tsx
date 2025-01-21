@@ -1,6 +1,7 @@
 import { findUser } from "@/database/user";
 
 import PelangganForm from "./_components/PelangganForm";
+import { Prisma } from "@prisma/client";
 
 const PelangganFormPage = async ({
   params,
@@ -9,7 +10,10 @@ const PelangganFormPage = async ({
 }) => {
   const { id } = await params;
 
-  const pelanggan = await findUser({ id });
+  const pelanggan = (await findUser(
+    { id },
+    { siswa: true },
+  )) as Prisma.UserGetPayload<{ include: { siswa: true } }>;
 
   if (!pelanggan) {
     return (
@@ -20,7 +24,7 @@ const PelangganFormPage = async ({
   }
 
   return (
-    <main className="min-h-screen w-full">
+    <main className="min-h-screen w-full bg-neutral/10 py-8">
       <PelangganForm pelanggan={pelanggan} />
     </main>
   );
