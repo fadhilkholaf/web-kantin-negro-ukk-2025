@@ -24,13 +24,8 @@ const HistoryPage = async () => {
   }>[];
 
   return (
-    <main className="flex min-h-screen w-full flex-col gap-8">
-      <header className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">History Transaksi</h1>
-      </header>
-      <main>
-        <HistoryTable transaksi={transaksi} />
-      </main>
+    <main className="min-h-screen w-full px-4 py-32 lg:px-8">
+      <HistoryTable transaksi={transaksi} />
     </main>
   );
 };

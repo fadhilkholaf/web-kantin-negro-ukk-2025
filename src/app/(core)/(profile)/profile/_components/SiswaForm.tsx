@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import { createSiswaProfile, updateSiswaProfile } from "@/action/siswa";
 import { Siswa } from "@prisma/client";
 import { SubmitButton } from "@/components/Button";
+import { Input } from "@/components/Input";
 
 const SiswaForm = ({ siswa }: { siswa?: Siswa }) => {
   const [imagePreview, setImagePreview] = useState<string>(
@@ -42,76 +43,64 @@ const SiswaForm = ({ siswa }: { siswa?: Siswa }) => {
           toast.error(response.message, { id: loading });
         }
       }}
-      className="flex flex-col gap-4 rounded-lg border p-4"
+      className="bg-white p-4 text-primary"
     >
-      <header>
-        <h1 className="text-2xl font-bold">
-          {siswa ? "Update" : "Create"} Siswa Profile Form
-        </h1>
-      </header>
-      <main className="flex flex-col gap-2">
-        <div className="flex flex-col">
-          <label htmlFor="namaSiswa">
-            Nama Siswa <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="namaSiswa"
-            id="namaSiswa"
-            defaultValue={siswa?.namaSiswa}
-            className="rounded-lg border p-2"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="alamat">
-            Alamat <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="alamat"
-            id="alamat"
-            defaultValue={siswa?.alamat}
-            className="rounded-lg border p-2"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="telp">
-            Nomor Telepon <span className="text-red-500">*</span>
-          </label>
-          <input
-            type="text"
-            name="telp"
-            id="telp"
-            defaultValue={siswa?.telp}
-            className="rounded-lg border p-2"
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="foto">
-            Foto <span className="text-red-500">*</span>
-          </label>
+      <div className="flex flex-col gap-8 border-4 border-double border-primary p-4">
+        <header>
+          <h1 className="font-italiana text-3xl font-bold tracking-wider">
+            {siswa ? "Update" : "Create"} Siswa Profile
+          </h1>
+        </header>
+        <main className="flex flex-col items-center gap-8 md:flex-row">
           <Image
             src={imagePreview}
             alt="Profile Preview"
-            width={500}
-            height={500}
-            className="aspect-square object-cover"
+            width={250}
+            height={250}
+            className="aspect-square h-[250px] w-[250px] rounded-full object-cover"
           />
-          <input
-            type="file"
-            name="foto"
-            id="foto"
-            accept="image/*"
-            onChange={(e) =>
-              setImagePreview(URL.createObjectURL(e.target.files![0]))
-            }
-            className="rounded-lg border p-2"
-          />
-        </div>
-      </main>
-      <footer>
-        <SubmitButton label={`${siswa ? "Update" : "Create"} profile`} />
-      </footer>
+          <div className="flex w-full flex-col gap-2">
+            <Input
+              label="Nama siswa"
+              type="text"
+              id="namaSiswa"
+              name="namaSiswa"
+              required={!siswa}
+              defaultValue={siswa?.namaSiswa}
+            />
+            <Input
+              label="Alamat"
+              type="text"
+              id="alamat"
+              name="alamat"
+              required={!siswa}
+              defaultValue={siswa?.alamat}
+            />
+            <Input
+              label="Telp"
+              type="text"
+              id="telp"
+              name="telp"
+              required={!siswa}
+              defaultValue={siswa?.telp}
+            />
+            <Input
+              label="Foto"
+              type="file"
+              id="foto"
+              name="foto"
+              required={!siswa}
+              accept="image/*"
+              onChange={(e) =>
+                setImagePreview(URL.createObjectURL(e.target.files![0]))
+              }
+            />
+          </div>
+        </main>
+        <footer className="pt-2">
+          <SubmitButton label={`${siswa ? "Update" : "Create"} profile`} />
+        </footer>
+      </div>
     </Form>
   );
 };

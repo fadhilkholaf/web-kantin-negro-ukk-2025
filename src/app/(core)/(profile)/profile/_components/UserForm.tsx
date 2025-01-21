@@ -11,6 +11,7 @@ import { updateUserProfile } from "@/action/user";
 import { Role, User } from "@prisma/client";
 import { cn } from "@/utils/cn";
 import { SubmitButton } from "@/components/Button";
+import { Input } from "@/components/Input";
 
 const roles: { label: string; value: Role }[] = [
   { label: "Siswa", value: "siswa" },
@@ -43,75 +44,69 @@ const UserForm = ({ user }: { user: User }) => {
           toast.error(response.message, { id: loading });
         }
       }}
-      className="flex flex-col gap-4 rounded-lg border p-4"
+      className="bg-white p-4 text-primary"
     >
-      <header>
-        <h1 className="text-2xl font-bold">
-          {user ? "Update" : "Create"} User Profile Form
-        </h1>
-      </header>
-      <main className="flex flex-col gap-2">
-        <div className="flex flex-col">
-          <label htmlFor="username">
-            Username <span className="text-red-500">*</span>
-          </label>
-          <input
+      <div className="flex flex-col gap-8 border-4 border-double border-primary p-4">
+        <header>
+          <h1 className="font-italiana text-3xl font-bold tracking-wider">
+            Update User Profile
+          </h1>
+        </header>
+        <main className="flex flex-col gap-2">
+          <Input
+            label="Username"
             type="text"
-            name="username"
             id="username"
+            name="username"
+            required={!user}
             defaultValue={user.username}
-            className="rounded-lg border p-2"
           />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="password">
-            Password <span className="text-red-500">*</span>
-          </label>
-          <input
+          <Input
+            label="Password"
             type="text"
-            name="password"
             id="password"
+            name="password"
+            required={!user}
             defaultValue={user.password}
-            className="rounded-lg border p-2"
           />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="role">
-            Role <span className="text-red-500">*</span>
-          </label>
-          <div className="flex gap-2">
-            {roles &&
-              roles.map((r, i) => (
-                <Fragment key={i}>
-                  <div className="w-full">
-                    <label
-                      htmlFor={r.value}
-                      className={cn(
-                        "block cursor-pointer rounded-lg border p-2 text-center",
-                        {
-                          "bg-gray-200": role === r.value,
-                        },
-                      )}
-                    >
-                      {r.label}
-                    </label>
-                    <input
-                      type="radio"
-                      name="role"
-                      id={r.value}
-                      value={r.value}
-                      className="hidden"
-                      onChange={() => setRole(r.value)}
-                    />
-                  </div>
-                </Fragment>
-              ))}
+          <div className="flex flex-col font-mono">
+            <label htmlFor="role">
+              Role <span className="text-red-500">*</span>
+            </label>
+            <div className="flex gap-2">
+              {roles &&
+                roles.map((r, i) => (
+                  <Fragment key={i}>
+                    <div className="w-full">
+                      <label
+                        htmlFor={r.value}
+                        className={cn(
+                          "block cursor-pointer rounded-full border border-primary px-2 py-1 text-center",
+                          {
+                            "bg-primary text-white": role === r.value,
+                          },
+                        )}
+                      >
+                        {r.label}
+                      </label>
+                      <input
+                        type="radio"
+                        name="role"
+                        id={r.value}
+                        value={r.value}
+                        className="hidden"
+                        onClick={() => setRole(r.value)}
+                      />
+                    </div>
+                  </Fragment>
+                ))}
+            </div>
           </div>
-        </div>
-      </main>
-      <footer>
-        <SubmitButton label="Update profile" />
-      </footer>
+        </main>
+        <footer className="pt-2">
+          <SubmitButton label="Update profile" />
+        </footer>
+      </div>
     </Form>
   );
 };

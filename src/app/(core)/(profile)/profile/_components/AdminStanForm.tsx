@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { createStanProfile, updateStanProfile } from "@/action/stan";
 import { Stan } from "@prisma/client";
 import { SubmitButton } from "@/components/Button";
+import { Input } from "@/components/Input";
 
 const AdminStanForm = ({ stan }: { stan?: Stan }) => {
   return (
@@ -30,54 +31,44 @@ const AdminStanForm = ({ stan }: { stan?: Stan }) => {
           toast.error(response.message, { id: loading });
         }
       }}
-      className="flex flex-col gap-4 rounded-lg border p-4"
+      className="bg-white p-4 text-primary"
     >
-      <header>
-        <h1 className="text-2xl font-bold">
-          {stan ? "Update" : "Create"} Stan Profile Form
-        </h1>
-      </header>
-      <main className="flex flex-col gap-2">
-        <div className="flex flex-col">
-          <label htmlFor="namaStan">
-            Nama Stan <span className="text-red-500">*</span>
-          </label>
-          <input
+      <div className="flex flex-col gap-8 border-4 border-double border-primary p-4">
+        <header>
+          <h1 className="font-italiana text-3xl font-bold tracking-wider">
+            {stan ? "Update" : "Create"} Stan Profile For
+          </h1>
+        </header>
+        <main className="flex flex-col gap-2">
+          <Input
+            label="Nama Stan"
             type="text"
-            name="namaStan"
             id="namaStan"
+            name="namaStan"
+            required={!stan}
             defaultValue={stan?.namaStan}
-            className="rounded-lg border p-2"
           />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="namaPemilik">
-            Nama Pemilik Stan <span className="text-red-500">*</span>
-          </label>
-          <input
+          <Input
+            label="Nama Pemilik"
             type="text"
-            name="namaPemilik"
             id="namaPemilik"
+            name="namaPemilik"
+            required={!stan}
             defaultValue={stan?.namaPemilik}
-            className="rounded-lg border p-2"
           />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="telp">
-            Nomor Telepon <span className="text-red-500">*</span>
-          </label>
-          <input
+          <Input
+            label="Telp"
             type="text"
-            name="telp"
             id="telp"
+            name="telp"
+            required={!stan}
             defaultValue={stan?.telp}
-            className="rounded-lg border p-2"
           />
-        </div>
-      </main>
-      <footer>
-        <SubmitButton label={`${stan ? "Update" : "Create"} profile`} />
-      </footer>
+        </main>
+        <footer className="pt-2">
+          <SubmitButton label={`${stan ? "Update" : "Create"} profile`} />
+        </footer>
+      </div>
     </Form>
   );
 };
