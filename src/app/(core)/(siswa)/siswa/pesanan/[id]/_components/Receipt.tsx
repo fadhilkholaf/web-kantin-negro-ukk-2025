@@ -33,8 +33,8 @@ const Receipt = ({
   };
 
   return (
-    <div className="flex w-fit flex-col gap-4">
-      <div className="flex w-full justify-center overflow-auto">
+    <>
+      <div className="flex w-full overflow-auto">
         <main
           ref={receiptRef}
           className="flex h-fit w-[600px] flex-shrink-0 bg-white p-2 text-primary"
@@ -119,7 +119,7 @@ const Receipt = ({
       >
         Print
       </button>
-    </div>
+    </>
   );
 };
 

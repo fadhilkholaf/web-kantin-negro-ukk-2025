@@ -139,7 +139,7 @@ const Header = ({
   return (
     <header>
       {isMobile && (
-        <div className="fixed left-0 top-0 h-[74px] w-full border-b border-primary bg-neutral/10 backdrop-blur-md"></div>
+        <div className="fixed left-0 top-0 z-40 h-[74px] w-full border-b border-primary bg-neutral/10 backdrop-blur-md"></div>
       )}
       <nav
         className={cn(

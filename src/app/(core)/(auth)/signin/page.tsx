@@ -23,7 +23,7 @@ const SignInPage = () => {
           if (response.success) {
             toast.success("Sign in success!", { id: loading });
 
-            router.refresh();
+            router.push("/");
           } else {
             toast.error(response.message, { id: loading });
           }

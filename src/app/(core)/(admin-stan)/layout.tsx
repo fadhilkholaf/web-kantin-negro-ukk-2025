@@ -4,8 +4,6 @@ import { ReactNode } from "react";
 import { findStan } from "@/database/stan";
 import { auth } from "@/lib/auth";
 
-import Sidebar from "./_components/Sidebar";
-
 const AdminStanLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
 
@@ -23,16 +21,7 @@ const AdminStanLayout = async ({ children }: { children: ReactNode }) => {
     redirect("/profile");
   }
 
-  return (
-    <>
-      <Sidebar />
-      <main className="flex w-full justify-end">
-        <main className="w-[calc(100%-300px)] bg-yellow-500/10 px-8">
-          {children}
-        </main>
-      </main>
-    </>
-  );
+  return <>{children}</>;
 };
 
 export default AdminStanLayout;

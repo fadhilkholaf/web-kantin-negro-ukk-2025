@@ -25,7 +25,7 @@ const ReceiptPage = async ({ params }: { params: Promise<{ id: string }> }) => {
   }
 
   return (
-    <main className="flex min-h-screen w-full flex-col items-center justify-center px-4 py-32 lg:px-8">
+    <main className="flex min-h-screen w-full flex-col items-center justify-center gap-4 bg-neutral/10 px-4 py-32 lg:px-8">
       <Receipt t={t} />
     </main>
   );
