@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { findDiskon } from "@/database/diskon";
 
@@ -22,7 +22,7 @@ const DiskonFormPage = async ({
   const diskon = await findDiskon({ id });
 
   if (!diskon) {
-    redirect("/not-found");
+    notFound();
   }
 
   return (

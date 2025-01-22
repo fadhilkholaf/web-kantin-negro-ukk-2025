@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { findUserProfile } from "@/database/user";
 import { auth } from "@/lib/auth";
@@ -11,7 +11,7 @@ const ProfilePage = async () => {
   const session = await auth();
 
   if (!session) {
-    redirect("/");
+    notFound();
   }
 
   const userProfile = await findUserProfile({ id: session.user.id });

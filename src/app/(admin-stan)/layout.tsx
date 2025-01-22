@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { ReactNode } from "react";
 
 import { findStan } from "@/database/stan";
@@ -10,11 +10,11 @@ const AdminStanLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
 
   if (!session) {
-    redirect("/");
+    notFound();
   }
 
   if (session.user.role !== "adminStan") {
-    redirect("/");
+    notFound();
   }
 
   const existingStan = await findStan({ userId: session.user.id });

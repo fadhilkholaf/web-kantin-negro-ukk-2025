@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { findManyDiskon } from "@/database/diskon";
 import { auth } from "@/lib/auth";
@@ -9,7 +9,7 @@ const DiskonPage = async () => {
   const session = await auth();
 
   if (!session) {
-    redirect("/");
+    notFound();
   }
 
   const diskon = await findManyDiskon({ stan: { userId: session.user.id } });

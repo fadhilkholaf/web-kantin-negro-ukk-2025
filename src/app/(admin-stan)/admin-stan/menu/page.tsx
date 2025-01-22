@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { findManyMenus } from "@/database/menu";
 import { auth } from "@/lib/auth";
@@ -10,7 +10,7 @@ const MenuPage = async () => {
   const session = await auth();
 
   if (!session) {
-    redirect("/");
+    notFound();
   }
 
   const menus = await findManyMenus({ stan: { userId: session.user.id } });

@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 
 import { findManyTransaksi } from "@/database/transaksi";
 import { auth } from "@/lib/auth";
@@ -13,7 +13,7 @@ const PesananPage = async () => {
   const session = await auth();
 
   if (!session) {
-    redirect("/");
+    notFound();
   }
 
   const transaksi = (await findManyTransaksi(

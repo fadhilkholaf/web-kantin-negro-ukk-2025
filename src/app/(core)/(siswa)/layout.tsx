@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { findSiswa } from "@/database/siswa";
 import { auth } from "@/lib/auth";
@@ -8,11 +8,11 @@ const layout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
 
   if (!session) {
-    redirect("/");
+    notFound();
   }
 
   if (session.user.role !== "siswa") {
-    redirect("/");
+    notFound();
   }
 
   const existingSiswa = await findSiswa({ userId: session.user.id });
