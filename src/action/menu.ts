@@ -114,7 +114,7 @@ export const deleteMenuAction = async (id: string) => {
 
     await deleteMenu({ id });
 
-    await deleteImage(id);
+    await deleteImage(`ukk-2025/menu/${id}`);
 
     revalidatePath("/", "layout");
     return responseSuccess("Success deleting menu!");

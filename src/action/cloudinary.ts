@@ -31,7 +31,7 @@ export const uploadImage = async (
 
 export const deleteImage = async (id: string) => {
   try {
-    await cloudinary.uploader.destroy(`ukk-2025/menu/${id}`);
+    await cloudinary.uploader.destroy(id);
   } catch (error) {
     console.log(error);
   }

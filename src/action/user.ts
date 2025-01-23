@@ -13,6 +13,7 @@ import {
 } from "@/database/user";
 import { auth } from "@/lib/auth";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
+import { deleteImage } from "./cloudinary";
 
 export const createPelangganAction = async (formData: FormData) => {
   try {
@@ -125,6 +126,8 @@ export const deleteUserAction = async (id: string) => {
     }
 
     await deleteUser({ id });
+
+    await deleteImage(`ukk-2025/${id}`);
 
     revalidatePath("/", "layout");
     return responseSuccess("Success updating user!");
