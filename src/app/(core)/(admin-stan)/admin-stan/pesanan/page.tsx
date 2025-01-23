@@ -39,7 +39,7 @@ const PesananPage = async () => {
         <p>Data pesanan</p>
       </header>
       <main>
-        <ul className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+        <ul className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
           {transaksi &&
             transaksi.map((t, i) => (
               <li key={i} className="block bg-white p-4 font-mono text-primary">

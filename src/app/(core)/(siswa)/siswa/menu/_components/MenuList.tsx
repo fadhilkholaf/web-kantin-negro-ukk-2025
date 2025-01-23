@@ -256,7 +256,7 @@ const MenuList = ({
                     alt="Cart Menu Image"
                     width={34}
                     height={34}
-                    className="rounded-full border border-primary"
+                    className="h-[34px] w-[34px] rounded-full border border-primary"
                   />
                 </div>
               )),

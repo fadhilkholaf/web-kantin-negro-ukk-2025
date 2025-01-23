@@ -97,10 +97,19 @@ const authMenus: Menu[] = [
   },
 ];
 
-const NavLink = ({ children, url }: { children: ReactNode; url: string }) => {
+const NavLink = ({
+  children,
+  url,
+  onClick,
+}: {
+  children: ReactNode;
+  url: string;
+  onClick: () => void;
+}) => {
   return (
     <Link
       href={url}
+      onClick={onClick}
       className="relative text-primary before:absolute before:bottom-0 before:left-0 before:h-px before:w-full before:origin-right before:scale-x-0 before:bg-primary before:transition-transform before:hover:origin-left before:hover:scale-x-100"
     >
       {children}
@@ -154,7 +163,9 @@ const Header = ({
                 !session &&
                 mainMenus.map((menu, i) => (
                   <li key={i}>
-                    <NavLink url={menu.url}>{menu.title}</NavLink>
+                    <NavLink url={menu.url} onClick={() => setOpenMenu(false)}>
+                      {menu.title}
+                    </NavLink>
                   </li>
                 ))}
               {session &&
@@ -162,13 +173,23 @@ const Header = ({
                   ? siswaMenus &&
                     siswaMenus.map((menu, i) => (
                       <li key={i}>
-                        <NavLink url={menu.url}>{menu.title}</NavLink>
+                        <NavLink
+                          url={menu.url}
+                          onClick={() => setOpenMenu(false)}
+                        >
+                          {menu.title}
+                        </NavLink>
                       </li>
                     ))
                   : adminStanMenus &&
                     adminStanMenus.map((menu, i) => (
                       <li key={i}>
-                        <NavLink url={menu.url}>{menu.title}</NavLink>
+                        <NavLink
+                          url={menu.url}
+                          onClick={() => setOpenMenu(false)}
+                        >
+                          {menu.title}
+                        </NavLink>
                       </li>
                     )))}
             </ul>
@@ -178,10 +199,14 @@ const Header = ({
               {session ? (
                 <>
                   <li>
-                    <NavLink url="/profile">Profile</NavLink>
+                    <NavLink url="/profile" onClick={() => setOpenMenu(false)}>
+                      Profile
+                    </NavLink>
                   </li>
                   <li>
-                    <NavLink url="/profile">{session.user.username}</NavLink>
+                    <NavLink url="/profile" onClick={() => setOpenMenu(false)}>
+                      {session.user.username}
+                    </NavLink>
                   </li>
                   {session.user.role === "siswa" && (
                     <li>
@@ -200,14 +225,18 @@ const Header = ({
                     </li>
                   )}
                   <li>
-                    <NavLink url="/signout">Sign Out</NavLink>
+                    <NavLink url="/signout" onClick={() => setOpenMenu(false)}>
+                      Sign Out
+                    </NavLink>
                   </li>
                 </>
               ) : (
                 authMenus &&
                 authMenus.map((menu, i) => (
                   <li key={i}>
-                    <NavLink url={menu.url}>{menu.title}</NavLink>
+                    <NavLink url={menu.url} onClick={() => setOpenMenu(false)}>
+                      {menu.title}
+                    </NavLink>
                   </li>
                 ))
               )}
