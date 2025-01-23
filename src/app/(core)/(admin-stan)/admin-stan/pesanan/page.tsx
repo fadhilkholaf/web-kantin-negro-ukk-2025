@@ -8,6 +8,7 @@ import {
   DeleteTransaksiForm,
   UpdateStatusTransaksiForm,
 } from "./_components/TransaksiForm";
+import { cn } from "@/utils/cn";
 
 const PesananPage = async () => {
   const session = await auth();
@@ -23,45 +24,73 @@ const PesananPage = async () => {
         { NOT: [{ status: "sampai" }] },
       ],
     },
-    { siswa: true, detailTransaksi: true },
+    { siswa: true, detailTransaksi: { include: { menu: true } } },
+    { tanggal: "asc" },
   )) as Prisma.TransaksiGetPayload<{
-    include: { siswa: true; detailTransaksi: true };
+    include: { siswa: true; detailTransaksi: { include: { menu: true } } };
   }>[];
 
   return (
-    <main className="flex min-h-screen w-full flex-col gap-8 py-8">
-      <header className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Pesanan</h1>
+    <main className="flex min-h-screen w-full flex-col gap-8 px-4 py-32 lg:px-8">
+      <header className="flex flex-col text-primary">
+        <h1 className="font-italiana text-3xl font-bold tracking-wider">
+          Pesanan
+        </h1>
+        <p>Data pesanan</p>
       </header>
       <main>
-        <ul className="flex list-inside list-disc flex-col gap-4">
+        <ul className="grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
           {transaksi &&
             transaksi.map((t, i) => (
-              <li key={i} className="flex flex-col gap-2">
-                {wib(t.tanggal)}
-                <p>Siswa: {t.siswa?.namaSiswa ?? "-"}</p>
-                <p>Status: {t.status}</p>
-                <div className="flex gap-2">
-                  <UpdateStatusTransaksiForm
-                    id={t.id}
-                    label="Konfirmasi"
-                    className="bg-green-200"
-                    status={"dimasak"}
-                  />
-                  <UpdateStatusTransaksiForm
-                    id={t.id}
-                    label="Antar"
-                    className="bg-green-200"
-                    status={"diantar"}
-                  />
-                  <UpdateStatusTransaksiForm
-                    id={t.id}
-                    label="Sampai"
-                    className="bg-green-200"
-                    status={"sampai"}
-                  />
+              <li key={i} className="block bg-white p-4 font-mono text-primary">
+                <div className="flex h-full flex-col gap-2 border-4 border-double border-primary p-4">
+                  <header>
+                    <p>{wib(t.tanggal)}</p>
+                    <p>Siswa: {t.siswa?.namaSiswa ?? "-"}</p>
+                    <p
+                      className={cn({
+                        "text-red-500": t.status === "belumDikonfirmasi",
+                        "text-orange-500": t.status === "dimasak",
+                        "text-blue-500": t.status === "diantar",
+                      })}
+                    >
+                      {t.status === "belumDikonfirmasi"
+                        ? "Belum Dikonfirmasi"
+                        : t.status === "dimasak"
+                          ? "Dimasak"
+                          : t.status === "diantar"
+                            ? "Diantar"
+                            : "Sampai"}
+                    </p>
+                  </header>
+                  <main className="h-full">
+                    <ul>
+                      {t.detailTransaksi.map((dt, i) => (
+                        <li
+                          key={i}
+                        >{`- ${dt.menu?.namaMakanan}: ${dt.qty}`}</li>
+                      ))}
+                    </ul>
+                  </main>
+                  <footer className="flex flex-col gap-2">
+                    <UpdateStatusTransaksiForm
+                      id={t.id}
+                      label="Konfirmasi"
+                      status={"dimasak"}
+                    />
+                    <UpdateStatusTransaksiForm
+                      id={t.id}
+                      label="Antar"
+                      status={"diantar"}
+                    />
+                    <UpdateStatusTransaksiForm
+                      id={t.id}
+                      label="Sampai"
+                      status={"sampai"}
+                    />
+                    <DeleteTransaksiForm id={t.id} />
+                  </footer>
                 </div>
-                <DeleteTransaksiForm id={t.id} />
               </li>
             ))}
         </ul>

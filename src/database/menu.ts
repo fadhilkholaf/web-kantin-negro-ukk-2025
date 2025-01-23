@@ -20,6 +20,14 @@ export const findManyMenus = async (
   return await prisma.menu.findMany({ where, include });
 };
 
+const today = new Date();
+const lastMonth = new Date();
+
+today.setUTCHours(23, 59, 59, 999);
+
+lastMonth.setMonth(lastMonth.getMonth() - 1);
+lastMonth.setUTCHours(0, 0, 0, 0);
+
 export const findManyTopMenu = async () => {
   return await prisma.detailTransaksi.groupBy({
     by: "menuId",
@@ -28,8 +36,8 @@ export const findManyTopMenu = async () => {
     where: {
       transaksi: {
         tanggal: {
-          gt: `${new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1).toISOString()}`,
-          lte: `${new Date(new Date().getFullYear(), new Date().getMonth(), 0).toISOString()}`,
+          gte: lastMonth,
+          lte: today,
         },
       },
     },

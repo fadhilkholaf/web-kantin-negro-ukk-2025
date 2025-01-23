@@ -9,7 +9,9 @@ import { getTransaksiDataAction } from "@/action/transaksi";
 import TransaksiChart from "./TransaksiChart";
 
 const Transaksi = () => {
-  const [tahun, setTahun] = useState<number>(new Date().getFullYear());
+  const thisYear = new Date().getFullYear();
+
+  const [tahun, setTahun] = useState<number>(thisYear);
   const [data, setData] = useState<
     {
       month: string;
@@ -18,7 +20,7 @@ const Transaksi = () => {
   >([]);
 
   useEffect(() => {
-    const loading = toast.loading("Retrieving data...");
+    const loading = toast.loading("Retrieving data...", { duration: 1000 });
 
     const response = async () => {
       const dataTransaksi = await getTransaksiDataAction(tahun);
@@ -38,15 +40,24 @@ const Transaksi = () => {
   }, [tahun]);
 
   return (
-    <div className="flex flex-col">
-      <select
-        name="tahun"
-        id="tahun"
-        onChange={(e) => setTahun(Number(e.target.value))}
-      >
-        <option value="2025">2025</option>
-        <option value="2024">2024</option>
-      </select>
+    <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-1 font-mono text-primary">
+        <label htmlFor="tahun" className="text-sm">
+          Filter tahun <span className="text-red-500">*</span>
+        </label>
+        <select
+          name="tahun"
+          id="tahun"
+          onChange={(e) => setTahun(Number(e.target.value))}
+          className="rounded-full border border-primary px-2 py-1"
+        >
+          {Array.from({ length: 5 }, (_, i) => ({ index: i })).map((_, i) => (
+            <option key={i} value={`${thisYear - i}`}>
+              {thisYear - i}
+            </option>
+          ))}
+        </select>
+      </div>
       <TransaksiChart data={data} />
     </div>
   );

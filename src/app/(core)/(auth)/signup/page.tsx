@@ -32,7 +32,7 @@ const SignUpPage = () => {
           if (response.success) {
             toast.success(response.message, { id: loading });
 
-            router.refresh();
+            router.push("/");
           } else {
             setRole(null);
 

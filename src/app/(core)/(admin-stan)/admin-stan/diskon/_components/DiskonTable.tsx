@@ -1,7 +1,6 @@
 "use client";
 
 import Form from "next/form";
-import Link from "next/link";
 
 import {
   AllCommunityModule,
@@ -19,7 +18,7 @@ import { defaultColDef } from "@/utils/constant";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { wib } from "@/utils/utils";
-import { SubmitButton } from "@/components/Button";
+import { LinkButton, SubmitButton } from "@/components/Button";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -40,7 +39,10 @@ const DeleteDiskonForm = ({ id }: { id: string }) => {
         }
       }}
     >
-      <SubmitButton label="Delete" className="bg-red-200" />
+      <SubmitButton
+        label="Delete"
+        className="border-none bg-transparent text-red-500 hover:bg-transparent hover:text-red-500"
+      />
     </Form>
   );
 };
@@ -65,7 +67,7 @@ const DiskonTable = ({ diskon }: { diskon: Diskon[] }) => {
       field: "tanggalAkhir",
       headerName: "Tanggal Akhir",
       sortable: true,
-      sort: "desc",
+      sort: "asc",
       valueFormatter: (p) => wib(p.value),
     },
     {
@@ -77,12 +79,12 @@ const DiskonTable = ({ diskon }: { diskon: Diskon[] }) => {
       minWidth: 150,
       cellRenderer: (p: CustomCellRendererProps) => (
         <div className="flex h-full w-full items-center justify-center gap-2 p-2">
-          <Link
+          <LinkButton
             href={`/admin-stan/diskon/${p.value}`}
-            className="block h-fit rounded-lg border bg-yellow-200 p-2 hover:bg-gray-200"
+            className="block w-fit border-none bg-transparent text-yellow-500 hover:bg-transparent hover:text-yellow-500"
           >
             Edit
-          </Link>
+          </LinkButton>
           <DeleteDiskonForm id={p.value} />
         </div>
       ),

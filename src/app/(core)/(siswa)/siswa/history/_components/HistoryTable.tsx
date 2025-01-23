@@ -51,8 +51,9 @@ const HistoryTable = ({
   ];
 
   return (
-    <div className="ag-theme-quartz h-[500px]">
+    <div className="ag-theme-quartz h-[500px] bg-white p-4">
       <AgGridReact
+        className="border-4 border-double border-primary p-4"
         columnDefs={colDefs}
         defaultColDef={defaultColDef}
         pagination

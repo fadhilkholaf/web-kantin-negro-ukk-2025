@@ -13,7 +13,7 @@ const DiskonFormPage = async ({
 
   if (id === "new") {
     return (
-      <main>
+      <main className="flex min-h-screen w-full flex-col gap-8 px-4 py-32 lg:px-8">
         <DiskonForm />
       </main>
     );
@@ -26,7 +26,7 @@ const DiskonFormPage = async ({
   }
 
   return (
-    <main>
+    <main className="flex min-h-screen w-full flex-col gap-8 px-4 py-32 lg:px-8">
       <DiskonForm diskon={diskon} />
     </main>
   );

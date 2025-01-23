@@ -7,7 +7,20 @@ import MenuList from "./_components/MenuList";
 const MenuPage = async () => {
   const menus = (await findManyMenus(
     {},
-    { menuDiskon: { include: { diskon: true } }, stan: true },
+    {
+      menuDiskon: {
+        include: { diskon: true },
+        where: {
+          diskon: {
+            AND: [
+              { tanggalAwal: { lte: new Date() } },
+              { tanggalAkhir: { gte: new Date() } },
+            ],
+          },
+        },
+      },
+      stan: true,
+    },
   )) as Prisma.MenuGetPayload<{
     include: { menuDiskon: { include: { diskon: true } }; stan: true };
   }>[];

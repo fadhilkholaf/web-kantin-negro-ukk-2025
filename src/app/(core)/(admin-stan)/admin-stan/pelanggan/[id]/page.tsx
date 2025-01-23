@@ -17,14 +17,14 @@ const PelangganFormPage = async ({
 
   if (!pelanggan) {
     return (
-      <main className="min-h-screen w-full bg-neutral/10 py-8">
+      <main className="flex min-h-screen w-full flex-col gap-4 px-4 py-32 lg:px-8">
         <PelangganForm />
       </main>
     );
   }
 
   return (
-    <main className="min-h-screen w-full bg-neutral/10 py-8">
+    <main className="flex min-h-screen w-full flex-col gap-4 px-4 py-32 lg:px-8">
       <PelangganForm pelanggan={pelanggan} />
     </main>
   );

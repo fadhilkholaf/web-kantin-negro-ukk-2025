@@ -13,7 +13,7 @@ import { Input } from "@/components/Input";
 
 const SiswaForm = ({ siswa }: { siswa?: Siswa }) => {
   const [imagePreview, setImagePreview] = useState<string>(
-    siswa?.foto ?? "/images/dummy.jpg",
+    siswa?.foto ?? "/images/dummy4.jpg",
   );
 
   return (
@@ -38,7 +38,7 @@ const SiswaForm = ({ siswa }: { siswa?: Siswa }) => {
         } else {
           URL.revokeObjectURL(imagePreview);
 
-          setImagePreview(siswa?.foto ?? "/images/dummy.jpg");
+          setImagePreview(siswa?.foto ?? "/images/dummy4.jpg");
 
           toast.error(response.message, { id: loading });
         }

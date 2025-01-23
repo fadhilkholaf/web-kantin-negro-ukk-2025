@@ -38,7 +38,10 @@ const DeleteUserForm = ({ id }: { id: string }) => {
         }
       }}
     >
-      <SubmitButton label="Delete" className="border-none" />
+      <SubmitButton
+        label="Delete"
+        className="border-none hover:bg-transparent hover:text-primary"
+      />
     </Form>
   );
 };
@@ -50,9 +53,6 @@ const PelangganTable = ({ pelanggan }: { pelanggan: User[] }) => {
     },
     {
       field: "password",
-    },
-    {
-      field: "role",
     },
     {
       field: "id",

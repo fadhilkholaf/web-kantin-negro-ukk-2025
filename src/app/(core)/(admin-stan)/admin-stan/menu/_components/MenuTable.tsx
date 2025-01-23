@@ -1,7 +1,6 @@
 "use client";
 
 import Form from "next/form";
-import Link from "next/link";
 import Image from "next/image";
 
 import {
@@ -15,7 +14,7 @@ import { Menu } from "@prisma/client";
 import { toast } from "sonner";
 
 import { deleteMenuAction } from "@/action/menu";
-import { SubmitButton } from "@/components/Button";
+import { LinkButton, SubmitButton } from "@/components/Button";
 import { defaultColDef } from "@/utils/constant";
 
 import "ag-grid-community/styles/ag-grid.css";
@@ -40,7 +39,10 @@ const DeleteMenuForm = ({ id }: { id: string }) => {
         }
       }}
     >
-      <SubmitButton label="Delete" />
+      <SubmitButton
+        label="Delete"
+        className="border-none bg-transparent text-red-500 hover:bg-transparent hover:text-red-500"
+      />
     </Form>
   );
 };
@@ -88,12 +90,12 @@ const MenuTable = ({ menus }: { menus: Menu[] }) => {
       minWidth: 150,
       cellRenderer: (p: CustomCellRendererProps) => (
         <div className="flex h-full w-full items-center justify-center gap-2 p-2">
-          <Link
+          <LinkButton
             href={`/admin-stan/menu/${p.value}`}
-            className="block h-fit rounded-lg border p-2"
+            className="block w-fit border-none bg-transparent text-yellow-500 hover:bg-transparent hover:text-yellow-500"
           >
             Edit
-          </Link>
+          </LinkButton>
           <DeleteMenuForm id={p.value} />
         </div>
       ),

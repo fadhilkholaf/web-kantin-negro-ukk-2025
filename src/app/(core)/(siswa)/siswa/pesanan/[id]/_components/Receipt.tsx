@@ -34,7 +34,7 @@ const Receipt = ({
 
   return (
     <>
-      <div className="flex w-full overflow-auto">
+      <div className="flex w-full overflow-auto font-mono">
         <main
           ref={receiptRef}
           className="flex h-fit w-[600px] flex-shrink-0 bg-white p-2 text-primary"

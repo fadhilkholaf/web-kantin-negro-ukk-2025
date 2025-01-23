@@ -1,6 +1,19 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 const GallerySection = () => {
+  const [randomImages, setRandomImages] = useState<{ src: string }[]>([]);
+
+  useEffect(() => {
+    const generateRandomImages = Array.from({ length: 10 }, () => ({
+      src: `/images/dummy${Math.floor(Math.random() * 4)}.jpg`,
+    }));
+
+    setRandomImages(generateRandomImages);
+  }, []);
+
   return (
     <section className="flex w-full flex-col justify-center bg-neutral/10 lg:min-h-screen">
       <header className="flex h-1/3 flex-col items-center justify-center gap-4 p-4 text-center text-primary lg:p-8">
@@ -14,10 +27,10 @@ const GallerySection = () => {
       <main className="flex min-h-[500px] items-center justify-end gap-[25px] overflow-hidden">
         {Array.from({ length: 2 }).map((_, i) => (
           <div key={i} className="flex flex-shrink-0 animate-slider gap-[25px]">
-            {Array.from({ length: 10 }).map((_, j) => (
+            {randomImages.map((img, j) => (
               <Image
                 key={j}
-                src="/images/dummy.jpg"
+                src={img.src}
                 alt="Image Gallery"
                 width={300}
                 height={300}

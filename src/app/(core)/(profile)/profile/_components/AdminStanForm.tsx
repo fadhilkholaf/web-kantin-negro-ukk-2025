@@ -36,7 +36,7 @@ const AdminStanForm = ({ stan }: { stan?: Stan }) => {
       <div className="flex flex-col gap-8 border-4 border-double border-primary p-4">
         <header>
           <h1 className="font-italiana text-3xl font-bold tracking-wider">
-            {stan ? "Update" : "Create"} Stan Profile For
+            {stan ? "Update" : "Create"} Stan Profile Form
           </h1>
         </header>
         <main className="flex flex-col gap-2">

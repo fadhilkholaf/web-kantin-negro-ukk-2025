@@ -22,12 +22,20 @@ const SiswaPage = async () => {
 
   const filteredMenus = menus.filter((m) => m !== null).slice(0, 3);
 
+  const today = new Date();
+  const lastMonth = new Date();
+
+  today.setUTCHours(16, 59, 59, 999);
+
+  lastMonth.setMonth(lastMonth.getMonth() - 1);
+  lastMonth.setUTCHours(-7, 0, 0, 0);
+
   return (
     <main className="flex min-h-screen w-full flex-col items-center justify-center gap-8 px-4 py-32 lg:px-8">
       <header className="flex h-1/3 flex-col items-center justify-center gap-4 p-4 text-center text-primary lg:p-8">
         <h1 className="font-italiana text-[12vw] lg:text-[8vw]">Top Seller</h1>
         <p className="font-sans tracking-wide">
-          {`Periode ${wib(new Date(new Date().getFullYear(), new Date().getMonth() - 1, 1))} - ${wib(new Date(new Date().getFullYear(), new Date().getMonth(), 0))}`}
+          {`Periode ${wib(lastMonth).split(",")[0]} - ${wib(today).split(",")[0]}`}
         </p>
       </header>
       <TopMenusList menus={filteredMenus} />

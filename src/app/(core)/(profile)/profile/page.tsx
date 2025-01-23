@@ -20,12 +20,12 @@ const ProfilePage = async () => {
     <main className="flex min-h-screen w-full flex-col gap-4 px-4 py-32 lg:px-8">
       {userProfile && (
         <>
-          <UserForm user={userProfile} />
           {userProfile.role === "siswa" ? (
             <SiswaForm siswa={userProfile.siswa ?? undefined} />
           ) : (
             <AdminStanForm stan={userProfile.stan ?? undefined} />
           )}
+          <UserForm user={userProfile} />
         </>
       )}
     </main>

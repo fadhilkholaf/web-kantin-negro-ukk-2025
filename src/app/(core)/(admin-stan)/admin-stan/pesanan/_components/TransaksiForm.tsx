@@ -26,7 +26,10 @@ export const DeleteTransaksiForm = ({ id }: { id: string }) => {
         }
       }}
     >
-      <SubmitButton label="Delete" className="bg-red-200" />
+      <SubmitButton
+        label="Delete"
+        className="border-red-500 bg-white text-red-500 hover:bg-red-500 hover:text-white"
+      />
     </Form>
   );
 };
@@ -34,12 +37,10 @@ export const DeleteTransaksiForm = ({ id }: { id: string }) => {
 export const UpdateStatusTransaksiForm = ({
   id,
   label,
-  className,
   status,
 }: {
   id: string;
   label: string;
-  className: string;
   status: Status;
 }) => {
   return (
@@ -57,7 +58,10 @@ export const UpdateStatusTransaksiForm = ({
       }}
       className="w-full"
     >
-      <SubmitButton label={label} className={className} />
+      <SubmitButton
+        label={label}
+        className="border-primary bg-white text-primary hover:bg-primary hover:text-white"
+      />
     </Form>
   );
 };

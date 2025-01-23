@@ -50,7 +50,10 @@ const ApplyDiskonForm = ({
       }}
       className="w-full"
     >
-      <SubmitButton label="Terapkan" className="bg-green-200" />
+      <SubmitButton
+        label="Terapkan"
+        className="rounded-none bg-white text-primary"
+      />
     </Form>
   );
 };
@@ -71,7 +74,10 @@ const RemoveDiskonForm = ({ id }: { id: string }) => {
       }}
       className="w-full"
     >
-      <SubmitButton label="Hapus" className="bg-red-200" />
+      <SubmitButton
+        label="Hapus"
+        className="rounded-none bg-red-500 text-white"
+      />
     </Form>
   );
 };

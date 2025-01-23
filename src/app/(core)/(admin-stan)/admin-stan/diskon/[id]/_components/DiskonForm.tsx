@@ -8,12 +8,13 @@ import { toast } from "sonner";
 
 import { createDiskonAction, updateDiskonAction } from "@/action/diskon";
 import { SubmitButton } from "@/components/Button";
+import { Input } from "@/components/Input";
 
 const DiskonForm = ({ diskon }: { diskon?: Diskon }) => {
   const router = useRouter();
 
   return (
-    <>
+    <div className="bg-white p-4">
       <Form
         action={async (formData) => {
           const loading = toast.loading(
@@ -36,68 +37,52 @@ const DiskonForm = ({ diskon }: { diskon?: Diskon }) => {
             toast.error(response.message, { id: loading });
           }
         }}
-        className="flex flex-col gap-4 rounded-lg border p-4"
+        className="flex flex-col gap-4 border-4 border-double border-primary p-4"
       >
         <header>
-          <h1 className="text-2xl font-bold">
-            {diskon ? "Update" : "Create"} Diskon Form
+          <h1 className="font-italiana text-3xl font-bold tracking-wider text-primary">
+            {diskon ? "Update" : "Create"} Diskon
           </h1>
         </header>
         <main className="flex flex-col gap-2">
-          <div className="flex flex-col">
-            <label htmlFor="namaDiskon">
-              Nama Diskon <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="text"
-              name="namaDiskon"
-              id="namaDiskon"
-              defaultValue={diskon?.namaDiskon}
-              className="rounded-lg border p-2"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="presentaseDiskon">
-              Persentase Diskon <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="number"
-              name="presentaseDiskon"
-              id="presentaseDiskon"
-              defaultValue={diskon?.presentaseDiskon}
-              className="rounded-lg border p-2"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="tanggalAwal">
-              Tanggal Awal <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="date"
-              name="tanggalAwal"
-              id="tanggalAwal"
-              defaultValue={diskon?.tanggalAwal?.toISOString().split("T")[0]}
-              className="rounded-lg border p-2"
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="tanggalAkhir">
-              Tanggal Akhir <span className="text-red-500">*</span>
-            </label>
-            <input
-              type="date"
-              name="tanggalAkhir"
-              id="tanggalAkhir"
-              defaultValue={diskon?.tanggalAkhir?.toISOString().split("T")[0]}
-              className="rounded-lg border p-2"
-            />
-          </div>
+          <Input
+            label="Nama Diskon"
+            type="text"
+            id="namaDiskon"
+            name="namaDiskon"
+            required={!diskon}
+            defaultValue={diskon?.namaDiskon}
+          />
+          <Input
+            label="Peresentase Diskon"
+            type="number"
+            id="presentaseDiskon"
+            name="presentaseDiskon"
+            required={!diskon}
+            defaultValue={diskon?.presentaseDiskon}
+          />
+          <Input
+            label="Tanggal Awal"
+            type="date"
+            id="tanggalAwal"
+            name="tanggalAwal"
+            required={!diskon}
+            defaultValue={diskon?.tanggalAwal?.toISOString().split("T")[0]}
+          />
+          <Input
+            label="Tanggal Akhir"
+            type="date"
+            id="tanggalAkhir"
+            name="tanggalAkhir"
+            required={!diskon}
+            defaultValue={diskon?.tanggalAkhir?.toISOString().split("T")[0]}
+          />
         </main>
-        <footer>
+        <footer className="pt-2">
           <SubmitButton label={`${diskon ? "Update" : "Create"} diskon`} />
         </footer>
       </Form>
-    </>
+    </div>
   );
 };
 

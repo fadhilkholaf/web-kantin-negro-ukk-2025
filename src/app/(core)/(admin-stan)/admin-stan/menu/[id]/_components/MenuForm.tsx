@@ -22,7 +22,7 @@ const MenuForm = ({ menu }: { menu?: Menu }) => {
   const router = useRouter();
   const [jenis, setJenis] = useState<Jenis | null>(menu ? menu.jenis : null);
   const [imagePreview, setImagePreview] = useState<string>(
-    menu?.foto ?? "/images/dummy.jpg",
+    menu?.foto ?? "/images/dummy0.jpg",
   );
 
   const action = async (formData: FormData) => {
@@ -42,108 +42,109 @@ const MenuForm = ({ menu }: { menu?: Menu }) => {
       router.push("/admin-stan/menu");
     } else {
       setJenis(null);
-      setImagePreview("/images/dummy.jpg");
+      setImagePreview("/images/dummy0.jpg");
 
       toast.error(response.message, { id: loading });
     }
   };
 
   return (
-    <section className="flex flex-row-reverse gap-4">
-      <section className="w-1/3">
-        <Image
-          src={imagePreview}
-          alt="Profile Preview"
-          width={500}
-          height={500}
-          priority
-          className="aspect-square w-full rounded-lg object-cover"
-        />
-      </section>
-      <section className="w-2/3">
-        <Form action={action} className="flex flex-col gap-4">
-          <header>
-            <h1 className="text-2xl font-bold">
-              {menu ? "Update" : "Create"} Menu Form
-            </h1>
-          </header>
-          <main className="flex flex-col gap-2">
-            <Input
-              label="Nama Makanan"
-              type="text"
-              id="namaMakanan"
-              name="namaMakanan"
-              defaultValue={menu?.namaMakanan}
-            />
-            <Input
-              label="Deskripsi"
-              type="text"
-              id="deskripsi"
-              name="deskripsi"
-              defaultValue={menu?.deskripsi}
-            />
-            <Input
-              label="Harga"
-              type="number"
-              id="harga"
-              name="harga"
-              defaultValue={menu?.harga}
-            />
-            <div className="flex flex-col">
-              <label htmlFor="jenis">
-                Jenis <span className="text-red-500">*</span>
-              </label>
-              <div className="flex gap-2">
-                {jenises &&
-                  jenises.map((j, i) => (
-                    <Fragment key={i}>
-                      <div className="w-full">
-                        <label
-                          htmlFor={j.value}
-                          className={cn(
-                            "block cursor-pointer rounded-lg border p-2 text-center",
-                            {
-                              "bg-gray-200": jenis === j.value,
-                            },
-                          )}
-                        >
-                          {j.label}
-                        </label>
-                        <input
-                          type="radio"
-                          name="jenis"
-                          id={j.value}
-                          value={j.value}
-                          className="hidden"
-                          onChange={() => setJenis(j.value)}
-                        />
-                      </div>
-                    </Fragment>
-                  ))}
+    <main className="bg-white p-4">
+      <section className="flex flex-col gap-4 border-4 border-double border-primary p-4 lg:flex-row-reverse">
+        <section className="flex justify-center lg:w-1/3">
+          <Image
+            src={imagePreview}
+            alt="Profile Preview"
+            width={500}
+            height={500}
+            priority
+            className="aspect-square object-cover"
+          />
+        </section>
+        <section className="lg:w-2/3">
+          <Form action={action} className="flex flex-col gap-4">
+            <header>
+              <h1 className="font-italiana text-2xl font-bold tracking-wider text-primary">
+                {menu ? "Update" : "Create"} Menu
+              </h1>
+            </header>
+            <main className="flex flex-col gap-2">
+              <Input
+                label="Nama Makanan"
+                type="text"
+                id="namaMakanan"
+                name="namaMakanan"
+                required={!menu}
+                defaultValue={menu?.namaMakanan}
+              />
+              <Input
+                label="Deskripsi"
+                type="text"
+                id="deskripsi"
+                name="deskripsi"
+                required={!menu}
+                defaultValue={menu?.deskripsi}
+              />
+              <Input
+                label="Harga"
+                type="number"
+                id="harga"
+                name="harga"
+                required={!menu}
+                defaultValue={menu?.harga}
+              />
+              <div className="flex flex-col font-mono text-primary">
+                <label htmlFor="role">
+                  Role <span className="text-red-500">*</span>
+                </label>
+                <div className="flex gap-2">
+                  {jenises &&
+                    jenises.map((r, i) => (
+                      <Fragment key={i}>
+                        <div className="w-full">
+                          <label
+                            htmlFor={r.value}
+                            className={cn(
+                              "block cursor-pointer rounded-full border border-primary px-2 py-1 text-center",
+                              {
+                                "bg-primary text-white": jenis === r.value,
+                              },
+                            )}
+                          >
+                            {r.label}
+                          </label>
+                          <input
+                            type="radio"
+                            name="jenis"
+                            id={r.value}
+                            value={r.value}
+                            className="hidden"
+                            onClick={() => setJenis(r.value)}
+                          />
+                        </div>
+                      </Fragment>
+                    ))}
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col">
-              <label htmlFor="foto">
-                Foto <span className="text-red-500">*</span>
-              </label>
-              <input
+              <Input
+                label="foto"
                 type="file"
-                name="foto"
                 id="foto"
+                name="foto"
                 accept="image/*"
+                required={!menu}
                 onChange={(e) =>
                   setImagePreview(URL.createObjectURL(e.target.files![0]))
                 }
-                className="rounded-lg border p-2"
               />
-            </div>
-          </main>
-          <footer>
-            <SubmitButton label={`${menu ? "Update" : "Create"} menu`} />
-          </footer>
-        </Form>
+            </main>
+            <footer>
+              <SubmitButton label={`${menu ? "Update" : "Create"} menu`} />
+            </footer>
+          </Form>
+        </section>
       </section>
-    </section>
+    </main>
   );
 };
 

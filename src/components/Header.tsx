@@ -190,7 +190,7 @@ const Header = ({
                         className="block w-fit overflow-hidden rounded-full border border-primary"
                       >
                         <Image
-                          src={foto ?? "/images/dummy.jpg"}
+                          src={foto ?? "/images/dummy4.jpg"}
                           alt="Profile Picture"
                           width={40}
                           height={40}

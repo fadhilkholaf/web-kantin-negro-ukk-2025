@@ -20,6 +20,12 @@ const PelangganForm = ({
 
   return (
     <>
+      {pelanggan && (
+        <PelangganProfileForm
+          siswa={pelanggan.siswa ?? undefined}
+          userId={pelanggan.id}
+        />
+      )}
       <Form
         action={async (formData) => {
           const loading = toast.loading("Creating pelanggan...");
@@ -73,12 +79,6 @@ const PelangganForm = ({
           </footer>
         </div>
       </Form>
-      {pelanggan && (
-        <PelangganProfileForm
-          siswa={pelanggan.siswa ?? undefined}
-          userId={pelanggan.id}
-        />
-      )}
     </>
   );
 };

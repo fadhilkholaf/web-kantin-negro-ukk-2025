@@ -24,7 +24,12 @@ const MenuFormPage = async ({
 
   if (id === "new") {
     return (
-      <main className="min-h-screen w-full py-8">
+      <main className="flex min-h-screen w-full flex-col gap-8 px-4 py-32 lg:px-8">
+        <header className="text-primary">
+          <h1 className="font-italiana text-3xl font-bold tracking-wider">
+            Create Menu
+          </h1>
+        </header>
         <MenuForm />
       </main>
     );
@@ -44,9 +49,16 @@ const MenuFormPage = async ({
   const diskon = await findManyDiskon({ stan: { userId: session.user.id } });
 
   return (
-    <main className="flex min-h-screen w-full flex-col gap-8 py-8">
-      <MenuForm menu={menu} />
-      <DiskonTable diskon={diskon} menu={menu} />
+    <main className="flex min-h-screen w-full flex-col gap-8 px-4 py-32 lg:px-8">
+      <header className="text-primary">
+        <h1 className="font-italiana text-3xl font-bold tracking-wider">
+          Update Menu
+        </h1>
+      </header>
+      <main className="flex flex-col gap-8">
+        <MenuForm menu={menu} />
+        <DiskonTable diskon={diskon} menu={menu} />
+      </main>
     </main>
   );
 };
