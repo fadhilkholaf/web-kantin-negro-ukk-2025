@@ -26,12 +26,51 @@ const italiana = Italiana({
   weight: ["400"],
 });
 
+const baseUrl = "https://kantin.fadhilkholaf.my.id";
+
 export const metadata: Metadata = {
-  title: {
-    default: "Home | UKK Kantin 2025",
-    template: "%s | UKK Kantin 2025",
+  metadataBase: new URL("/", baseUrl),
+  title: { default: "Kantin Negro", template: "%s | Kantin Negro" },
+  description: "Find your perfect foods and drinks",
+  applicationName: "Kantin Negro",
+  authors: {
+    name: "Muhammad Fadhil Kholaf",
+    url: "https://fadhilkholaf.my.id",
   },
-  description: "Ujian Kompetensi Keahlian tahun ajaran 2024/2025",
+  generator: "Next.js",
+  keywords:
+    "Kantin Negro, Kantin, Negro, SMK Telkom Malang, SMK, Telkom, Malang, UKK SMK, UKK, SMK, Ujian Kompentensi Keahlian, Moklet",
+  referrer: "origin",
+  creator: "Muhammad Fadhil Kholaf",
+  publisher: "Vercel",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: { canonical: baseUrl },
+  openGraph: {
+    type: "website",
+    countryName: "Indonesia",
+    locale: "id_ID",
+    url: baseUrl,
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: "@fadhilkholaf",
+  },
+  appleWebApp: {
+    capable: true,
+    startupImage: `${baseUrl}/images/icons/web-app-manifest-192x192.png`,
+    title: "Kantin Negro",
+  },
+  assets: `${baseUrl}/images`,
 };
 
 export default function RootLayout({

@@ -1,8 +1,13 @@
-import { ReactNode } from "react";
+import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
+import { ReactNode } from "react";
 
 import { findSiswa } from "@/database/siswa";
 import { auth } from "@/lib/auth";
+
+export const metadata: Metadata = {
+  title: "Siswa",
+};
 
 const layout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();

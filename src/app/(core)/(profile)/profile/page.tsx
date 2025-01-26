@@ -1,3 +1,4 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import { findUserProfile } from "@/database/user";
@@ -6,6 +7,10 @@ import { auth } from "@/lib/auth";
 import SiswaForm from "./_components/SiswaForm";
 import AdminStanForm from "./_components/AdminStanForm";
 import UserForm from "./_components/UserForm";
+
+export const metadata: Metadata = {
+  title: "Profile",
+};
 
 const ProfilePage = async () => {
   const session = await auth();

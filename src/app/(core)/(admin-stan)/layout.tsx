@@ -1,8 +1,13 @@
+import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { ReactNode } from "react";
 
 import { findStan } from "@/database/stan";
 import { auth } from "@/lib/auth";
+
+export const metadata: Metadata = {
+  title: "Admin Stan",
+};
 
 const AdminStanLayout = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
