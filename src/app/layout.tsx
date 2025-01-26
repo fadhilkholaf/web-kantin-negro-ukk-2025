@@ -27,6 +27,7 @@ const italiana = Italiana({
 });
 
 const baseUrl = "https://kantin.fadhilkholaf.my.id";
+const imageUrl = `${baseUrl}/images/icons/web-app-manifest-192x192.png`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("/", baseUrl),
@@ -56,18 +57,27 @@ export const metadata: Metadata = {
   },
   alternates: { canonical: baseUrl },
   openGraph: {
-    type: "website",
-    countryName: "Indonesia",
-    locale: "id_ID",
-    url: baseUrl,
+    images: [
+      {
+        url: imageUrl,
+        width: 192,
+        height: 192,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    creator: "@fadhilkholaf",
+    images: [
+      {
+        url: imageUrl,
+        width: 192,
+        height: 192,
+      },
+    ],
   },
   appleWebApp: {
     capable: true,
-    startupImage: `${baseUrl}/images/icons/web-app-manifest-192x192.png`,
+    startupImage: [{ url: imageUrl }],
     title: "Kantin Negro",
   },
   assets: `${baseUrl}/images`,
