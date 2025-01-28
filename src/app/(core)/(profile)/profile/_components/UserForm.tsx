@@ -67,7 +67,7 @@ const UserForm = ({ user }: { user: User }) => {
             id="password"
             name="password"
             required={!user}
-            defaultValue={user.password}
+            placeholder="Enter new password"
           />
           <div className="flex flex-col font-mono">
             <label htmlFor="role">

@@ -25,7 +25,7 @@ pnpm dev
 
 ## Attribution
 
-# Images
+### Images
 
 - [Dummy Image 0](https://unsplash.com/photos/cooked-rice-with-egg-ykThMylLsbY)
 - [Dummy Image 1](https://unsplash.com/photos/man-holding-menu-a5ToDH34m0I)
@@ -33,7 +33,13 @@ pnpm dev
 - [Dummy Image 3](https://unsplash.com/photos/dish-on-white-ceramic-plate-N_Y88TWmGwA)
 - [Dummy Image 4](https://unsplash.com/photos/a-vase-filled-with-pink-flowers-on-top-of-a-table-a0wvviodl-8)
 
-# Tools, Framework and Library
+### Fonts
+
+- [Geist](https://fonts.google.com/specimen/Geist)
+- [Geist Mono](https://fonts.google.com/specimen/Geist+Mono)
+- [Italiana](https://fonts.google.com/specimen/Italiana)
+
+### Tools, Framework and Library
 
 - [Next.js](https://nextjs.org)
 - [Tailwind CSS](https://tailwindcss.com)

@@ -14,10 +14,12 @@
   },
   "dependencies": {
     "@prisma/client": "6.2.0",
+    "@types/bcryptjs": "^2.4.6",
     "ag-charts-community": "^11.0.4",
     "ag-charts-react": "^11.0.4",
     "ag-grid-community": "^33.0.3",
     "ag-grid-react": "^33.0.3",
+    "bcryptjs": "^2.4.3",
     "cloudinary": "^2.5.1",
     "clsx": "^2.1.1",
     "html-to-image": "^1.11.11",

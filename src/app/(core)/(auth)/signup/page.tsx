@@ -55,13 +55,15 @@ const SignUpPage = () => {
               type="text"
               id="usernameU"
               name="usernameU"
+              placeholder="John Doe"
             />
             <Input
               label="Password"
               required
-              type="text"
+              type="password"
               id="passwordU"
               name="passwordU"
+              placeholder="Johndoe123"
             />
             <div className="flex flex-col font-mono text-primary">
               <label htmlFor="role">
@@ -75,7 +77,7 @@ const SignUpPage = () => {
                         <label
                           htmlFor={r.value}
                           className={cn(
-                            "block cursor-pointer rounded-full border border-primary px-2 py-1 text-center",
+                            "flex h-full cursor-pointer items-center justify-center rounded-[17px] border border-primary px-2 py-1 text-center",
                             {
                               "bg-primary text-white": role === r.value,
                             },

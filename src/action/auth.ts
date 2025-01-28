@@ -7,6 +7,7 @@ import { Role } from "@prisma/client";
 
 import { createUser, findUser } from "@/database/user";
 import { signIn } from "@/lib/auth";
+import { hash } from "@/utils/hash";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
 
 export const signUpAction = async (formData: FormData) => {
@@ -25,11 +26,17 @@ export const signUpAction = async (formData: FormData) => {
       return responseError("User already exist!");
     }
 
-    const createdUser = await createUser({ username, password, role });
+    const hashedPassword = hash(password);
+
+    await createUser({
+      username,
+      password: hashedPassword,
+      role,
+    });
 
     await signIn("credentials", {
-      username: createdUser.username,
-      password: createdUser.password,
+      username: username,
+      password: password,
       redirect: false,
     });
 

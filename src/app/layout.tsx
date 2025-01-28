@@ -27,12 +27,13 @@ const italiana = Italiana({
 });
 
 const baseUrl = "https://kantin.fadhilkholaf.my.id";
-const imageUrl = `${baseUrl}/images/icons/web-app-manifest-192x192.png`;
+const imageUrl = `${baseUrl}/images/icons/web-app-manifest-512x512.png`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("/", baseUrl),
   title: { default: "Kantin Negro", template: "%s | Kantin Negro" },
-  description: "Find your perfect foods and drinks",
+  description:
+    "Find your perfect foods and drinks. Kantin Negro have everything you need. Don't let yourself starving!",
   applicationName: "Kantin Negro",
   authors: {
     name: "Muhammad Fadhil Kholaf",
@@ -60,8 +61,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: imageUrl,
-        width: 192,
-        height: 192,
+        width: 512,
+        height: 512,
       },
     ],
   },
@@ -70,8 +71,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: imageUrl,
-        width: 192,
-        height: 192,
+        width: 512,
+        height: 512,
       },
     ],
   },

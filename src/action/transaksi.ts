@@ -4,55 +4,147 @@ import { revalidatePath } from "next/cache";
 
 import { Prisma, Status } from "@prisma/client";
 
+import { CartMenu } from "@/app/(core)/(siswa)/siswa/menu/_components/MenuList";
+import { findDiskon } from "@/database/diskon";
+import { findMenu } from "@/database/menu";
 import {
   deleteTransaksi,
   findManyTransaksi,
   findTransaksi,
   updateTransaksi,
 } from "@/database/transaksi";
+import { createTransaksi } from "@/database/transaksi";
 import { auth } from "@/lib/auth";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
 import { month } from "@/utils/utils";
 
-export const getTransaksiDataAction = async (tahun: number) => {
-  const session = await auth();
+export const createPesananAction = async (
+  cart: {
+    stanId: string;
+    menu: CartMenu[];
+  }[],
+) => {
+  try {
+    if (!cart.length) {
+      return responseError("Empty cart!");
+    }
 
-  if (!session) {
-    return responseError("Unauthenticated!");
-  }
+    const session = await auth();
 
-  const transaksi = (await findManyTransaksi(
-    {
-      AND: [
-        {
-          stan: { userId: session.user.id },
-        },
-        {
-          tanggal: { gte: new Date(`${tahun}`), lt: new Date(`${tahun + 1}`) },
-        },
-        { status: "sampai" },
-      ],
-    },
-    { detailTransaksi: true },
-  )) as Prisma.TransaksiGetPayload<{ include: { detailTransaksi: true } }>[];
+    if (!session) {
+      return responseError("Unauthenticated!");
+    }
 
-  const chartData: { month: string; total: number }[] = Array.from(
-    { length: 12 },
-    (_, i) => ({ month: month[i], total: 0 }),
-  );
+    await Promise.all(
+      cart.map(async (c) => {
+        await createTransaksi({
+          siswa: { connect: { userId: session.user.id } },
+          stan: { connect: { id: c.stanId } },
+          detailTransaksi: {
+            createMany: {
+              data: (
+                await Promise.all(
+                  c.menu.map(async (m) => {
+                    const existingMenu = await findMenu({ id: m.id });
 
-  transaksi.map((t) => {
-    const d = new Date(t.tanggal).getMonth();
-    chartData[d].total += t.detailTransaksi.reduce(
-      (a, b) => a + b.hargaBeli,
-      0,
+                    if (existingMenu) {
+                      if (m.diskonId) {
+                        const existingDiskon = await findDiskon({
+                          id: m.diskonId,
+                        });
+
+                        if (existingDiskon) {
+                          return {
+                            hargaBeli:
+                              existingMenu.harga *
+                              m.qty *
+                              (1 - existingDiskon.presentaseDiskon / 100),
+                            qty: m.qty,
+                            menuId: m.id,
+                          };
+                        } else {
+                          return {
+                            hargaBeli: existingMenu.harga * m.qty,
+                            qty: m.qty,
+                            menuId: m.id,
+                          };
+                        }
+                      } else {
+                        return {
+                          hargaBeli: existingMenu.harga * m.qty,
+                          qty: m.qty,
+                          menuId: m.id,
+                        };
+                      }
+                    } else {
+                      return null;
+                    }
+                  }),
+                )
+              ).filter((c) => c !== null),
+            },
+          },
+        });
+      }),
     );
-  });
 
-  return {
-    ...responseSuccess("Success retrieving data!"),
-    data: [...chartData],
-  };
+    revalidatePath("/", "layout");
+    return responseSuccess("Success creating transaksi!");
+  } catch (error) {
+    console.log(error);
+
+    return responseError("Somthing went wrong!");
+  }
+};
+
+export const getTransaksiDataAction = async (tahun: number) => {
+  try {
+    const session = await auth();
+
+    if (!session) {
+      return responseError("Unauthenticated!");
+    }
+
+    const transaksi = (await findManyTransaksi(
+      {
+        AND: [
+          {
+            stan: { userId: session.user.id },
+          },
+          {
+            tanggal: {
+              gte: new Date(`${tahun}`),
+              lt: new Date(`${tahun + 1}`),
+            },
+          },
+          { status: "sampai" },
+        ],
+      },
+      { detailTransaksi: true },
+    )) as Prisma.TransaksiGetPayload<{ include: { detailTransaksi: true } }>[];
+
+    const chartData: { month: string; total: number }[] = Array.from(
+      { length: 12 },
+      (_, i) => ({ month: month[i], total: 0 }),
+    );
+
+    transaksi.map((t) => {
+      const d = new Date(t.tanggal).getMonth();
+      chartData[d].total += t.detailTransaksi.reduce(
+        (a, b) => a + b.hargaBeli,
+        0,
+      );
+    });
+
+    return {
+      ...responseSuccess("Success retrieving data!"),
+      data: [...chartData],
+    };
+  } catch (error) {
+    console.log(error);
+
+    return responseError("Something went wrong!");
+  }
 };
 
 export const deleteTransaksiAction = async (id: string) => {

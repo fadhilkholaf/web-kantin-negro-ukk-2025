@@ -4,6 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import { Role } from "@prisma/client";
 
 import { findUser } from "@/database/user";
+import { compareHash } from "@/utils/hash";
 
 declare module "next-auth" {
   interface Session {
@@ -40,7 +41,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           return null;
         }
 
-        if (user.password !== password) {
+        const isCorrectPassword = compareHash(password, user.password);
+
+        if (!isCorrectPassword) {
           return null;
         }
 

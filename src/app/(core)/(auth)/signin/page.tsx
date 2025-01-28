@@ -44,13 +44,15 @@ const SignInPage = () => {
               type="text"
               id="username"
               name="username"
+              placeholder="John Doe"
             />
             <Input
               label="Password"
               required
-              type="text"
+              type="password"
               id="password"
               name="password"
+              placeholder="Johndoe123"
             />
           </main>
           <footer className="flex flex-col gap-4 pt-2">

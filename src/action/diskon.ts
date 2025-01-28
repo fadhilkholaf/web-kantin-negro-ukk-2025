@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import {
   createDiskon,
   deleteDiskon,
@@ -9,7 +11,6 @@ import {
 import { createMenuDiskon, deleteMenuDiskon } from "@/database/menu-diskon";
 import { auth } from "@/lib/auth";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
-import { revalidatePath } from "next/cache";
 
 export const createDiskonAction = async (formData: FormData) => {
   try {

@@ -12,7 +12,9 @@ import {
   updateUser,
 } from "@/database/user";
 import { auth } from "@/lib/auth";
+import { hash } from "@/utils/hash";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
+
 import { deleteImage } from "./cloudinary";
 
 export const createPelangganAction = async (formData: FormData) => {
@@ -59,11 +61,13 @@ export const updatePelangganAction = async (formData: FormData) => {
       return responseError("Pelanggan already exist!");
     }
 
+    const hashedPassword = hash(password);
+
     await updateUser(
       { id },
       {
         username: username ?? undefined,
-        password: password ?? undefined,
+        password: password !== "" ? hashedPassword : undefined,
       },
     );
 
@@ -96,11 +100,13 @@ export const updateUserProfile = async (formData: FormData) => {
       return responseError("Username already used!");
     }
 
+    const hashedPassword = hash(password);
+
     const updatedUser = await updateUser(
       { id: session.user.id },
       {
         username: username ?? undefined,
-        password: password ?? undefined,
+        password: password !== "" ? hashedPassword : undefined,
         role: role ?? undefined,
       },
     );

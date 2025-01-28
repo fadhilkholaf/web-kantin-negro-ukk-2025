@@ -7,9 +7,9 @@ import { useState } from "react";
 import { Menu, Prisma } from "@prisma/client";
 import { toast } from "sonner";
 
+import { createPesananAction } from "@/action/transaksi";
 import { SubmitButton } from "@/components/Button";
 import { Input } from "@/components/Input";
-import { createPesanan } from "@/action/pemesanan";
 import { cn } from "@/utils/cn";
 import { rupiah } from "@/utils/utils";
 
@@ -266,7 +266,7 @@ const MenuList = ({
           action={async () => {
             const loading = toast.loading("Creating transaksi...");
 
-            const response = await createPesanan(cart);
+            const response = await createPesananAction(cart);
 
             if (response.success) {
               toast.success(response.message, { id: loading });

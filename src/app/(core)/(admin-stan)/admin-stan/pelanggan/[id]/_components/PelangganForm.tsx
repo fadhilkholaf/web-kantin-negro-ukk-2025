@@ -62,16 +62,19 @@ const PelangganForm = ({
               type="text"
               id="username"
               name="username"
-              required
+              required={!pelanggan}
               defaultValue={pelanggan?.username}
+              placeholder="John Doe"
             />
             <Input
               label="Password"
-              type="text"
+              type="password"
               id="password"
               name="password"
-              required
-              defaultValue={pelanggan?.password}
+              required={!pelanggan}
+              placeholder={
+                pelanggan?.password ? "Enter new password" : "Johndoe123"
+              }
             />
           </main>
           <footer className="pt-2">
