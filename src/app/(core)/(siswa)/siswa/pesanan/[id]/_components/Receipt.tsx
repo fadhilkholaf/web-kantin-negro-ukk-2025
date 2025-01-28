@@ -24,7 +24,7 @@ const Receipt = ({
       const dataUrl = await toJpeg(receiptRef.current, { quality: 0.5 });
       const a = document.createElement("a");
       a.href = dataUrl;
-      a.download = "test.jpeg";
+      a.download = `${t.id}.jpeg`;
       a.click();
       URL.revokeObjectURL(dataUrl);
     } catch (error) {
