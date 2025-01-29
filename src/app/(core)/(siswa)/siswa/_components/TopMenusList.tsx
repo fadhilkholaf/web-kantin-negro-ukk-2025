@@ -12,7 +12,7 @@ const TopMenusList = ({ menus }: { menus: TopMenuInterface[] }) => {
   return (
     <div className="flex flex-wrap items-center justify-center gap-4">
       {menus.map((m, i) => (
-        <div key={i} className="flex-shrink-0 bg-white p-2">
+        <div key={i} className="w-[290px] flex-shrink-0 bg-white p-2">
           <div className="relative flex flex-col gap-2 border-4 border-double border-primary p-2 text-primary">
             <header>
               <p
