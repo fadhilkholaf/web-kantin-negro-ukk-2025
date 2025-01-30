@@ -9,10 +9,11 @@ import {
   provideGlobalGridOptions,
 } from "ag-grid-community";
 import { AgGridReact, CustomCellRendererProps } from "ag-grid-react";
-import { User } from "@prisma/client";
+import { useSession } from "next-auth/react";
+import { Prisma } from "@prisma/client";
 import { toast } from "sonner";
 
-import { deleteUserAction } from "@/action/user";
+import { blockUserAction, unblockUserAction } from "@/action/user";
 import { LinkButton, SubmitButton } from "@/components/Button";
 import { defaultColDef } from "@/utils/constant";
 
@@ -23,13 +24,19 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 
 provideGlobalGridOptions({ theme: "legacy" });
 
-const DeleteUserForm = ({ id }: { id: string }) => {
+const BlockUserForm = ({
+  userId,
+  stanId,
+}: {
+  userId: string;
+  stanId: string;
+}) => {
   return (
     <Form
       action={async () => {
-        const loading = toast.loading("Deleting user...");
+        const loading = toast.loading("Blocking user...");
 
-        const response = await deleteUserAction(id);
+        const response = await blockUserAction(userId, stanId);
 
         if (response.success) {
           toast.success(response.message, { id: loading });
@@ -39,15 +46,54 @@ const DeleteUserForm = ({ id }: { id: string }) => {
       }}
     >
       <SubmitButton
-        label="Delete"
+        label="Block"
+        className="border-none text-red-500 hover:bg-transparent hover:text-red-500"
+      />
+    </Form>
+  );
+};
+
+const UnblockUserForm = ({ id }: { id: string }) => {
+  return (
+    <Form
+      action={async () => {
+        const loading = toast.loading("Blocking user...");
+
+        const response = await unblockUserAction(id);
+
+        if (response.success) {
+          toast.success(response.message, { id: loading });
+        } else {
+          toast.error(response.message, { id: loading });
+        }
+      }}
+    >
+      <SubmitButton
+        label="Unblock"
         className="border-none hover:bg-transparent hover:text-primary"
       />
     </Form>
   );
 };
 
-const PelangganTable = ({ pelanggan }: { pelanggan: User[] }) => {
-  const colDefs: ColDef<User>[] = [
+const PelangganTable = ({
+  pelanggan,
+}: {
+  pelanggan: Prisma.UserGetPayload<{
+    include: { blockedStan: { include: { stan: true } } };
+  }>[];
+}) => {
+  const { data: session } = useSession();
+
+  if (!session) {
+    return;
+  }
+
+  const colDefs: ColDef<
+    Prisma.UserGetPayload<{
+      include: { blockedStan: { include: { stan: true } } };
+    }>
+  >[] = [
     {
       field: "username",
     },
@@ -61,17 +107,33 @@ const PelangganTable = ({ pelanggan }: { pelanggan: User[] }) => {
       sortable: false,
       resizable: false,
       minWidth: 150,
-      cellRenderer: (p: CustomCellRendererProps) => (
-        <div className="flex h-full w-full items-center justify-center gap-4">
-          <LinkButton
-            href={`/admin-stan/pelanggan/${p.value}`}
-            className="w-fit border-none"
-          >
-            Edit
-          </LinkButton>
-          <DeleteUserForm id={p.value} />
-        </div>
-      ),
+      cellRenderer: (
+        p: CustomCellRendererProps<
+          Prisma.UserGetPayload<{
+            include: { blockedStan: { include: { stan: true } } };
+          }>
+        >,
+      ) => {
+        const blockedUser = p.data?.blockedStan.find(
+          (bs) => bs.stan.userId === session?.user.id,
+        );
+
+        return (
+          <div className="flex h-full w-full items-center justify-center gap-4">
+            <LinkButton
+              href={`/admin-stan/pelanggan/${p.value}`}
+              className="w-fit border-none text-yellow-500"
+            >
+              Edit
+            </LinkButton>
+            {blockedUser ? (
+              <UnblockUserForm id={blockedUser.id} />
+            ) : (
+              <BlockUserForm userId={p.value} stanId={session.user.id} />
+            )}
+          </div>
+        );
+      },
     },
   ];
 

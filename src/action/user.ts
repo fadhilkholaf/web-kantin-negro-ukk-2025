@@ -16,6 +16,7 @@ import { hash } from "@/utils/hash";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
 
 import { deleteImage } from "./cloudinary";
+import { deleteUserStan } from "@/database/user-stan";
 
 export const createPelangganAction = async (formData: FormData) => {
   try {
@@ -123,6 +124,37 @@ export const updateUserProfile = async (formData: FormData) => {
       updatedUser,
       ...responseSuccess("Success updating user!"),
     };
+  } catch (error) {
+    console.log(error);
+
+    return responseError("Something went wrong!");
+  }
+};
+
+export const blockUserAction = async (userId: string, stanUserId: string) => {
+  try {
+    await updateUser(
+      { id: userId },
+      {
+        blockedStan: { create: { stan: { connect: { userId: stanUserId } } } },
+      },
+    );
+
+    revalidatePath("/", "layout");
+    return responseSuccess("Success blocking user!");
+  } catch (error) {
+    console.log(error);
+
+    return responseError("Something went wrong!");
+  }
+};
+
+export const unblockUserAction = async (id: string) => {
+  try {
+    await deleteUserStan({ id });
+
+    revalidatePath("/", "layout");
+    return responseSuccess("Success unblocking user!");
   } catch (error) {
     console.log(error);
 

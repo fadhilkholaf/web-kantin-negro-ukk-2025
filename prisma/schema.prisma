@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  id       String  @id @default(uuid())
-  username String  @unique
-  password String
-  verified Boolean @default(false)
-  role     Role    @default(siswa)
-  stan     Stan?
-  siswa    Siswa?
+  id          String     @id @default(uuid())
+  username    String     @unique
+  password    String
+  verified    Boolean    @default(false)
+  role        Role       @default(siswa)
+  stan        Stan?
+  siswa       Siswa?
+  blockedStan UserStan[]
 }
 
 enum Role {
@@ -43,6 +44,15 @@ model Stan {
   menu        Menu[]
   transaksi   Transaksi[]
   diskon      Diskon[]
+  blockedUser UserStan[]
+}
+
+model UserStan {
+  id     String @id @default(uuid())
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  stan   Stan   @relation(fields: [stanId], references: [id], onDelete: Cascade)
+  stanId String
 }
 
 model Menu {

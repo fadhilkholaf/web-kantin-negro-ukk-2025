@@ -1,12 +1,21 @@
+import { redirect } from "next/navigation";
+
 import { Prisma } from "@prisma/client";
 
 import { findManyMenus } from "@/database/menu";
+import { auth } from "@/lib/auth";
 
 import MenuList from "./_components/MenuList";
 
 const MenuPage = async () => {
+  const session = await auth();
+
+  if (!session) {
+    redirect("/");
+  }
+
   const menus = (await findManyMenus(
-    {},
+    { NOT: [{ stan: { blockedUser: { some: { userId: session.user.id } } } }] },
     {
       menuDiskon: {
         include: { diskon: true },

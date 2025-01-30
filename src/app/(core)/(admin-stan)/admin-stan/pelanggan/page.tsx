@@ -1,10 +1,17 @@
+import { Prisma } from "@prisma/client";
+
+import { LinkButton } from "@/components/Button";
 import { findManyUsers } from "@/database/user";
 
 import PelangganTable from "./_components/PelangganTable";
-import { LinkButton } from "@/components/Button";
 
 const PelangganPage = async () => {
-  const pelanggan = await findManyUsers({ NOT: [{ role: "adminStan" }] });
+  const pelanggan = (await findManyUsers(
+    { NOT: [{ role: "adminStan" }] },
+    { blockedStan: { include: { stan: true } } },
+  )) as Prisma.UserGetPayload<{
+    include: { blockedStan: { include: { stan: true } } };
+  }>[];
 
   return (
     <main className="flex min-h-screen w-full flex-col gap-8 px-4 py-32 lg:px-8">

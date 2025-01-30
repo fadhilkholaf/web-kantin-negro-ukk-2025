@@ -13,8 +13,11 @@ export const findUser = async (
   return await prisma.user.findUnique({ where, include });
 };
 
-export const findManyUsers = async (where?: Prisma.UserWhereInput) => {
-  return await prisma.user.findMany({ where });
+export const findManyUsers = async (
+  where?: Prisma.UserWhereInput,
+  include?: Prisma.UserInclude,
+) => {
+  return await prisma.user.findMany({ where, include });
 };
 
 export const findUserProfile = async (where: Prisma.UserWhereUniqueInput) => {
