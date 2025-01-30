@@ -6,7 +6,9 @@ const MainLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Navbar />
-      {children}
+      <main className="flex justify-center bg-neutral/10">
+        <section className="w-full max-w-[1536px]">{children}</section>
+      </main>
     </>
   );
 };

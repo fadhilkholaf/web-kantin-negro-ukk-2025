@@ -4,6 +4,8 @@ import { findManyDiskon } from "@/database/diskon";
 import { auth } from "@/lib/auth";
 import DiskonTable from "./_components/DiskonTable";
 import { LinkButton } from "@/components/Button";
+import { findManyMenus } from "@/database/menu";
+import { Prisma } from "@prisma/client";
 
 const DiskonPage = async () => {
   const session = await auth();
@@ -13,6 +15,11 @@ const DiskonPage = async () => {
   }
 
   const diskon = await findManyDiskon({ stan: { userId: session.user.id } });
+
+  const menu = (await findManyMenus(
+    { stan: { userId: session.user.id } },
+    { menuDiskon: true },
+  )) as Prisma.MenuGetPayload<{ include: { menuDiskon: true } }>[];
 
   return (
     <main className="flex min-h-screen w-full flex-col gap-8 px-4 py-32 lg:px-8">
@@ -28,7 +35,7 @@ const DiskonPage = async () => {
         </LinkButton>
       </header>
       <main>
-        <DiskonTable diskon={diskon} />
+        <DiskonTable diskon={diskon} menu={menu} />
       </main>
     </main>
   );

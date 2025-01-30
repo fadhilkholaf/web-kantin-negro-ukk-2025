@@ -22,7 +22,7 @@ const MenuForm = ({ menu }: { menu?: Menu }) => {
   const router = useRouter();
   const [jenis, setJenis] = useState<Jenis | null>(menu ? menu.jenis : null);
   const [imagePreview, setImagePreview] = useState<string>(
-    menu?.foto ?? "/images/dummy0.jpg",
+    menu?.foto ?? "/images/dummy5.png",
   );
 
   const action = async (formData: FormData) => {
@@ -42,7 +42,7 @@ const MenuForm = ({ menu }: { menu?: Menu }) => {
       router.push("/admin-stan/menu");
     } else {
       setJenis(null);
-      setImagePreview("/images/dummy0.jpg");
+      setImagePreview("/images/dummy5.png");
 
       toast.error(response.message, { id: loading });
     }

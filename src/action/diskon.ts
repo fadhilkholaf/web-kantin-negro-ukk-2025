@@ -8,7 +8,11 @@ import {
   findDiskon,
   updateDiskon,
 } from "@/database/diskon";
-import { createMenuDiskon, deleteMenuDiskon } from "@/database/menu-diskon";
+import {
+  createMenuDiskon,
+  deleteMenuDiskon,
+  findManyMenuDiskon,
+} from "@/database/menu-diskon";
 import { auth } from "@/lib/auth";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
 
@@ -128,6 +132,27 @@ export const removeDiskonAction = async (id: string) => {
 
     revalidatePath("/", "layout");
     return responseSuccess("Diskon removed!");
+  } catch (error) {
+    console.log(error);
+
+    return responseError("Something went wrong!");
+  }
+};
+
+export const checkMenuDiskonAction = async (
+  menuId: string,
+  diskonId: string,
+) => {
+  try {
+    const isApplied = await findManyMenuDiskon({
+      AND: [{ menuId }, { diskonId }],
+    });
+
+    if (isApplied.length) {
+      return await removeDiskonAction(isApplied[0].id);
+    } else {
+      return await applyDiskonAction(menuId, diskonId);
+    }
   } catch (error) {
     console.log(error);
 

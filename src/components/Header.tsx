@@ -152,11 +152,11 @@ const Header = ({
       )}
       <nav
         className={cn(
-          "ease-[cubic-bezier(0.65, 0, 0.35, 1)] fixed z-40 w-full -translate-y-0 border-b border-primary bg-neutral/10 p-4 pt-[74px] backdrop-blur-md transition-transform duration-500 lg:p-8",
+          "ease-[cubic-bezier(0.65, 0, 0.35, 1)] fixed z-40 flex w-full -translate-y-0 justify-center border-b border-primary bg-neutral/10 pt-[74px] backdrop-blur-md transition-transform duration-500 lg:pt-0",
           { "-translate-y-full": isMobile && !openMenu },
         )}
       >
-        <ul className="flex w-full flex-col gap-y-4 lg:flex-row lg:items-center lg:justify-between lg:gap-x-8">
+        <ul className="flex w-full max-w-[1536px] flex-col gap-y-4 p-4 lg:flex-row lg:items-center lg:justify-between lg:gap-x-8 lg:p-8">
           <li>
             <ul className="flex flex-col gap-y-4 lg:flex-row lg:gap-x-8">
               {mainMenus &&

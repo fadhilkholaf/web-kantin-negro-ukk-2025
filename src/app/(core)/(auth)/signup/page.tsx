@@ -22,7 +22,7 @@ const SignUpPage = () => {
   const [role, setRole] = useState<Role | null>(null);
 
   return (
-    <main className="flex h-screen w-full items-center justify-center bg-neutral/10">
+    <main className="flex h-screen w-full items-center justify-center">
       <Form
         action={async (formData) => {
           const loading = toast.loading("Sign up...");

@@ -43,7 +43,9 @@ const PelangganForm = ({
           if (response.success) {
             toast.success(response.message, { id: loading });
 
-            router.push("/admin-stan/pelanggan");
+            if ("id" in response) {
+              router.push(`/admin-stan/pelanggan/${response.id}`);
+            }
           } else {
             toast.error(response.message, { id: loading });
           }

@@ -32,10 +32,10 @@ export const createPelangganAction = async (formData: FormData) => {
       return responseError("Pelanggan already exist!");
     }
 
-    await createUser({ username, password, role: "siswa" });
+    const user = await createUser({ username, password, role: "siswa" });
 
     revalidatePath("/", "layout");
-    return responseSuccess("Success creating pelanggan!");
+    return { ...responseSuccess("Success creating pelanggan!"), id: user.id };
   } catch (error) {
     console.log(error);
 

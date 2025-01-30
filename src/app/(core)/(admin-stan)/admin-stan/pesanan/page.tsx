@@ -73,21 +73,27 @@ const PesananPage = async () => {
                     </ul>
                   </main>
                   <footer className="flex flex-col gap-2">
-                    <UpdateStatusTransaksiForm
-                      id={t.id}
-                      label="Konfirmasi"
-                      status={"dimasak"}
-                    />
-                    <UpdateStatusTransaksiForm
-                      id={t.id}
-                      label="Antar"
-                      status={"diantar"}
-                    />
-                    <UpdateStatusTransaksiForm
-                      id={t.id}
-                      label="Sampai"
-                      status={"sampai"}
-                    />
+                    {t.status === "belumDikonfirmasi" && (
+                      <UpdateStatusTransaksiForm
+                        id={t.id}
+                        label="Konfirmasi"
+                        status={"dimasak"}
+                      />
+                    )}
+                    {t.status === "dimasak" && (
+                      <UpdateStatusTransaksiForm
+                        id={t.id}
+                        label="Antar"
+                        status={"diantar"}
+                      />
+                    )}
+                    {t.status === "diantar" && (
+                      <UpdateStatusTransaksiForm
+                        id={t.id}
+                        label="Sampai"
+                        status={"sampai"}
+                      />
+                    )}
                     <DeleteTransaksiForm id={t.id} />
                   </footer>
                 </div>

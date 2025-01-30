@@ -7,7 +7,12 @@ const AdminStanPage = async () => {
         <h1 className="font-italiana text-3xl font-bold tracking-wider">
           Dashboard
         </h1>
-        <p>Data pemasukan bulanan</p>
+        <p className="flex flex-wrap items-center gap-4">
+          Data pemasukan bulanan
+          <span className="text-xs text-red-500">
+            klik untuk detail pemasukan
+          </span>
+        </p>
       </header>
       <main>
         <Transaksi />

@@ -7,7 +7,7 @@ import { SubmitButton } from "@/components/Button";
 
 const SignOutPage = () => {
   return (
-    <main className="flex h-screen w-full items-center justify-center bg-neutral/10">
+    <main className="flex h-screen w-full items-center justify-center">
       <Form
         action={() => {
           signOut({ redirect: true, redirectTo: "/" });

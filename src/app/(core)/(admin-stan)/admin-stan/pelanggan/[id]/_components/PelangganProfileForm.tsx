@@ -22,7 +22,7 @@ const PelangganProfileForm = ({
   userId: string;
 }) => {
   const [imagePreview, setImagePreview] = useState<string>(
-    siswa?.foto ?? "/images/dummy4.jpg",
+    siswa?.foto ?? "/images/dummy5.png",
   );
 
   return (
@@ -47,7 +47,7 @@ const PelangganProfileForm = ({
         } else {
           URL.revokeObjectURL(imagePreview);
 
-          setImagePreview(siswa?.foto ?? "/images/dummy4.jpg");
+          setImagePreview(siswa?.foto ?? "/images/dummy5.png");
 
           toast.error(response.message, { id: loading });
         }

@@ -147,6 +147,52 @@ export const getTransaksiDataAction = async (tahun: number) => {
   }
 };
 
+export const getDetailPenghasilanAction = async (
+  bulan: number,
+  tahun: number,
+) => {
+  try {
+    const session = await auth();
+
+    if (!session) {
+      return responseError("Unauthenticated!");
+    }
+
+    const start = new Date();
+    start.setFullYear(tahun);
+    start.setMonth(bulan, 1);
+    start.setHours(7, 0, 0, 0);
+
+    const end = new Date();
+    end.setFullYear(tahun);
+    end.setMonth(bulan + 1, 1);
+    end.setHours(7, 0, 0, 0);
+
+    const transaksi = (await findManyTransaksi(
+      {
+        AND: [
+          { stan: { userId: session.user.id } },
+          { tanggal: { gte: start, lt: end } },
+          { status: "sampai" },
+        ],
+      },
+      { detailTransaksi: { include: { menu: true } }, siswa: true },
+      { tanggal: "desc" },
+    )) as Prisma.TransaksiGetPayload<{
+      include: { detailTransaksi: { include: { menu: true } }; siswa: true };
+    }>[];
+
+    return {
+      ...responseSuccess("Success retrieving data!"),
+      data: [...transaksi],
+    };
+  } catch (error) {
+    console.log(error);
+
+    return responseError("Something went wrong!");
+  }
+};
+
 export const deleteTransaksiAction = async (id: string) => {
   try {
     const existingTransaksi = await findTransaksi({ id });

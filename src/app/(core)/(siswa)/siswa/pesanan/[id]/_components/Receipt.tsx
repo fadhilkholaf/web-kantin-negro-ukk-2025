@@ -37,9 +37,9 @@ const Receipt = ({
       <div className="flex w-full overflow-auto font-mono">
         <main
           ref={receiptRef}
-          className="flex h-fit w-[600px] flex-shrink-0 bg-white p-2 text-primary"
+          className="flex h-fit w-[600px] flex-shrink-0 bg-white p-2 text-black"
         >
-          <div className="flex w-full flex-col gap-2 border-4 border-double border-primary p-2">
+          <div className="flex w-full flex-col gap-2 border-4 border-double border-black p-2">
             <header className="flex items-end justify-between">
               <h1 className="font-italiana text-3xl font-bold tracking-wider">
                 Kantin Negro

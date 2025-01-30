@@ -1,6 +1,7 @@
 "use client";
 
 import Form from "next/form";
+import { useRouter } from "next/navigation";
 
 import {
   AllCommunityModule,
@@ -9,16 +10,17 @@ import {
   provideGlobalGridOptions,
 } from "ag-grid-community";
 import { AgGridReact, CustomCellRendererProps } from "ag-grid-react";
-import { Diskon } from "@prisma/client";
+import { Diskon, Prisma } from "@prisma/client";
 import { toast } from "sonner";
 
-import { deleteDiskonAction } from "@/action/diskon";
+import { checkMenuDiskonAction, deleteDiskonAction } from "@/action/diskon";
+import { LinkButton, SubmitButton } from "@/components/Button";
 import { defaultColDef } from "@/utils/constant";
+import { wib } from "@/utils/utils";
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import { wib } from "@/utils/utils";
-import { LinkButton, SubmitButton } from "@/components/Button";
+import { cn } from "@/utils/cn";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -47,7 +49,15 @@ const DeleteDiskonForm = ({ id }: { id: string }) => {
   );
 };
 
-const DiskonTable = ({ diskon }: { diskon: Diskon[] }) => {
+const DiskonTable = ({
+  diskon,
+  menu,
+}: {
+  diskon: Diskon[];
+  menu: Prisma.MenuGetPayload<{ include: { menuDiskon: true } }>[];
+}) => {
+  const router = useRouter();
+
   const colDefs: ColDef<Diskon>[] = [
     {
       field: "namaDiskon",
@@ -69,6 +79,64 @@ const DiskonTable = ({ diskon }: { diskon: Diskon[] }) => {
       sortable: true,
       sort: "asc",
       valueFormatter: (p) => wib(p.value),
+    },
+    {
+      field: "id",
+      headerName: "Menu",
+      filter: false,
+      sortable: false,
+      minWidth: 200,
+      cellRenderer: (p: CustomCellRendererProps) => (
+        <select
+          name={`${p.value}`}
+          id={`${p.value}`}
+          className="w-full"
+          onChange={async (e) => {
+            const loading = toast.loading("Loading...");
+
+            const response = await checkMenuDiskonAction(
+              e.target.value,
+              e.target.name,
+            );
+
+            if (response.success) {
+              toast.success(response.message, { id: loading });
+            } else {
+              toast.error(response.message, { id: loading });
+            }
+
+            router.refresh();
+          }}
+        >
+          <option value="">Terapkan diskon</option>
+          {menu
+            .sort((a) => {
+              const thisDiskon = a.menuDiskon.find(
+                (md) => md.diskonId === p.value,
+              );
+
+              if (thisDiskon) {
+                return -1;
+              } else {
+                return 1;
+              }
+            })
+            .map((m, i) => {
+              const isApplied = m.menuDiskon.some(
+                (md) => md.diskonId === p.value,
+              );
+              return (
+                <option
+                  key={i}
+                  value={m.id}
+                  className={cn("text-black", {
+                    "text-red-500": isApplied,
+                  })}
+                >{`${isApplied ? "lepas" : "pakai"} diskon untuk ${m.namaMakanan}`}</option>
+              );
+            })}
+        </select>
+      ),
     },
     {
       field: "id",

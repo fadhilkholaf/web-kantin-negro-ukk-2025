@@ -30,6 +30,7 @@
     "nextjs-toploader": "^3.7.15",
     "react": "19.0.0",
     "react-dom": "19.0.0",
+    "react-select": "^5.10.0",
     "schema-dts": "^1.1.2",
     "sonner": "^1.7.1",
     "tailwind-merge": "^2.6.0"

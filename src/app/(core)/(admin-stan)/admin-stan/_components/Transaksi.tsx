@@ -58,7 +58,7 @@ const Transaksi = () => {
           ))}
         </select>
       </div>
-      <TransaksiChart data={data} />
+      <TransaksiChart data={data} tahun={tahun} />
     </div>
   );
 };
