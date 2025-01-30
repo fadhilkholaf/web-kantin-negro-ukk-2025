@@ -90,7 +90,7 @@ const DiskonTable = ({
         <select
           name={`${p.value}`}
           id={`${p.value}`}
-          className="w-full"
+          className="w-full rounded-full border border-primary p-2"
           onChange={async (e) => {
             const loading = toast.loading("Loading...");
 
@@ -108,7 +108,7 @@ const DiskonTable = ({
             router.refresh();
           }}
         >
-          <option value="">Terapkan diskon</option>
+          <option value="">Atur diskon</option>
           {menu
             .sort((a) => {
               const thisDiskon = a.menuDiskon.find(
@@ -166,6 +166,7 @@ const DiskonTable = ({
         defaultColDef={defaultColDef}
         pagination
         paginationPageSize={10}
+        rowHeight={44}
         paginationPageSizeSelector={[5, 10, 20]}
         rowData={diskon}
       />

@@ -32,7 +32,13 @@ export const createPelangganAction = async (formData: FormData) => {
       return responseError("Pelanggan already exist!");
     }
 
-    const user = await createUser({ username, password, role: "siswa" });
+    const hashedPassword = hash(password);
+
+    const user = await createUser({
+      username,
+      password: hashedPassword,
+      role: "siswa",
+    });
 
     revalidatePath("/", "layout");
     return { ...responseSuccess("Success creating pelanggan!"), id: user.id };
@@ -108,6 +114,7 @@ export const updateUserProfile = async (formData: FormData) => {
         username: username ?? undefined,
         password: password !== "" ? hashedPassword : undefined,
         role: role ?? undefined,
+        verified: true,
       },
     );
 

@@ -63,7 +63,7 @@ const UserForm = ({ user }: { user: User }) => {
           />
           <Input
             label="Password"
-            type="text"
+            type="password"
             id="password"
             name="password"
             required={!user}

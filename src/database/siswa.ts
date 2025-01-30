@@ -6,8 +6,11 @@ export const createSiswa = async (data: Prisma.SiswaCreateInput) => {
   return await prisma.siswa.create({ data });
 };
 
-export const findSiswa = async (where: Prisma.SiswaWhereUniqueInput) => {
-  return await prisma.siswa.findUnique({ where });
+export const findSiswa = async (
+  where: Prisma.SiswaWhereUniqueInput,
+  include?: Prisma.SiswaInclude,
+) => {
+  return await prisma.siswa.findUnique({ where, include });
 };
 
 export const updateSiswa = async (

@@ -32,6 +32,7 @@ export const signUpAction = async (formData: FormData) => {
       username,
       password: hashedPassword,
       role,
+      verified: role === "adminStan",
     });
 
     await signIn("credentials", {
