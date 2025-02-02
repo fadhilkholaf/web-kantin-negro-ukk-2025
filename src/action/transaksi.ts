@@ -8,12 +8,12 @@ import { CartMenu } from "@/app/(core)/(siswa)/siswa/menu/_components/MenuList";
 import { findDiskon } from "@/database/diskon";
 import { findMenu } from "@/database/menu";
 import {
+  createTransaksi,
   deleteTransaksi,
   findManyTransaksi,
   findTransaksi,
   updateTransaksi,
 } from "@/database/transaksi";
-import { createTransaksi } from "@/database/transaksi";
 import { auth } from "@/lib/auth";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
 import { month } from "@/utils/utils";
@@ -47,38 +47,36 @@ export const createPesananAction = async (
                   c.menu.map(async (m) => {
                     const existingMenu = await findMenu({ id: m.id });
 
-                    if (existingMenu) {
-                      if (m.diskonId) {
-                        const existingDiskon = await findDiskon({
-                          id: m.diskonId,
-                        });
+                    if (!existingMenu) return null;
 
-                        if (existingDiskon) {
-                          return {
-                            hargaBeli:
-                              existingMenu.harga *
-                              m.qty *
-                              (1 - existingDiskon.presentaseDiskon / 100),
-                            qty: m.qty,
-                            menuId: m.id,
-                          };
-                        } else {
-                          return {
-                            hargaBeli: existingMenu.harga * m.qty,
-                            qty: m.qty,
-                            menuId: m.id,
-                          };
-                        }
-                      } else {
-                        return {
-                          hargaBeli: existingMenu.harga * m.qty,
-                          qty: m.qty,
-                          menuId: m.id,
-                        };
-                      }
-                    } else {
-                      return null;
+                    if (!m.diskonId) {
+                      return {
+                        hargaBeli: existingMenu.harga * m.qty,
+                        qty: m.qty,
+                        menuId: m.id,
+                      };
                     }
+
+                    const existingDiskon = await findDiskon({
+                      id: m.diskonId,
+                    });
+
+                    if (!existingDiskon) {
+                      return {
+                        hargaBeli: existingMenu.harga * m.qty,
+                        qty: m.qty,
+                        menuId: m.id,
+                      };
+                    }
+
+                    return {
+                      hargaBeli:
+                        existingMenu.harga *
+                        m.qty *
+                        (1 - existingDiskon.presentaseDiskon / 100),
+                      qty: m.qty,
+                      menuId: m.id,
+                    };
                   }),
                 )
               ).filter((c) => c !== null),

@@ -10,10 +10,11 @@
     "prettier": "prettier --write .",
     "studio": "prisma studio",
     "migrate": "prisma migrate dev",
+    "generate": "prisma generate",
     "postinstall": "prisma generate"
   },
   "dependencies": {
-    "@prisma/client": "6.2.0",
+    "@prisma/client": "6.3.0",
     "ag-charts-community": "^11.0.4",
     "ag-charts-react": "^11.0.4",
     "ag-grid-community": "^33.0.4",
