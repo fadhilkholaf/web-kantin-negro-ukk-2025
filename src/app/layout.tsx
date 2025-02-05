@@ -96,7 +96,7 @@ export default function RootLayout({
       >
         <SessionProvider>
           <NextTopLoader shadow={false} showSpinner={false} color="#b2b377" />
-          <Toaster expand richColors position="bottom-center" />
+          <Toaster richColors position="bottom-center" />
           <Image
             src="/images/noise.svg"
             alt="Noise"

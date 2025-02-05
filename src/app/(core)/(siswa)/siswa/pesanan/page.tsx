@@ -19,10 +19,10 @@ const PesananPage = async () => {
     {
       siswa: { userId: session.user.id },
     },
-    { detailTransaksi: { include: { menu: true } } },
+    { detailTransaksi: { include: { menu: true } }, stan: true },
     { tanggal: "desc" },
   )) as Prisma.TransaksiGetPayload<{
-    include: { detailTransaksi: { include: { menu: true } } };
+    include: { detailTransaksi: { include: { menu: true } }; stan: true };
   }>[];
 
   return (
@@ -34,6 +34,7 @@ const PesananPage = async () => {
               <div className="flex h-full flex-col gap-4 border-4 border-double border-primary p-2 text-primary">
                 <header>
                   <p>{wib(t.tanggal)}</p>
+                  <p>Stan: {t.stan?.namaStan ?? "-"}</p>
                   <p
                     className={cn({
                       "text-red-500": t.status === "belumDikonfirmasi",

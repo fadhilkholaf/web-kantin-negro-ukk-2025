@@ -35,10 +35,15 @@ export const findManyTopMenu = async () => {
     orderBy: { _sum: { qty: "desc" } },
     where: {
       transaksi: {
-        tanggal: {
-          gte: lastMonth,
-          lte: today,
-        },
+        AND: [
+          {
+            tanggal: {
+              gte: lastMonth,
+              lte: today,
+            },
+          },
+          { status: "sampai" },
+        ],
       },
     },
   });

@@ -15,7 +15,6 @@ const ToastWrapper = ({
   if (!user.verified) {
     toast.error("Your password is unverified!", {
       description: "Change your password right now!",
-      duration: 10000,
     });
   }
 

@@ -83,7 +83,7 @@ const SignInForm = ({ onClick }: { onClick: () => void }) => {
           <Input
             label="Password"
             required
-            type="text"
+            type="password"
             id="password"
             name="password"
           />
@@ -145,7 +145,7 @@ const SignUpForm = ({ onClick }: { onClick: () => void }) => {
           <Input
             label="Password"
             required
-            type="text"
+            type="password"
             id="passwordU"
             name="passwordU"
           />
