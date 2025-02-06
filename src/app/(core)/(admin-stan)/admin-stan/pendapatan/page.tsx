@@ -58,7 +58,7 @@ const PendapatanPage = () => {
         <ul className="grid grid-cols-1 gap-4 text-primary lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
           {transaksi.map((t, i) => (
             <li key={i} className="bg-white p-4">
-              <ul className="flex flex-col gap-2 border-4 border-double border-primary p-4">
+              <ul className="flex h-full flex-col gap-2 border-4 border-double border-primary p-4">
                 <li className="flex justify-between gap-2">
                   <p>Tanggal:</p>
                   <p>{wib(t.tanggal)}</p>
@@ -68,7 +68,7 @@ const PendapatanPage = () => {
                   <p>{t.siswa?.namaSiswa ?? "-"}</p>
                 </li>
                 <hr />
-                <ol>
+                <ul className="h-full">
                   <li className="flex justify-between">
                     <p className="w-[33%]">Menu</p>
                     <p className="w-[33%] text-center">Qty</p>
@@ -81,7 +81,7 @@ const PendapatanPage = () => {
                       <p className="w-[33%] text-end">{rupiah(dt.hargaBeli)}</p>
                     </li>
                   ))}
-                </ol>
+                </ul>
                 <hr />
                 <li className="flex justify-between gap-2">
                   <p>Total harga:</p>

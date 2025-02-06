@@ -14,7 +14,7 @@ const MainPage = () => {
   const [openMenu, setOpenMenu] = useState<boolean>(false);
 
   return (
-    <main className="relative w-full overflow-hidden">
+    <main className="relative w-full select-none overflow-hidden">
       <Header
         openMenu={openMenu}
         setOpenMenu={() => setOpenMenu((prev) => !prev)}

@@ -1,4 +1,5 @@
 import { motion, Variants } from "motion/react";
+import CursorGallery from "../_components/CursorGallery";
 
 const container: Variants = {
   initial: {},
@@ -97,6 +98,7 @@ const LandingSection = () => {
           return <Tag key={i} i={i} letters={letters} w={w} />;
         })}
       </motion.h1>
+      <CursorGallery />
     </section>
   );
 };
