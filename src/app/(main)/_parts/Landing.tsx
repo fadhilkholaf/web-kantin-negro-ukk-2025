@@ -90,7 +90,7 @@ const LandingSection = () => {
         variants={container}
         initial="initial"
         whileInView="animate"
-        className="flex flex-wrap justify-center gap-x-8 gap-y-4 font-italiana text-[12vw] italic leading-[1] text-primary lg:w-1/2 lg:text-[8vw]"
+        className="pointer-events-none z-10 flex flex-wrap justify-center gap-x-8 gap-y-4 font-italiana text-[12vw] italic leading-[1] text-primary lg:w-1/2 lg:text-[8vw]"
       >
         {"Find Your Perfect Foods and Drinks".split(" ").map((w, i) => {
           const letters = w.split("");

@@ -7,6 +7,7 @@ const CursorGallery = () => {
   const refs = useRef<RefObject<HTMLImageElement | null>[]>(
     Array.from({ length: 24 }, () => createRef()),
   );
+  const containerRef = useRef<HTMLElement>(null);
   let currentIndex: number = 0;
   let steps: number = 0;
   let nbOfImages: number = 0;
@@ -120,21 +121,23 @@ const CursorGallery = () => {
   };
 
   useEffect(() => {
-    window.addEventListener("pointermove", handleMovement);
-    window.addEventListener("touchstart", handleMovement);
-    window.addEventListener("touchmove", handleMovement);
-    window.addEventListener("click", handleMovement);
+    const currentContainerRef = containerRef.current;
+
+    if (currentContainerRef) {
+      currentContainerRef.addEventListener("pointermove", handleMovement);
+      currentContainerRef.addEventListener("click", handleMovement);
+    }
 
     return () => {
-      window.removeEventListener("pointermove", handleMovement);
-      window.removeEventListener("touchstart", handleMovement);
-      window.removeEventListener("touchmove", handleMovement);
-      window.removeEventListener("click", handleMovement);
+      if (currentContainerRef) {
+        currentContainerRef.removeEventListener("pointermove", handleMovement);
+        currentContainerRef.removeEventListener("click", handleMovement);
+      }
     };
   });
 
   return (
-    <section className="absolute left-0 top-0 -z-10 h-screen w-full">
+    <section ref={containerRef} className="absolute left-0 top-0 h-full w-full">
       <article className="relative h-full w-full overflow-hidden">
         {refs.current.map((ref, index) => (
           <Image
@@ -145,7 +148,7 @@ const CursorGallery = () => {
             width={500}
             height={500}
             priority
-            className="transition-[transform, z-index, opacity] absolute left-1/2 w-[20vw] -translate-x-1/2 translate-y-[100vh] rounded-lg opacity-0"
+            className="transition-[transform, opacity] absolute left-1/2 w-[20vw] -translate-x-1/2 translate-y-[100vh] rounded-lg opacity-0"
           />
         ))}
       </article>
