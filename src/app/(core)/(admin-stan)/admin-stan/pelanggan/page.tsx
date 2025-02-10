@@ -8,9 +8,9 @@ import PelangganTable from "./_components/PelangganTable";
 const PelangganPage = async () => {
   const pelanggan = (await findManyUsers(
     { NOT: [{ role: "adminStan" }] },
-    { blockedStan: { include: { stan: true } } },
+    { blockedStan: { include: { stan: true } }, siswa: true },
   )) as Prisma.UserGetPayload<{
-    include: { blockedStan: { include: { stan: true } } };
+    include: { blockedStan: { include: { stan: true } }; siswa: true };
   }>[];
 
   return (

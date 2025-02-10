@@ -12,6 +12,7 @@ import { SubmitButton } from "@/components/Button";
 import { Input } from "@/components/Input";
 import { cn } from "@/utils/cn";
 import { rupiah } from "@/utils/utils";
+import { getClient } from "@/lib/ably";
 
 export interface CartMenu extends Menu {
   diskonId?: string;
@@ -138,6 +139,9 @@ const MenuList = ({
 
     setCart(newCart);
   };
+
+  const client = getClient();
+  const channel = client.channels.get("order");
 
   return (
     <main className="flex flex-col gap-4 text-primary">
@@ -267,6 +271,12 @@ const MenuList = ({
             const loading = toast.loading("Creating transaksi...");
 
             const response = await createPesananAction(cart);
+
+            cart.map((c) => {
+              channel.publish(c.stanId, {
+                id: c.menu,
+              });
+            });
 
             if (response.success) {
               toast.success(response.message, { id: loading });

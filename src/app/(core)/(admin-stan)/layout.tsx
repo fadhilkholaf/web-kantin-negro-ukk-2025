@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 
 import { findStan } from "@/database/stan";
 import { auth } from "@/lib/auth";
+import NotificationWrapper from "./admin-stan/_components/NotificationWrapper";
 
 export const metadata: Metadata = {
   title: "Admin Stan",
@@ -26,7 +27,13 @@ const AdminStanLayout = async ({ children }: { children: ReactNode }) => {
     redirect("/profile");
   }
 
-  return <main>{children}</main>;
+  return (
+    <main>
+      <NotificationWrapper userId={existingStan.id}>
+        {children}
+      </NotificationWrapper>
+    </main>
+  );
 };
 
 export default AdminStanLayout;

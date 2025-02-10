@@ -19,6 +19,7 @@ import { defaultColDef } from "@/utils/constant";
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
+import Image from "next/image";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -80,25 +81,41 @@ const PelangganTable = ({
   pelanggan,
 }: {
   pelanggan: Prisma.UserGetPayload<{
-    include: { blockedStan: { include: { stan: true } } };
+    include: { blockedStan: { include: { stan: true } }; siswa: true };
   }>[];
 }) => {
   const { data: session } = useSession();
 
-  if (!session) {
-    return;
-  }
-
   const colDefs: ColDef<
     Prisma.UserGetPayload<{
-      include: { blockedStan: { include: { stan: true } } };
+      include: { blockedStan: { include: { stan: true } }; siswa: true };
     }>
   >[] = [
     {
       field: "username",
     },
     {
-      field: "password",
+      headerName: "Nama Siswa",
+      field: "siswa.namaSiswa",
+    },
+    {
+      headerName: "Foto Siswa",
+      field: "siswa.foto",
+      cellRenderer: (p: CustomCellRendererProps) => (
+        <div className="flex h-full w-full items-center justify-center p-2">
+          <Image
+            src={p.value ?? "/images/dummy5.png"}
+            alt="Image Preview"
+            width={80}
+            height={80}
+            className="aspect-square rounded-lg border object-cover"
+          />
+        </div>
+      ),
+    },
+    {
+      headerName: "Telp Siswa",
+      field: "siswa.telp",
     },
     {
       field: "id",
@@ -129,7 +146,7 @@ const PelangganTable = ({
             {blockedUser ? (
               <UnblockUserForm id={blockedUser.id} />
             ) : (
-              <BlockUserForm userId={p.value} stanId={session.user.id} />
+              <BlockUserForm userId={p.value} stanId={session?.user.id ?? ""} />
             )}
           </div>
         );
@@ -146,6 +163,7 @@ const PelangganTable = ({
         paginationPageSize={10}
         paginationPageSizeSelector={[5, 10, 20]}
         rowData={pelanggan}
+        rowHeight={100}
       />
     </div>
   );
