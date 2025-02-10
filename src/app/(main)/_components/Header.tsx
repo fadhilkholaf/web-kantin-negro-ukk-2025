@@ -31,7 +31,12 @@ const Header = ({
   setOpenMenu: () => void;
 }) => {
   return (
-    <header className="fixed z-50 flex w-full items-center justify-between border-b border-primary bg-neutral/10 p-4 backdrop-blur-md lg:p-8">
+    <header
+      className={cn(
+        "fixed z-50 flex w-full items-center justify-between border-b border-primary bg-neutral/10 p-4 backdrop-blur-md lg:p-8",
+        { "border-neutral bg-transparent": openMenu },
+      )}
+    >
       <Link
         href="/"
         className={cn(
