@@ -1,4 +1,5 @@
 import { motion, Variants } from "motion/react";
+
 import CursorGallery from "../_components/CursorGallery";
 
 const container: Variants = {

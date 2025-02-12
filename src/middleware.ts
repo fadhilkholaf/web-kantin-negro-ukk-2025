@@ -2,11 +2,9 @@ import { NextResponse } from "next/server";
 
 import { auth } from "@/lib/auth";
 
-// this route is
 const authRoute = ["/signup", "/signin"];
 const publicRoute = ["/"];
 
-// start with this route is
 const privateRoute = ["/siswa", "/admin-stan", "/profile"];
 
 export default auth(async (req) => {
