@@ -1,6 +1,6 @@
 # Kantin Negro
 
-Ujian Kompetensi Keahlian tahun ajaran 2024/2025
+Ujian Kompetensi Keahlian tahun ajaran 2024/2025(the code lil bit messy)
 
 ## Inspired from
 
@@ -53,3 +53,4 @@ pnpm dev
 - [AG Chart](https://www.ag-grid.com/charts)
 - [Motion](https://motion.dev)
 - [Lenis](https://lenis.darkroom.engineering)
+- [Ably](https://ably.com)
