@@ -5,7 +5,7 @@ import cloudinary from "@/lib/cloudinary";
 export const uploadImage = async (
   file: File,
   fileName: string,
-  menu?: true | undefined,
+  menu?: true,
 ) => {
   const fileBuffer = Buffer.from(await file.arrayBuffer());
 
@@ -27,4 +27,12 @@ export const uploadImage = async (
   );
 
   return response;
+};
+
+export const deleteImage = async (id: string) => {
+  try {
+    await cloudinary.uploader.destroy(id);
+  } catch (error) {
+    console.log(error);
+  }
 };

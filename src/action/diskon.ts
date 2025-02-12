@@ -83,7 +83,7 @@ export const updateDiskonAction = async (formData: FormData, id: string) => {
     );
 
     revalidatePath("/", "layout");
-    return responseSuccess("Success creating diskon");
+    return responseSuccess("Success updating diskon");
   } catch (error) {
     console.log(error);
 
@@ -96,7 +96,7 @@ export const deleteDiskonAction = async (id: string) => {
     const existingDiskon = await findDiskon({ id });
 
     if (!existingDiskon) {
-      return responseError("Can't found diskon!");
+      return responseError("Diskon doesn't exist!");
     }
 
     await deleteDiskon({ id });
