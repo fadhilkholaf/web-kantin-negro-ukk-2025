@@ -16,11 +16,11 @@ import { toast } from "sonner";
 import { checkMenuDiskonAction, deleteDiskonAction } from "@/action/diskon";
 import { LinkButton, SubmitButton } from "@/components/Button";
 import { defaultColDef } from "@/utils/constant";
+import { cn } from "@/utils/cn";
 import { wib } from "@/utils/utils";
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import { cn } from "@/utils/cn";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 

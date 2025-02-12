@@ -20,7 +20,7 @@ const Transaksi = () => {
   >([]);
 
   useEffect(() => {
-    const loading = toast.loading("Retrieving data...", { duration: 1000 });
+    const loading = toast.loading("Retrieving data...");
 
     const response = async () => {
       const dataTransaksi = await getTransaksiDataAction(tahun);

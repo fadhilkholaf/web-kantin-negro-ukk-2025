@@ -1,10 +1,10 @@
 import { notFound } from "next/navigation";
 
+import { LinkButton } from "@/components/Button";
 import { findManyMenus } from "@/database/menu";
 import { auth } from "@/lib/auth";
 
 import MenuTable from "./_components/MenuTable";
-import { LinkButton } from "@/components/Button";
 
 const MenuPage = async () => {
   const session = await auth();

@@ -1,6 +1,6 @@
 import Transaksi from "./_components/Transaksi";
 
-const AdminStanPage = async () => {
+const AdminStanPage = () => {
   return (
     <main className="flex min-h-screen w-full flex-col gap-8 px-4 py-32 lg:px-8">
       <header className="flex flex-col text-primary">

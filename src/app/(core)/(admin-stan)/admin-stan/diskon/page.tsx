@@ -1,11 +1,13 @@
 import { notFound } from "next/navigation";
 
-import { findManyDiskon } from "@/database/diskon";
-import { auth } from "@/lib/auth";
-import DiskonTable from "./_components/DiskonTable";
-import { LinkButton } from "@/components/Button";
-import { findManyMenus } from "@/database/menu";
 import { Prisma } from "@prisma/client";
+
+import { LinkButton } from "@/components/Button";
+import { findManyDiskon } from "@/database/diskon";
+import { findManyMenus } from "@/database/menu";
+import { auth } from "@/lib/auth";
+
+import DiskonTable from "./_components/DiskonTable";
 
 const DiskonPage = async () => {
   const session = await auth();
