@@ -1,7 +1,9 @@
-import { findManyTopMenu, findMenu } from "@/database/menu";
-import TopMenusList from "./_components/TopMenusList";
 import { Prisma } from "@prisma/client";
+
+import { findManyTopMenu, findMenu } from "@/database/menu";
 import { wib } from "@/utils/utils";
+
+import TopMenusList from "./_components/TopMenusList";
 
 const SiswaPage = async () => {
   const topMenus = await findManyTopMenu();

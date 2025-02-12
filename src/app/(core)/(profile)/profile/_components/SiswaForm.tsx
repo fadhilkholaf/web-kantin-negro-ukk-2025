@@ -4,10 +4,10 @@ import Form from "next/form";
 import Image from "next/image";
 import { useState } from "react";
 
+import { Siswa } from "@prisma/client";
 import { toast } from "sonner";
 
 import { createSiswaProfile, updateSiswaProfile } from "@/action/siswa";
-import { Siswa } from "@prisma/client";
 import { SubmitButton } from "@/components/Button";
 import { Input } from "@/components/Input";
 

@@ -1,6 +1,7 @@
 import Image from "next/image";
 
 import { Prisma } from "@prisma/client";
+
 import { cn } from "@/utils/cn";
 
 interface TopMenuInterface

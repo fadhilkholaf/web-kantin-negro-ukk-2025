@@ -60,23 +60,20 @@ export const metadata: Metadata = {
   },
   alternates: { canonical: baseUrl },
   openGraph: {
+    siteName: "Kantin Negro",
+    url: baseUrl,
     images: [
       {
         url: imageUrl,
-        width: 512,
-        height: 512,
+        width: 1200,
+        height: 630,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    images: [
-      {
-        url: imageUrl,
-        width: 512,
-        height: 512,
-      },
-    ],
+    creator: "@fadhilkholaf",
+    images: imageUrl,
   },
   appleWebApp: {
     capable: true,

@@ -3,6 +3,7 @@
 import Form from "next/form";
 
 import { signOut } from "next-auth/react";
+
 import { SubmitButton } from "@/components/Button";
 
 const SignOutPage = () => {

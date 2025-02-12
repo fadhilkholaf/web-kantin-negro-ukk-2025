@@ -8,11 +8,12 @@ import {
 } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
 import { Prisma } from "@prisma/client";
+
 import { defaultColDef } from "@/utils/constant";
+import { rupiah, wib } from "@/utils/utils";
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import { rupiah, wib } from "@/utils/utils";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 

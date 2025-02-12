@@ -2,10 +2,10 @@
 
 import Form from "next/form";
 
+import { Stan } from "@prisma/client";
 import { toast } from "sonner";
 
 import { createStanProfile, updateStanProfile } from "@/action/stan";
-import { Stan } from "@prisma/client";
 import { SubmitButton } from "@/components/Button";
 import { Input } from "@/components/Input";
 

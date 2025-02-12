@@ -2,10 +2,11 @@ import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { ReactNode } from "react";
 
+import { Prisma } from "@prisma/client";
+
 import NotificationWrapper from "@/components/wrapper/NotificationWrapper";
 import { findSiswa } from "@/database/siswa";
 import { auth } from "@/lib/auth";
-import { Prisma } from "@prisma/client";
 
 import ToastWrapper from "./_components/ToastWrapper";
 
