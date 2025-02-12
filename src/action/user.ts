@@ -6,7 +6,6 @@ import { Role } from "@prisma/client";
 
 import {
   createUser,
-  deleteUser,
   findManyUsers,
   findUser,
   updateUser,
@@ -15,8 +14,6 @@ import { deleteUserStan } from "@/database/user-stan";
 import { auth } from "@/lib/auth";
 import { hash } from "@/utils/hash";
 import { responseError, responseSuccess } from "@/utils/responseFunction";
-
-import { deleteImage } from "./cloudinary";
 
 export const createPelangganAction = async (formData: FormData) => {
   try {
@@ -155,27 +152,6 @@ export const unblockUserAction = async (id: string) => {
 
     revalidatePath("/", "layout");
     return responseSuccess("Success unblocking user!");
-  } catch (error) {
-    console.log(error);
-
-    return responseError("Something went wrong!");
-  }
-};
-
-export const deleteUserAction = async (id: string) => {
-  try {
-    const existingUser = await findUser({ id });
-
-    if (!existingUser) {
-      return responseError("User not found!");
-    }
-
-    await deleteUser({ id });
-
-    await deleteImage(`ukk-2025/${id}`);
-
-    revalidatePath("/", "layout");
-    return responseSuccess("Success updating user!");
   } catch (error) {
     console.log(error);
 

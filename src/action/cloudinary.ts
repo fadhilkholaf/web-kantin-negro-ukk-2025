@@ -28,11 +28,3 @@ export const uploadImage = async (
 
   return response;
 };
-
-export const deleteImage = async (id: string) => {
-  try {
-    await cloudinary.uploader.destroy(id);
-  } catch (error) {
-    console.log(error);
-  }
-};

@@ -33,7 +33,3 @@ export const updateUser = async (
 ) => {
   return await prisma.user.update({ where, data });
 };
-
-export const deleteUser = async (where: Prisma.UserWhereUniqueInput) => {
-  return await prisma.user.delete({ where });
-};
