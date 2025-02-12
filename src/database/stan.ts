@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export const createStan = async (data: Prisma.StanCreateInput) => {
   return await prisma.stan.create({ data });

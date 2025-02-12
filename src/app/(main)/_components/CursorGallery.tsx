@@ -20,7 +20,7 @@ const CursorGallery = () => {
 
     if (e instanceof PointerEvent || e instanceof MouseEvent) {
       if (e.type === "click") {
-        steps += 500;
+        steps += 250;
       }
 
       steps += Math.abs(e.movementX) + Math.abs(e.movementY);
@@ -41,17 +41,14 @@ const CursorGallery = () => {
       clientY = touch.pageY;
     }
 
-    if (steps >= currentIndex * 500) {
+    if (steps >= currentIndex * 250) {
       moveImage(clientX, clientY);
-      if (nbOfImages == refs.current.length) {
-        removeImage();
-      }
     }
 
     if (currentIndex == refs.current.length) {
       currentIndex = 0;
 
-      steps = -500;
+      steps = -250;
     }
   };
 
@@ -148,7 +145,7 @@ const CursorGallery = () => {
             width={500}
             height={500}
             priority
-            className="transition-[transform, opacity] absolute left-1/2 w-[20vw] -translate-x-1/2 translate-y-[100vh] rounded-lg opacity-0"
+            className="transition-[transform, opacity] absolute left-1/2 w-[20vw] min-w-[200px] -translate-x-1/2 translate-y-[100vh] rounded-lg opacity-0"
           />
         ))}
       </article>

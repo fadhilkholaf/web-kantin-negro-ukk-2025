@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export const createMenuDiskon = async (data: Prisma.MenuDiskonCreateInput) => {
   return await prisma.menuDiskon.create({ data });

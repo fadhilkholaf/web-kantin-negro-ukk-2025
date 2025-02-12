@@ -77,7 +77,8 @@ const Menu = ({ onClick }: { onClick: () => void }) => {
             <p className="text-xs font-black tracking-wider">
               Made for your pleasure by{" "}
               <Link
-                href="https://fadhilkholaf.my.id/"
+                href="https://fadhilkholaf.my.id"
+                target="_blank"
                 className="underline underline-offset-4"
               >
                 fadhilkholaf

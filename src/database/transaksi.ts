@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export const createTransaksi = async (data: Prisma.TransaksiCreateInput) => {
   return await prisma.transaksi.create({ data });

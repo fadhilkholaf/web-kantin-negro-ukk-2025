@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export const createSiswa = async (data: Prisma.SiswaCreateInput) => {
   return await prisma.siswa.create({ data });

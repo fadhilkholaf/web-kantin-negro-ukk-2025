@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 
-import { prisma } from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 
 export const createDiskon = async (data: Prisma.DiskonCreateInput) => {
   return await prisma.diskon.create({ data });
