@@ -1,14 +1,18 @@
 "use client";
 
 import Form from "next/form";
+import { useRouter } from "next/navigation";
 
 import { Prisma } from "@prisma/client";
 import { toast } from "sonner";
 
-import { createPelangganAction, updatePelangganAction } from "@/action/user";
+import {
+  createPelangganAction,
+  updatePelangganAction,
+} from "@/action/pelanggan";
 import { SubmitButton } from "@/components/Button";
 import { Input } from "@/components/Input";
-import { useRouter } from "next/navigation";
+
 import PelangganProfileForm from "./PelangganProfileForm";
 
 const PelangganForm = ({

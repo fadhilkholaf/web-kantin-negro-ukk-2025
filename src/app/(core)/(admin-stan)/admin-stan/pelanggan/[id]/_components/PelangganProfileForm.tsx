@@ -7,8 +7,8 @@ import { useState } from "react";
 import { toast } from "sonner";
 
 import {
-  createPelangganProfile,
-  updatePelangganProfile,
+  createPelangganProfileAction,
+  updatePelangganProfileAction,
 } from "@/action/pelanggan";
 import { Siswa } from "@prisma/client";
 import { SubmitButton } from "@/components/Button";
@@ -35,9 +35,9 @@ const PelangganProfileForm = ({
         let response;
 
         if (siswa) {
-          response = await updatePelangganProfile(formData, userId);
+          response = await updatePelangganProfileAction(formData, userId);
         } else {
-          response = await createPelangganProfile(formData, userId);
+          response = await createPelangganProfileAction(formData, userId);
         }
 
         if (response.success) {

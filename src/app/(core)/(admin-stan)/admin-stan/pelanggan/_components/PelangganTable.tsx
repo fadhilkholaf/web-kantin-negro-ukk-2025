@@ -1,6 +1,7 @@
 "use client";
 
 import Form from "next/form";
+import Image from "next/image";
 
 import {
   AllCommunityModule,
@@ -13,13 +14,15 @@ import { useSession } from "next-auth/react";
 import { Prisma } from "@prisma/client";
 import { toast } from "sonner";
 
-import { blockUserAction, unblockUserAction } from "@/action/user";
+import {
+  blockPelangganAction,
+  unblocPelangganAction,
+} from "@/action/pelanggan";
 import { LinkButton, SubmitButton } from "@/components/Button";
 import { defaultColDef } from "@/utils/constant";
 
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
-import Image from "next/image";
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 
@@ -37,7 +40,7 @@ const BlockUserForm = ({
       action={async () => {
         const loading = toast.loading("Blocking user...");
 
-        const response = await blockUserAction(userId, stanId);
+        const response = await blockPelangganAction(userId, stanId);
 
         if (response.success) {
           toast.success(response.message, { id: loading });
@@ -60,7 +63,7 @@ const UnblockUserForm = ({ id }: { id: string }) => {
       action={async () => {
         const loading = toast.loading("Blocking user...");
 
-        const response = await unblockUserAction(id);
+        const response = await unblocPelangganAction(id);
 
         if (response.success) {
           toast.success(response.message, { id: loading });
