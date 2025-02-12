@@ -6,6 +6,8 @@ import { SessionProvider } from "next-auth/react";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
 
+import { AblyProvider } from "@/context/AblyContext";
+
 import "./globals.css";
 
 export const revalidate = 0;
@@ -94,19 +96,21 @@ export default function RootLayout({
       <body
         className={`${geistSans.className} ${geistMono.variable} ${italiana.variable} antialiased`}
       >
-        <SessionProvider>
-          <NextTopLoader shadow={false} showSpinner={false} color="#b2b377" />
-          <Toaster richColors position="bottom-center" />
-          <Image
-            src="/images/noise.svg"
-            alt="Noise"
-            width={500}
-            height={500}
-            priority
-            className="fixed left-0 top-0 -z-50 h-full w-full object-cover contrast-50"
-          />
-          {children}
-        </SessionProvider>
+        <AblyProvider>
+          <SessionProvider>
+            <NextTopLoader shadow={false} showSpinner={false} color="#b2b377" />
+            <Toaster richColors position="bottom-center" />
+            <Image
+              src="/images/noise.svg"
+              alt="Noise"
+              width={500}
+              height={500}
+              priority
+              className="fixed left-0 top-0 -z-50 h-full w-full object-cover contrast-50"
+            />
+            {children}
+          </SessionProvider>
+        </AblyProvider>
       </body>
     </html>
   );

@@ -6,7 +6,7 @@ import { ReactNode, useEffect } from "react";
 import { InboundMessage } from "ably";
 import { toast } from "sonner";
 
-import { getClient } from "@/lib/ably";
+import { useAbly } from "@/context/AblyContext";
 
 const NotificationWrapper = ({
   userId,
@@ -16,15 +16,14 @@ const NotificationWrapper = ({
   children: ReactNode;
 }) => {
   const router = useRouter();
+  const ably = useAbly();
 
   useEffect(() => {
-    const client = getClient();
-    const channel = client.channels.get("order");
+    const channel = ably.channels.get("order");
 
     const handleOrder = async (e: InboundMessage) => {
-      toast.info("New order request!");
+      toast.info(e.data.message);
       router.refresh();
-      console.log({ order: e.data.id });
     };
 
     channel.subscribe(userId, handleOrder);

@@ -10,9 +10,9 @@ import { toast } from "sonner";
 import { createPesananAction } from "@/action/transaksi";
 import { SubmitButton } from "@/components/Button";
 import { Input } from "@/components/Input";
+import { useAbly } from "@/context/AblyContext";
 import { cn } from "@/utils/cn";
 import { rupiah } from "@/utils/utils";
-import { getClient } from "@/lib/ably";
 
 export interface CartMenu extends Menu {
   diskonId?: string;
@@ -140,8 +140,8 @@ const MenuList = ({
     setCart(newCart);
   };
 
-  const client = getClient();
-  const channel = client.channels.get("order");
+  const ably = useAbly();
+  const channel = ably.channels.get("order");
 
   return (
     <main className="flex flex-col gap-4 text-primary">
@@ -272,14 +272,14 @@ const MenuList = ({
 
             const response = await createPesananAction(cart);
 
-            cart.map((c) => {
-              channel.publish(c.stanId, {
-                id: c.menu,
-              });
-            });
-
             if (response.success) {
               toast.success(response.message, { id: loading });
+
+              cart.map((c) => {
+                channel.publish(c.stanId, {
+                  message: `New ${c.menu.length} order(s)!`,
+                });
+              });
 
               setFilterMenu("");
               setCart([]);

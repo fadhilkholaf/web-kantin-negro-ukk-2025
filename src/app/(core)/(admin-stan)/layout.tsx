@@ -4,7 +4,8 @@ import { ReactNode } from "react";
 
 import { findStan } from "@/database/stan";
 import { auth } from "@/lib/auth";
-import NotificationWrapper from "./admin-stan/_components/NotificationWrapper";
+
+import NotificationWrapper from "@/components/wrapper/NotificationWrapper";
 
 export const metadata: Metadata = {
   title: "Admin Stan",

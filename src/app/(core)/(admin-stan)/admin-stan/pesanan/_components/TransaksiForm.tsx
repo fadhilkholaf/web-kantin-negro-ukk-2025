@@ -2,6 +2,7 @@
 
 import Form from "next/form";
 
+import { Status } from "@prisma/client";
 import { toast } from "sonner";
 
 import {
@@ -9,7 +10,7 @@ import {
   updateStatusTransaksiAction,
 } from "@/action/transaksi";
 import { SubmitButton } from "@/components/Button";
-import { Status } from "@prisma/client";
+import { useAbly } from "@/context/AblyContext";
 
 export const DeleteTransaksiForm = ({ id }: { id: string }) => {
   return (
@@ -36,13 +37,18 @@ export const DeleteTransaksiForm = ({ id }: { id: string }) => {
 
 export const UpdateStatusTransaksiForm = ({
   id,
+  siswaId,
   label,
   status,
 }: {
   id: string;
+  siswaId: string;
   label: string;
   status: Status;
 }) => {
+  const ably = useAbly();
+  const channel = ably.channels.get("order");
+
   return (
     <Form
       action={async () => {
@@ -51,6 +57,16 @@ export const UpdateStatusTransaksiForm = ({
         const response = await updateStatusTransaksiAction(id, status);
 
         if (response.success) {
+          channel.publish(siswaId, {
+            message: `Pesananmu ${
+              status === "dimasak"
+                ? "sedang dimasak"
+                : status === "diantar"
+                  ? "sedang diantar"
+                  : "telah sampai"
+            }!`,
+          });
+
           toast.success(response.message, { id: loading });
         } else {
           toast.error(response.message, { id: loading });

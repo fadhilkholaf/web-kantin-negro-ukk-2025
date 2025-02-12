@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { ReactNode } from "react";
 
+import NotificationWrapper from "@/components/wrapper/NotificationWrapper";
 import { findSiswa } from "@/database/siswa";
 import { auth } from "@/lib/auth";
 import { Prisma } from "@prisma/client";
@@ -33,9 +34,11 @@ const layout = async ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <main>
-      <ToastWrapper user={existingSiswa.user}>{children}</ToastWrapper>
-    </main>
+    <>
+      <NotificationWrapper userId={existingSiswa.id}>
+        <ToastWrapper user={existingSiswa.user}>{children}</ToastWrapper>
+      </NotificationWrapper>
+    </>
   );
 };
 
