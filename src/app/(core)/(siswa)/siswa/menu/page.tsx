@@ -15,7 +15,7 @@ const MenuPage = async () => {
   }
 
   const menus = (await findManyMenus(
-    { NOT: [{ stan: { blockedUser: { some: { userId: session.user.id } } } }] },
+    {},
     {
       menuDiskon: {
         include: { diskon: true },
@@ -28,15 +28,18 @@ const MenuPage = async () => {
           },
         },
       },
-      stan: true,
+      stan: { include: { blockedUser: true } },
     },
   )) as Prisma.MenuGetPayload<{
-    include: { menuDiskon: { include: { diskon: true } }; stan: true };
+    include: {
+      menuDiskon: { include: { diskon: true } };
+      stan: { include: { blockedUser: true } };
+    };
   }>[];
 
   return (
     <main className="min-h-screen w-full px-4 pb-48 pt-24 lg:px-8 lg:pb-32 lg:pt-32">
-      <MenuList menus={menus} />
+      <MenuList menus={menus} userId={session.user.id} />
     </main>
   );
 };

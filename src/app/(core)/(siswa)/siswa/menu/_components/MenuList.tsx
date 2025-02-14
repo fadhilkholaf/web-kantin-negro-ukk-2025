@@ -21,21 +21,29 @@ export interface CartMenu extends Menu {
 
 const MenuList = ({
   menus,
+  userId,
 }: {
   menus: Prisma.MenuGetPayload<{
-    include: { menuDiskon: { include: { diskon: true } }; stan: true };
+    include: {
+      menuDiskon: { include: { diskon: true } };
+      stan: { include: { blockedUser: true } };
+    };
   }>[];
+  userId: string;
 }) => {
   const [cart, setCart] = useState<
     {
-      stanId: string;
+      stan: Prisma.StanGetPayload<{ include: { blockedUser: true } }>;
       menu: CartMenu[];
     }[]
   >([]);
   const [filterMenu, setFilterMenu] = useState<string>("");
 
-  const handleAddQuantity = (stanId: string, menu: Menu) => {
-    const existingStan = cart.find((c) => c.stanId === stanId);
+  const handleAddQuantity = (
+    stan: Prisma.StanGetPayload<{ include: { blockedUser: true } }>,
+    menu: Menu,
+  ) => {
+    const existingStan = cart.find((c) => c.stan.id === stan.id);
 
     if (existingStan) {
       const newCart = cart.map((c) => {
@@ -60,7 +68,7 @@ const MenuList = ({
             menu: newMenu,
           };
         } else {
-          if (c.stanId === stanId) {
+          if (c.stan.id === stan.id) {
             return { ...c, menu: [...c.menu, { ...menu, qty: 1 }] };
           } else {
             return c;
@@ -70,12 +78,12 @@ const MenuList = ({
 
       setCart(newCart);
     } else {
-      setCart((prev) => [...prev, { stanId, menu: [{ ...menu, qty: 1 }] }]);
+      setCart((prev) => [...prev, { stan, menu: [{ ...menu, qty: 1 }] }]);
     }
   };
 
   const handleSubtractQuantity = (stanId: string, id: string) => {
-    const existingStan = cart.find((c) => c.stanId === stanId);
+    const existingStan = cart.find((c) => c.stan.id === stanId);
 
     if (existingStan) {
       const newCart = cart
@@ -145,11 +153,12 @@ const MenuList = ({
 
   return (
     <main className="flex flex-col gap-4 text-primary">
-      <header className="fixed bottom-0 left-0 mb-20 w-full bg-white px-4 sm:mb-8 sm:w-fit lg:px-8">
+      <header className="fixed bottom-0 left-0 z-50 mb-20 w-full bg-white px-4 sm:mb-8 sm:w-fit lg:px-8">
         <Input
           label="Search"
           id="search"
           name="search"
+          placeholder="Search menu..."
           required
           onChange={(e) => {
             setFilterMenu(e.target.value);
@@ -160,17 +169,28 @@ const MenuList = ({
         {menus &&
           menus
             .filter((m) => m.namaMakanan.includes(filterMenu))
+            .sort((a) => {
+              if (a.stan.blockedUser.some((u) => u.userId === userId)) {
+                return 1;
+              } else {
+                return -1;
+              }
+            })
             .map((menu, i) => {
+              const isBlocked = menu.stan.blockedUser.some(
+                (u) => u.userId === userId,
+              );
+
               const diskon = menu.menuDiskon.find(
                 (m) =>
                   m.diskonId ===
                   cart
-                    .find((c) => c.stanId === menu.stanId)
+                    .find((c) => c.stan.id === menu.stanId)
                     ?.menu.find((m) => m.id === menu.id)?.diskonId,
               )?.diskon.presentaseDiskon;
 
               const qty = cart
-                .find((c) => c.stanId === menu.stanId)
+                .find((c) => c.stan.id === menu.stanId)
                 ?.menu.find((m) => m.id === menu.id)?.qty;
 
               const harga = diskon
@@ -180,7 +200,12 @@ const MenuList = ({
               const { menuDiskon, ...destructedMenu } = menu;
 
               return (
-                <li key={i} className="bg-white p-2">
+                <li key={i} className="relative bg-white p-2">
+                  {isBlocked && (
+                    <div className="absolute inset-0 flex items-center justify-center text-white backdrop-brightness-[.25]">
+                      Unavailable
+                    </div>
+                  )}
                   <div className="flex h-full flex-col gap-2 border-4 border-double border-primary p-2 capitalize">
                     <header>
                       <Image
@@ -237,7 +262,7 @@ const MenuList = ({
                       <button
                         type="button"
                         onClick={() =>
-                          handleAddQuantity(menu.stanId, destructedMenu)
+                          handleAddQuantity(menu.stan, destructedMenu)
                         }
                         className="block h-[34px] w-[34px] flex-shrink-0 rounded-full border border-primary text-center hover:bg-primary hover:text-white"
                       >
@@ -276,7 +301,7 @@ const MenuList = ({
               toast.success(response.message, { id: loading });
 
               cart.map((c) => {
-                channel.publish(c.stanId, {
+                channel.publish(c.stan.id, {
                   message: `New ${c.menu.length} order(s)!`,
                 });
               });

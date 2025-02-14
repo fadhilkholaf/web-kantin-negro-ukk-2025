@@ -20,7 +20,7 @@ import { month } from "@/utils/utils";
 
 export const createPesananAction = async (
   cart: {
-    stanId: string;
+    stan: Prisma.StanGetPayload<{ include: { blockedUser: true } }>;
     menu: CartMenu[];
   }[],
 ) => {
@@ -37,9 +37,13 @@ export const createPesananAction = async (
 
     await Promise.all(
       cart.map(async (c) => {
+        if (c.stan.blockedUser.some((u) => u.userId === session.user.id)) {
+          return;
+        }
+
         await createTransaksi({
           siswa: { connect: { userId: session.user.id } },
-          stan: { connect: { id: c.stanId } },
+          stan: { connect: { id: c.stan.id } },
           detailTransaksi: {
             createMany: {
               data: (
