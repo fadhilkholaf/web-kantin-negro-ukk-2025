@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: ["/", "/signup", "/signin"],
-        disallow: ["/siswa", "/admin-stan", "/profile"],
+        disallow: ["/siswa", "/admin-stan", "/profile", "/signout"],
       },
     ],
     sitemap: "https://kantin.fadhilkholaf.my.id/sitemap.xml",
