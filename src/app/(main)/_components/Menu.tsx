@@ -10,11 +10,11 @@ const wrapper: Variants = {
 };
 
 const card: Variants = {
-  initial: { x: "-200%", y: "-25%", rotate: -30 },
+  initial: { x: "200%", y: "-25%", rotate: 30 },
   animate: {
     x: 0,
     y: 0,
-    rotate: 3,
+    rotate: -3,
     transition: {
       type: "tween",
       ease: [0.33, 1, 0.68, 1],
@@ -22,9 +22,9 @@ const card: Variants = {
     },
   },
   exit: {
-    x: "-200%",
+    x: "200%",
     y: "-25%",
-    rotate: -30,
+    rotate: 30,
     transition: {
       type: "tween",
       ease: [0.32, 0, 0.67, 0],
@@ -41,7 +41,7 @@ const Menu = ({ onClick }: { onClick: () => void }) => {
       animate="animate"
       exit="exit"
       variants={wrapper}
-      className="fixed left-0 top-0 z-40 flex h-screen w-full items-center p-4 lg:p-8"
+      className="fixed left-0 top-0 z-40 flex h-screen w-full items-center justify-end p-4 lg:p-8"
     >
       <div
         className="fixed left-0 top-0 -z-10 h-full w-full"
