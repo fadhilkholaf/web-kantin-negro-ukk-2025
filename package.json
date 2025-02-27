@@ -27,7 +27,7 @@
     "keyv": "^4.5.4",
     "lenis": "^1.1.20",
     "motion": "^11.18.2",
-    "next": "15.1.7",
+    "next": "15.2.0",
     "next-auth": "5.0.0-beta.25",
     "nextjs-toploader": "^3.7.15",
     "react": "19.0.0",
@@ -40,10 +40,10 @@
     "@eslint/eslintrc": "^3.2.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20.17.16",
-    "@types/react": "19.0.8",
-    "@types/react-dom": "19.0.3",
+    "@types/react": "19.0.10",
+    "@types/react-dom": "19.0.4",
     "eslint": "^9.19.0",
-    "eslint-config-next": "15.1.7",
+    "eslint-config-next": "15.2.0",
     "postcss": "^8.5.1",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.6.11",
@@ -54,8 +54,8 @@
   },
   "pnpm": {
     "overrides": {
-      "@types/react": "19.0.8",
-      "@types/react-dom": "19.0.3"
+      "@types/react": "19.0.10",
+      "@types/react-dom": "19.0.4"
     }
   }
 }
